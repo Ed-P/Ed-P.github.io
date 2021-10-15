@@ -22,25 +22,28 @@
     var CONFIG = {"hostname":"edwardpei.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":-1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Fortune favours the brave">
-<meta property="og:type" content="website">
-<meta property="og:title" content="流千过客-Ed-P">
-<meta property="og:url" content="https://edwardpei.com/index.html">
+  <meta name="description" content="这里上传一些当时搭服务器的技巧吧 也算是备忘录 ##传文件 ###1.传文件到服务器 1$ scp &#x2F;path&#x2F;file（这部分为本地的路径） user（远端目标用户名）@host（远端目标IP）:&#x2F;home&#x2F;username（文件存储路径）  ###2.从服务器下载文件 1$scp user（远端用户名）@host（远端IP）:&#x2F;path&#x2F;file（下载文件在远端的路径） localpathor">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux服务器搭建">
+<meta property="og:url" content="https://edwardpei.com/2021/10/16/Linux%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/index.html">
 <meta property="og:site_name" content="流千过客-Ed-P">
-<meta property="og:description" content="Fortune favours the brave">
+<meta property="og:description" content="这里上传一些当时搭服务器的技巧吧 也算是备忘录 ##传文件 ###1.传文件到服务器 1$ scp &#x2F;path&#x2F;file（这部分为本地的路径） user（远端目标用户名）@host（远端目标IP）:&#x2F;home&#x2F;username（文件存储路径）  ###2.从服务器下载文件 1$scp user（远端用户名）@host（远端IP）:&#x2F;path&#x2F;file（下载文件在远端的路径） localpathor">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-10-15T18:41:11.000Z">
+<meta property="article:modified_time" content="2021-10-15T18:54:59.395Z">
 <meta property="article:author" content="Edward PEI">
+<meta property="article:tag" content="skill">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://edwardpei.com/">
+<link rel="canonical" href="https://edwardpei.com/2021/10/16/Linux%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
@@ -58,7 +61,7 @@
   padding: 1px 4px;
 }
 </style>
-  <title>流千过客-Ed-P</title>
+  <title>Linux服务器搭建 | 流千过客-Ed-P</title>
   
 
 
@@ -204,9 +207,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
@@ -222,10 +226,9 @@
       <meta itemprop="name" content="流千过客-Ed-P">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/10/16/Linux%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/" class="post-title-link" itemprop="url">Linux服务器搭建</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          Linux服务器搭建
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -272,7 +275,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>这里上传一些当时搭服务器的技巧吧 也算是备忘录</p>
+        <p>这里上传一些当时搭服务器的技巧吧 也算是备忘录</p>
 <p>##传文件</p>
 <p>###1.传文件到服务器</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ scp /path/file（这部分为本地的路径） user（远端目标用户名）@host（远端目标IP）:/home/username（文件存储路径）</span><br></pre></td></tr></table></figure>
@@ -355,190 +358,67 @@ localhost
 </code></pre>
 <p>###（5）运行jupyter notebook<br>    linux上输入：<br>    jupyter notebook<br>    然后在本地浏览器输入127.0.0.1:1234，1234是上一步设置的侦听端口<br>    再在打开的界面输入密码就OK了</p>
 
-      
     </div>
 
     
     
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://edwardpei.com/2021/10/15/%E7%BB%88%E4%BA%8E%E5%83%8F%E6%A0%B7%E4%BA%86%EF%BC%81/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Edward PEI">
-      <meta itemprop="description" content="Fortune favours the brave">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="流千过客-Ed-P">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/10/15/%E7%BB%88%E4%BA%8E%E5%83%8F%E6%A0%B7%E4%BA%86%EF%BC%81/" class="post-title-link" itemprop="url">终于像样了！</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-10-15 17:50:14 / 修改时间：17:51:27" itemprop="dateCreated datePublished" datetime="2021-10-15T17:50:14+08:00">2021-10-15</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/life/" itemprop="url" rel="index"><span itemprop="name">life</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>22</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>搞了好久 把评论功能和分享功能弄上去了哈哈哈哈</p>
-
-      
+    <div class="post-widgets">
+      <div id="needsharebutton-postbottom">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
     </div>
+        <div class="reward-container">
+  <div>惊了 不会真有人打赏吧</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="Edward PEI 微信支付">
+        <p>微信支付</p>
+      </div>
 
-    
-    
-    
+  </div>
+</div>
+
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+          <div class="post-tags">
+              <a href="/tags/skill/" rel="tag"># skill</a>
+          </div>
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://edwardpei.com/2021/10/15/First-Blog/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Edward PEI">
-      <meta itemprop="description" content="Fortune favours the brave">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="流千过客-Ed-P">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/10/15/First-Blog/" class="post-title-link" itemprop="url">First Blog</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-10-15 02:34:28 / 修改时间：17:49:22" itemprop="dateCreated datePublished" datetime="2021-10-15T02:34:28+08:00">2021-10-15</time>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>181</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>今天突发奇想心血来潮在这香港入秋(?)的夜里弄好了一个personal blog</p>
-<p>期间怎么买域名 怎么设置github就不足为道了哈哈哈</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/10/15/First-Blog/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
-    </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/10/15/%E7%BB%88%E4%BA%8E%E5%83%8F%E6%A0%B7%E4%BA%86%EF%BC%81/" rel="prev" title="终于像样了！">
+      <i class="fa fa-chevron-left"></i> 终于像样了！
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
       </footer>
+    
   </article>
   
   
-  
-
-
   
 
 
 
           </div>
           
+    
+  
+  <div class="comments">
+  <script src="https://utteranc.es/client.js" repo="Ed-P/comments" issue-term="pathname" theme="github-light" crossorigin="anonymous" async></script>
+  </div>
+  
+  
 
 <script>
   window.addEventListener('tabs:register', () => {
