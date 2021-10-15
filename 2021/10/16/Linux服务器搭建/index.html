@@ -22,15 +22,15 @@
     var CONFIG = {"hostname":"edwardpei.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":-1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="这里上传一些当时搭服务器的技巧吧 也算是备忘录 ##传文件 ###1.传文件到服务器 1$ scp &#x2F;path&#x2F;file（这部分为本地的路径） user（远端目标用户名）@host（远端目标IP）:&#x2F;home&#x2F;username（文件存储路径）  ###2.从服务器下载文件 1$scp user（远端用户名）@host（远端IP）:&#x2F;path&#x2F;file（下载文件在远端的路径） localpathor">
+  <meta name="description" content="这里上传一些当时搭服务器的技巧吧 也算是备忘录 ##传文件 ###1.传文件到服务器 1$ scp &#x2F;path&#x2F;file（这部分为本地的路径） user（远端目标用户名）@host（远端目标IP）:&#x2F;home&#x2F;username（文件存储路径）">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux服务器搭建">
 <meta property="og:url" content="https://edwardpei.com/2021/10/16/Linux%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/index.html">
 <meta property="og:site_name" content="流千过客-Ed-P">
-<meta property="og:description" content="这里上传一些当时搭服务器的技巧吧 也算是备忘录 ##传文件 ###1.传文件到服务器 1$ scp &#x2F;path&#x2F;file（这部分为本地的路径） user（远端目标用户名）@host（远端目标IP）:&#x2F;home&#x2F;username（文件存储路径）  ###2.从服务器下载文件 1$scp user（远端用户名）@host（远端IP）:&#x2F;path&#x2F;file（下载文件在远端的路径） localpathor">
+<meta property="og:description" content="这里上传一些当时搭服务器的技巧吧 也算是备忘录 ##传文件 ###1.传文件到服务器 1$ scp &#x2F;path&#x2F;file（这部分为本地的路径） user（远端目标用户名）@host（远端目标IP）:&#x2F;home&#x2F;username（文件存储路径）">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-10-15T18:41:11.000Z">
-<meta property="article:modified_time" content="2021-10-15T18:54:59.395Z">
+<meta property="article:modified_time" content="2021-10-15T18:56:32.415Z">
 <meta property="article:author" content="Edward PEI">
 <meta property="article:tag" content="skill">
 <meta name="twitter:card" content="summary">
@@ -238,7 +238,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2021-10-16 02:41:11 / 修改时间：02:54:59" itemprop="dateCreated datePublished" datetime="2021-10-16T02:41:11+08:00">2021-10-16</time>
+              <time title="创建时间：2021-10-16 02:41:11 / 修改时间：02:56:32" itemprop="dateCreated datePublished" datetime="2021-10-16T02:41:11+08:00">2021-10-16</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -279,6 +279,7 @@
 <p>##传文件</p>
 <p>###1.传文件到服务器</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ scp /path/file（这部分为本地的路径） user（远端目标用户名）@host（远端目标IP）:/home/username（文件存储路径）</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
 
 <p>###2.从服务器下载文件</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$scp</span> user（远端用户名）@host（远端IP）:/path/file（下载文件在远端的路径） localpathorfile（本地文件存放路径）</span><br></pre></td></tr></table></figure>
