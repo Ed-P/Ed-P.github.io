@@ -1,19 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>First Blog</title>
-    <url>/2021/10/15/First-Blog/</url>
-    <content><![CDATA[<p>今天突发奇想心血来潮在这香港入秋(?)的夜里弄好了一个personal blog</p>
-<p>期间怎么买域名 怎么设置github就不足为道了哈哈哈</p>
-<span id="more"></span>
-
-<p>现在很多功能还没实现 点进去就是404 就等着之后更新了吧</p>
-<p>其实早就想找个地方写点自己的东西了 毕竟我感觉我平时的思考还蛮多的 又没有什么好地方写东西 就想着这样建立一个网站是最好的了 </p>
-<p>至于之后会更新什么  感觉一切都有可能吧！</p>
-<p>嘿嘿 是不是很cool？</p>
-]]></content>
-  </entry>
-  <entry>
     <title>Linux服务器搭建</title>
     <url>/2021/10/16/Linux%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/</url>
     <content><![CDATA[<p>这里上传一些当时搭服务器的技巧吧 也算是备忘录</p>
@@ -107,6 +94,19 @@ localhost
       <tags>
         <tag>skill</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>First Blog</title>
+    <url>/2021/10/15/First-Blog/</url>
+    <content><![CDATA[<p>今天突发奇想心血来潮在这香港入秋(?)的夜里弄好了一个personal blog</p>
+<p>期间怎么买域名 怎么设置github就不足为道了哈哈哈</p>
+<span id="more"></span>
+
+<p>现在很多功能还没实现 点进去就是404 就等着之后更新了吧</p>
+<p>其实早就想找个地方写点自己的东西了 毕竟我感觉我平时的思考还蛮多的 又没有什么好地方写东西 就想着这样建立一个网站是最好的了 </p>
+<p>至于之后会更新什么  感觉一切都有可能吧！</p>
+<p>嘿嘿 是不是很cool？</p>
+]]></content>
   </entry>
   <entry>
     <title>我为什么不干正经事</title>
