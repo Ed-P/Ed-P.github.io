@@ -99,8 +99,6 @@ localhost
 7548（某目标端口）
 </code></pre>
 <p>###（5）运行jupyter notebook<br>    linux上输入：<br>    jupyter notebook<br>    然后在本地浏览器输入127.0.0.1:1234，1234是上一步设置的侦听端口<br>    再在打开的界面输入密码就OK了</p>
-<img src="Linux服务器搭建/iconfinder_markdown_298823.png" alt="img"  />
-
 ]]></content>
       <categories>
         <category>Code</category>
