@@ -16,45 +16,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>python内置函数总结</title>
-    <url>/2021/11/05/python%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93/</url>
-    <content><![CDATA[<p>这篇总结目的是为了自己记忆和查找 大部分都是从<a href="http://www.runoob.com看来的/">www.runoob.com看来的</a></p>
-<h3 id="abs"><a href="#abs" class="headerlink" title="abs()"></a>abs()</h3><p>返回数字的绝对值</p>
-<p>example：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; abs(-45)</span><br><span class="line">45</span><br></pre></td></tr></table></figure>
-
-<h3 id="all"><a href="#all" class="headerlink" title="all()"></a>all()</h3><p>判断可迭代参数中的所有元素是否都为true.</p>
-<p>当所有元素不为0，空，False, None时， 返回True，否则False.</p>
-<p>但是空列表和空元组返回True</p>
-<p>（其实就是变相找参数里边有没有0，空，False, None）</p>
-<p>example：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; all([&#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;, &#x27;d&#x27;])</span><br><span class="line">True</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; all([&#x27;a&#x27;, &#x27;b&#x27;, &#x27;&#x27;, &#x27;d&#x27;])</span><br><span class="line">False</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; all((0, 1, 2, 3))          </span><br><span class="line">False</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; all([])             # 空列表</span><br><span class="line">True</span><br></pre></td></tr></table></figure>
-
-<h3 id="any"><a href="#any" class="headerlink" title="any()"></a>any()</h3><p>判断参数里边有没有True</p>
-<p>只要参数里有除了0，空，False, None之外的内容，就返回True</p>
-<p>但空列表，空元组直接返回False</p>
-<p>（其实就是变相找参数里边有没有True）</p>
-<p>example：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt;any([&#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;, &#x27;d&#x27;])  # 列表list，元素都不为空或0</span><br><span class="line">True</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; any([0, &#x27;&#x27;, False])        # 列表list,元素全为0,&#x27;&#x27;,false</span><br><span class="line">False</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; any([]) # 空列表</span><br><span class="line">False</span><br></pre></td></tr></table></figure>
-
-<p>上边两个函数为什么当参数是空的时候，结果是这么的不一样，其实可以从它们的等价函数看出来：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">def all(iterable):</span><br><span class="line">    for element in iterable:</span><br><span class="line">        if not element:</span><br><span class="line">            return False</span><br><span class="line">    return True</span><br></pre></td></tr></table></figure>
-
-<p>当参数是空的时候，for语句直接跳过了，所以这里all就会直接返回True</p>
-<h3 id="bin"><a href="#bin" class="headerlink" title="bin()"></a>bin()</h3><p>返回一个整数 int 或者长整数 long int 的二进制表示。</p>
-<p>example：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt;bin(10)</span><br><span class="line">&#x27;0b1010&#x27;</span><br><span class="line">&gt;&gt;&gt; bin(20)</span><br><span class="line">&#x27;0b10100&#x27;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>Code</category>
-      </categories>
-      <tags>
-        <tag>python内置函数</tag>
-        <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Linux服务器搭建</title>
     <url>/2021/10/16/Linux%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/</url>
     <content><![CDATA[<p>这里上传一些当时搭服务器的技巧吧 也算是备忘录</p>
@@ -150,15 +111,44 @@ localhost
       </tags>
   </entry>
   <entry>
-    <title>终于像样了！</title>
-    <url>/2021/10/15/%E7%BB%88%E4%BA%8E%E5%83%8F%E6%A0%B7%E4%BA%86%EF%BC%81/</url>
-    <content><![CDATA[<p>搞了好久 把评论功能和分享功能弄上去了哈哈哈哈</p>
+    <title>python内置函数总结</title>
+    <url>/2021/11/05/python%E5%86%85%E7%BD%AE%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<p>这篇总结目的是为了自己记忆和查找 大部分都是从<a href="http://www.runoob.com看来的/">www.runoob.com看来的</a></p>
+<h3 id="abs"><a href="#abs" class="headerlink" title="abs()"></a>abs()</h3><p>返回数字的绝对值</p>
+<span id="more"></span>
+
+<p>example：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; abs(-45)</span><br><span class="line">45</span><br></pre></td></tr></table></figure>
+
+<h3 id="all"><a href="#all" class="headerlink" title="all()"></a>all()</h3><p>判断可迭代参数中的所有元素是否都为true.</p>
+<p>当所有元素不为0，空，False, None时， 返回True，否则False.</p>
+<p>但是空列表和空元组返回True</p>
+<p>（其实就是变相找参数里边有没有0，空，False, None）</p>
+<p>example：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; all([&#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;, &#x27;d&#x27;])</span><br><span class="line">True</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; all([&#x27;a&#x27;, &#x27;b&#x27;, &#x27;&#x27;, &#x27;d&#x27;])</span><br><span class="line">False</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; all((0, 1, 2, 3))          </span><br><span class="line">False</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; all([])             # 空列表</span><br><span class="line">True</span><br></pre></td></tr></table></figure>
+
+<h3 id="any"><a href="#any" class="headerlink" title="any()"></a>any()</h3><p>判断参数里边有没有True</p>
+<p>只要参数里有除了0，空，False, None之外的内容，就返回True</p>
+<p>但空列表，空元组直接返回False</p>
+<p>（其实就是变相找参数里边有没有True）</p>
+<p>example：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt;any([&#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;, &#x27;d&#x27;])  # 列表list，元素都不为空或0</span><br><span class="line">True</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; any([0, &#x27;&#x27;, False])        # 列表list,元素全为0,&#x27;&#x27;,false</span><br><span class="line">False</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; any([]) # 空列表</span><br><span class="line">False</span><br></pre></td></tr></table></figure>
+
+<p>上边两个函数为什么当参数是空的时候，结果是这么的不一样，其实可以从它们的等价函数看出来：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">def all(iterable):</span><br><span class="line">    for element in iterable:</span><br><span class="line">        if not element:</span><br><span class="line">            return False</span><br><span class="line">    return True</span><br></pre></td></tr></table></figure>
+
+<p>当参数是空的时候，for语句直接跳过了，所以这里all就会直接返回True</p>
+<h3 id="bin"><a href="#bin" class="headerlink" title="bin()"></a>bin()</h3><p>返回一个整数 int 或者长整数 long int 的二进制表示。</p>
+<p>example：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt;bin(10)</span><br><span class="line">&#x27;0b1010&#x27;</span><br><span class="line">&gt;&gt;&gt; bin(20)</span><br><span class="line">&#x27;0b10100&#x27;</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
-        <category>life</category>
+        <category>Code</category>
       </categories>
       <tags>
-        <tag>life</tag>
+        <tag>python内置函数</tag>
+        <tag>python</tag>
       </tags>
   </entry>
   <entry>
@@ -177,6 +167,18 @@ localhost
       </categories>
       <tags>
         <tag>thinking</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>终于像样了！</title>
+    <url>/2021/10/15/%E7%BB%88%E4%BA%8E%E5%83%8F%E6%A0%B7%E4%BA%86%EF%BC%81/</url>
+    <content><![CDATA[<p>搞了好久 把评论功能和分享功能弄上去了哈哈哈哈</p>
+]]></content>
+      <categories>
+        <category>life</category>
+      </categories>
+      <tags>
+        <tag>life</tag>
       </tags>
   </entry>
 </search>
