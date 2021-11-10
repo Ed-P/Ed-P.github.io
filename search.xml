@@ -1,16 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>First Blog</title>
+    <url>/2021/10/15/First-Blog/</url>
+    <content><![CDATA[<p>今天突发奇想心血来潮在这香港入秋(?)的夜里弄好了一个personal blog</p>
+<p>期间怎么买域名 怎么设置github就不足为道了哈哈哈</p>
+<span id="more"></span>
+
+<p>现在很多功能还没实现 点进去就是404 就等着之后更新了吧</p>
+<p>其实早就想找个地方写点自己的东西了 毕竟我感觉我平时的思考还蛮多的 又没有什么好地方写东西 就想着这样建立一个网站是最好的了 </p>
+<p>至于之后会更新什么  感觉一切都有可能吧！</p>
+<p>嘿嘿 是不是很cool？</p>
+<p>###更新日志</p>
+<p>10-15 增加评论和分享功能<br>10-16 增加看板娘，增加日夜模式交换按钮，增加留言板匿名</p>
+]]></content>
+  </entry>
+  <entry>
     <title>IoU</title>
     <url>/2021/11/10/IoU/</url>
     <content><![CDATA[<h3 id="Intro"><a href="#Intro" class="headerlink" title="Intro."></a>Intro.</h3><p>IoU, Intersection over Union, can be used as a similarity measure for object detection on images. (It is also called Jaccard index since it is developed by Paul Jaccard) </p>
+<span id="more"></span>
+
 <p>It’s formula is:<br>$$<br>IoU(A,B)= \frac{|A\cap B|}{|A\cup B|}<br>$$<br>In object detection, the two inputs of IoU should be the testing box and the ground truth box. IoU is scale in variant, which means it does not care about the size of the box.</p>
 <h3 id="Code-Python"><a href="#Code-Python" class="headerlink" title="Code (Python)"></a>Code (Python)</h3><p>First we consider a 1-D case, where we have two line segments in the real number set (R). One is from x1 to x2, another is from y1 to y2. For the Union set, you can use what you have learned in your probability course, union(A,B) = A + B - inter(A,B). So our core problem is to compute the intersection set. </p>
 <p>If these tow line segments are intersected, we must have y1&gt;x2 and x1&gt;y2, or they do not have intersection and |A∩B|=0. And what we need is to find the upper and lower bound of A∩B, we can also use the ub and lb to find if they are intersected:</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">iou</span>(<span class="params">A,B</span>):</span></span><br><span class="line">    </span><br><span class="line">    x1,x2 = A</span><br><span class="line">    y1,y2 = B</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># find the upper and lower bound</span></span><br><span class="line">    hb = <span class="built_in">min</span>(x2,y2)</span><br><span class="line">    lb = <span class="built_in">max</span>(x1,y1)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># compute intersection</span></span><br><span class="line">    <span class="keyword">if</span> hb&lt;lb:</span><br><span class="line">        inter = <span class="number">0</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        inter = hb - lb</span><br><span class="line">        </span><br><span class="line">    <span class="comment"># union</span></span><br><span class="line">    </span><br><span class="line">    union = (x2 - x1) + (y2 - y1) - inter</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> inter / union</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>For 2-D case, there are two boxes and we want to find their intersection as well, which is also a box. However, there is no need to find all the vertex of the intersection box, since we only want the area size. Hence we choose to compute the width and height of the box:</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">iou</span>(<span class="params">A,B</span>):</span></span><br><span class="line">    <span class="comment"># here we defaultly define A and B as lists: A=[x-coordinate1, x-coordinate2, y-coordinate1, y-coordinate2]</span></span><br><span class="line">    <span class="comment"># define the left top as original point, i.e. (0,0)</span></span><br><span class="line">    </span><br><span class="line">    in_w = <span class="built_in">min</span>(A[<span class="number">1</span>],B[<span class="number">1</span>])-<span class="built_in">max</span>(A[<span class="number">0</span>],B[<span class="number">0</span>])</span><br><span class="line">    in_h = <span class="built_in">min</span>(A[<span class="number">3</span>],B[<span class="number">3</span>])-<span class="built_in">max</span>(A[<span class="number">2</span>],B[<span class="number">2</span>])</span><br><span class="line">    </span><br><span class="line">    <span class="comment">#compute intersection</span></span><br><span class="line">    inter = <span class="number">0</span> <span class="keyword">if</span> in_w&lt;<span class="number">0</span> <span class="keyword">or</span> in_h&lt;<span class="number">0</span> <span class="keyword">else</span> in_w*in_h</span><br><span class="line">    </span><br><span class="line">    union = (A[<span class="number">1</span>]-A[<span class="number">0</span>])*(A[<span class="number">3</span>]-A[<span class="number">2</span>]) + (B[<span class="number">1</span>]-B[<span class="number">0</span>])*(B[<span class="number">3</span>]-B[<span class="number">2</span>]) - inter</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> inter / union</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">iou</span>(<span class="params">A,B</span>):</span></span><br><span class="line">    <span class="comment"># here we defaultly define A and B as lists: A=[x-coordinate1, x-coordinate2, y-coordinate1, y-coordinate2]</span></span><br><span class="line">    <span class="comment"># define the left top as original point, i.e. (0,0)</span></span><br><span class="line">    </span><br><span class="line">    in_w = <span class="built_in">min</span>(A[<span class="number">1</span>],B[<span class="number">1</span>])-<span class="built_in">max</span>(A[<span class="number">0</span>],B[<span class="number">0</span>])</span><br><span class="line">    in_h = <span class="built_in">min</span>(A[<span class="number">3</span>],B[<span class="number">3</span>])-<span class="built_in">max</span>(A[<span class="number">2</span>],B[<span class="number">2</span>])</span><br><span class="line">    </span><br><span class="line">    <span class="comment">#compute intersection</span></span><br><span class="line">    inter = <span class="number">0</span> <span class="keyword">if</span> in_w&lt;<span class="number">0</span> <span class="keyword">or</span> in_h&lt;<span class="number">0</span> <span class="keyword">else</span> in_w*in_h</span><br><span class="line"></span><br><span class="line">    <span class="comment">#compute union</span></span><br><span class="line">    union = (A[<span class="number">1</span>]-A[<span class="number">0</span>])*(A[<span class="number">3</span>]-A[<span class="number">2</span>]) + (B[<span class="number">1</span>]-B[<span class="number">0</span>])*(B[<span class="number">3</span>]-B[<span class="number">2</span>]) - inter</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> inter / union</span><br></pre></td></tr></table></figure>
 
 <hr>
 ]]></content>
@@ -115,21 +132,6 @@ localhost
       <tags>
         <tag>skill</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>First Blog</title>
-    <url>/2021/10/15/First-Blog/</url>
-    <content><![CDATA[<p>今天突发奇想心血来潮在这香港入秋(?)的夜里弄好了一个personal blog</p>
-<p>期间怎么买域名 怎么设置github就不足为道了哈哈哈</p>
-<span id="more"></span>
-
-<p>现在很多功能还没实现 点进去就是404 就等着之后更新了吧</p>
-<p>其实早就想找个地方写点自己的东西了 毕竟我感觉我平时的思考还蛮多的 又没有什么好地方写东西 就想着这样建立一个网站是最好的了 </p>
-<p>至于之后会更新什么  感觉一切都有可能吧！</p>
-<p>嘿嘿 是不是很cool？</p>
-<p>###更新日志</p>
-<p>10-15 增加评论和分享功能<br>10-16 增加看板娘，增加日夜模式交换按钮，增加留言板匿名</p>
-]]></content>
   </entry>
   <entry>
     <title>python内置函数总结</title>
