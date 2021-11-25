@@ -33,11 +33,14 @@
 <meta property="og:image" content="https://edwardpei.com/2021/11/25/Mean-Average-Precision%EF%BC%88MAP%EF%BC%89/8904720-5bda664f53501a53.webp">
 <meta property="og:image" content="https://edwardpei.com/2021/11/25/Mean-Average-Precision%EF%BC%88MAP%EF%BC%89/image-20211125173345116.png">
 <meta property="og:image" content="https://edwardpei.com/2021/11/25/Mean-Average-Precision%EF%BC%88MAP%EF%BC%89/image-20211125174044663.png">
+<meta property="og:image" content="https://edwardpei.com/2021/11/25/Mean-Average-Precision%EF%BC%88MAP%EF%BC%89/equation(1).svg">
 <meta property="og:image" content="https://edwardpei.com/2021/11/25/Mean-Average-Precision%EF%BC%88MAP%EF%BC%89/image-20211125181518876.png">
+<meta property="og:image" content="https://edwardpei.com/2021/11/25/Mean-Average-Precision%EF%BC%88MAP%EF%BC%89/equation(2).svg">
+<meta property="og:image" content="https://edwardpei.com/2021/11/25/Mean-Average-Precision%EF%BC%88MAP%EF%BC%89/equation(3).svg">
 <meta property="og:image" content="https://edwardpei.com/2021/11/25/Mean-Average-Precision%EF%BC%88MAP%EF%BC%89/image-20211125182736420.png">
 <meta property="og:image" content="https://edwardpei.com/2021/11/25/Mean-Average-Precision%EF%BC%88MAP%EF%BC%89/image-20211125184428026.png">
 <meta property="article:published_time" content="2021-11-25T06:58:14.000Z">
-<meta property="article:modified_time" content="2021-11-25T10:55:12.468Z">
+<meta property="article:modified_time" content="2021-11-25T10:59:27.748Z">
 <meta property="article:author" content="Edward PEI">
 <meta property="article:tag" content="Object_Detection">
 <meta name="twitter:card" content="summary">
@@ -262,7 +265,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2021-11-25 14:58:14 / 修改时间：18:55:12" itemprop="dateCreated datePublished" datetime="2021-11-25T14:58:14+08:00">2021-11-25</time>
+      <time title="创建时间：2021-11-25 14:58:14 / 修改时间：18:59:27" itemprop="dateCreated datePublished" datetime="2021-11-25T14:58:14+08:00">2021-11-25</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -327,13 +330,13 @@
 <p>Based on this table, we can draw the PR-curve, as the recall increase the precision will decrease gradually(but not absolutely):</p>
 <p><img src="image-20211125174044663.png" alt="image-20211125174044663"></p>
 <p>Average Precision is just to calculate the average for the precision scores on the PR-curve. It can be calculated by integration since the recall scores vary from 0 to 1:</p>
-<p>![equation (1)](equation (1).svg)</p>
+<p><img src="equation(1).svg" alt="equation(1)"></p>
 <p>However,  we always first smooth the PR-curve before calculating the AP: </p>
 <p><img src="image-20211125181518876.png" alt="image-20211125181518876"></p>
-<p>![equation (2)](equation (2).svg)</p>
+<p><img src="equation(2).svg" alt="equation(2)"></p>
 <p>There are variant methods to calculate AP in the history.</p>
 <h4 id="Interpolated-AP-Before-VOC2010"><a href="#Interpolated-AP-Before-VOC2010" class="headerlink" title="Interpolated AP (Before VOC2010 )"></a>Interpolated AP (Before VOC2010 )</h4><p>On the smooth PR-curve, taking 10 equal diversion points from 0 to 1 (totally 11 points), then calculate the average of their precision score:</p>
-<p>![equation (3)](equation (3).svg)</p>
+<p><img src="equation(3).svg" alt="equation(3)"></p>
 <p><img src="image-20211125182736420.png" alt="image-20211125182736420"></p>
 <h4 id="Area-under-curve-After-VOC2010"><a href="#Area-under-curve-After-VOC2010" class="headerlink" title="Area under curve(After VOC2010)"></a>Area under curve(After VOC2010)</h4><p>For the previous interpolated AP, there may be some errors in the sample points. The method with more accuracy is to calculate the integration on smooth PR-curve.</p>
 <h4 id="COCO-mAP"><a href="#COCO-mAP" class="headerlink" title="COCO mAP"></a>COCO mAP</h4><p>In order to increase the accuracy, COCO taking 100 points to calculate AP. What’s more, the threshold of IoU is taking from 0.5 to 0.95 with a step size of 0.05, then the mAP for a category is the average AP for these different IoU. It is noted as AP[.5 : .95].</p>

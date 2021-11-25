@@ -40,58 +40,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Mean Average Precision（MAP)</title>
-    <url>/2021/11/25/Mean-Average-Precision%EF%BC%88MAP%EF%BC%89/</url>
-    <content><![CDATA[<h3 id="Precision-amp-Recall"><a href="#Precision-amp-Recall" class="headerlink" title="Precision&amp;Recall"></a>Precision&amp;Recall</h3><p>The formula of precision and recall is:</p>
-<span id="more"></span>
-
-<p><img src="equation.svg" alt="equation"></p>
-<p><img src="equation2.svg" alt="equation2"></p>
-<p>Precision is used to evaluate the accuracy of test result, which is actually the proportion of  true tested result in the total result.</p>
-<p>Recall is used to evaluate the quality of the test result, which is actually the proportion of the true tested result in the total true result, that is , including the true tested result and the true non-tested result.</p>
-<h4 id="TP-TN-FP-FN"><a href="#TP-TN-FP-FN" class="headerlink" title="TP, TN, FP, FN"></a>TP, TN, FP, FN</h4><p>To have a better understanding of precision and recall, we should know the definition of TP, TN, FP and FN.</p>
-<p><img src="v2-761706f5b1fe36873ba1bb20c7d1d447_720w.jpg" alt="v2-761706f5b1fe36873ba1bb20c7d1d447_720w"></p>
-<p>As the graph indicated, all the data is first divided into two part: positive and negative. They  are the annotation that pre-labeled to the data, or you can say it is the ‘ground truth’.</p>
-<p>Then after testing, we have another set that is  tested by the algorithm, which is the data that the testing algorithm/model thinks positive. It also contains two parts:  1. the algorithm tests right, the data that is indeed positive. 2. the algorithm tests wrong, the data that is actually negative. These two part is just TP and FP, respectively.</p>
-<p>There remains two parts in the data that the algorithm doesn’t think positive: 1, the data is positive but is not tested positive. 2. the data is negative but is not tested positive too. They are FN and TN.</p>
-<p>A short summarization:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">TP: true positive, the data is ground-truth positive and is also tested as positive.</span><br><span class="line">TN: true negative, the data is ground-truth negative and is not tested as positive.</span><br><span class="line">FP: false positive, the data is ground-truth negative but is tested as positive.</span><br><span class="line">FN: false negative, the data is ground-truth positive but is tested as negative.</span><br></pre></td></tr></table></figure>
-
-<p>You may be reminded that the words true/false is adjective.</p>
-<h3 id="Labeling-based-on-IoU"><a href="#Labeling-based-on-IoU" class="headerlink" title="Labeling based on IoU"></a>Labeling based on IoU</h3><p>We know that the testing in detection is in the form of outputting <strong>bounding box</strong>, and it is impossible or hard to make the testing box and the ground-truth box to be exactly the same, hence we need the method of IoU to construct labeling, including the labeling of TP, FP, FN. Note that since in detection we do not care about the background, the definition of TN will not be specialized. About IoU, you may see my blog [here](<a href="http://edwardpei.com/2021/11/10/IoU/#more">IoU | 流千过客-Ed-P (edwardpei.com)</a>).  The output of the algorithm is always based on the IoU score, so we should define a threshold to control the output, i.e. IoU_threshold = 0.5. </p>
-<h4 id="Confidence"><a href="#Confidence" class="headerlink" title="Confidence"></a>Confidence</h4><p>Before I give the details, we should know the definition of ‘confidence’.  Confidence is a quality that measured whether a bounding box containing the gt object and the accuracy of the bounding box.</p>
-<p>In YOLO, confidence is defined as:</p>
-<p><img src="8904720-5bda664f53501a53.webp" alt="8904720-5bda664f53501a53"></p>
-<p>When the center of the gt is contained in the bounding box, Pr(Object) is 1, or it is 0.</p>
-<p>By using confidence, we can compare the bounding boxes for the same gt. It should be noted that in order to make the labeling result to be reasonable, we should count the TP for each gt just once. That is,  we may have the probability that there are lots of bounding box have IoU score exceed the threshold. In this case, we only take the bounding box that has the highest confidence (just highest IoU), which is just TP and then other boxes are labeled as FP. So in this way, you should understanding why we just count once for each gt, since if take all the box exceed the threshold as TP, there will have problems: 1. the precision is too cheap,  then the precision will very high, then it will lose the authority of measuring the accuracy. 2. the precision may be imbalanced, consider when one gt has many box satisfied the requirement but another gt just have few boxes satisfied the requirement, then the precision will still be high.</p>
-<p>Then we labeling the boxes that have IoU score lower than threshold with corresponding gt as FP,  which is the data that algorithm tests wrong. And FN is the number of gt box that is not be detected in testing.</p>
-<h3 id="Average-Precision-AP"><a href="#Average-Precision-AP" class="headerlink" title="Average Precision (AP)"></a>Average Precision (AP)</h3><h4 id="PR-curve"><a href="#PR-curve" class="headerlink" title="PR-curve"></a>PR-curve</h4><p>We have know the definition of precision and recall, then we can make a table as following, assuming that there are 5 objects in an image and a model generates 10 boxes and these boxes are ranked according to their confidence scores.</p>
-<p><img src="image-20211125173345116.png" alt="image-20211125173345116"></p>
-<p>Based on this table, we can draw the PR-curve, as the recall increase the precision will decrease gradually(but not absolutely):</p>
-<p><img src="image-20211125174044663.png" alt="image-20211125174044663"></p>
-<p>Average Precision is just to calculate the average for the precision scores on the PR-curve. It can be calculated by integration since the recall scores vary from 0 to 1:</p>
-<p>![equation (1)](equation (1).svg)</p>
-<p>However,  we always first smooth the PR-curve before calculating the AP: </p>
-<p><img src="image-20211125181518876.png" alt="image-20211125181518876"></p>
-<p>![equation (2)](equation (2).svg)</p>
-<p>There are variant methods to calculate AP in the history.</p>
-<h4 id="Interpolated-AP-Before-VOC2010"><a href="#Interpolated-AP-Before-VOC2010" class="headerlink" title="Interpolated AP (Before VOC2010 )"></a>Interpolated AP (Before VOC2010 )</h4><p>On the smooth PR-curve, taking 10 equal diversion points from 0 to 1 (totally 11 points), then calculate the average of their precision score:</p>
-<p>![equation (3)](equation (3).svg)</p>
-<p><img src="image-20211125182736420.png" alt="image-20211125182736420"></p>
-<h4 id="Area-under-curve-After-VOC2010"><a href="#Area-under-curve-After-VOC2010" class="headerlink" title="Area under curve(After VOC2010)"></a>Area under curve(After VOC2010)</h4><p>For the previous interpolated AP, there may be some errors in the sample points. The method with more accuracy is to calculate the integration on smooth PR-curve.</p>
-<h4 id="COCO-mAP"><a href="#COCO-mAP" class="headerlink" title="COCO mAP"></a>COCO mAP</h4><p>In order to increase the accuracy, COCO taking 100 points to calculate AP. What’s more, the threshold of IoU is taking from 0.5 to 0.95 with a step size of 0.05, then the mAP for a category is the average AP for these different IoU. It is noted as AP[.5 : .95].</p>
-<p><img src="image-20211125184428026.png" alt="image-20211125184428026"></p>
-<p>(you can also calculate Average recall(AR) similarly)</p>
-<h3 id="MAP"><a href="#MAP" class="headerlink" title="MAP"></a>MAP</h3><p>MAP, mean average precision, is the mean of AP for all the categories. For example, in an image we have 10 detections with 2 categories. Calculating the AP for each category and take the mean finally.</p>
-]]></content>
-      <categories>
-        <category>Knowledge</category>
-      </categories>
-      <tags>
-        <tag>Object_Detection</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Linux服务器搭建</title>
     <url>/2021/10/16/Linux%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/</url>
     <content><![CDATA[<p>这里上传一些当时搭服务器的技巧吧 也算是备忘录</p>
@@ -184,6 +132,58 @@ localhost
       </categories>
       <tags>
         <tag>skill</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Mean Average Precision（MAP)</title>
+    <url>/2021/11/25/Mean-Average-Precision%EF%BC%88MAP%EF%BC%89/</url>
+    <content><![CDATA[<h3 id="Precision-amp-Recall"><a href="#Precision-amp-Recall" class="headerlink" title="Precision&amp;Recall"></a>Precision&amp;Recall</h3><p>The formula of precision and recall is:</p>
+<span id="more"></span>
+
+<p><img src="equation.svg" alt="equation"></p>
+<p><img src="equation2.svg" alt="equation2"></p>
+<p>Precision is used to evaluate the accuracy of test result, which is actually the proportion of  true tested result in the total result.</p>
+<p>Recall is used to evaluate the quality of the test result, which is actually the proportion of the true tested result in the total true result, that is , including the true tested result and the true non-tested result.</p>
+<h4 id="TP-TN-FP-FN"><a href="#TP-TN-FP-FN" class="headerlink" title="TP, TN, FP, FN"></a>TP, TN, FP, FN</h4><p>To have a better understanding of precision and recall, we should know the definition of TP, TN, FP and FN.</p>
+<p><img src="v2-761706f5b1fe36873ba1bb20c7d1d447_720w.jpg" alt="v2-761706f5b1fe36873ba1bb20c7d1d447_720w"></p>
+<p>As the graph indicated, all the data is first divided into two part: positive and negative. They  are the annotation that pre-labeled to the data, or you can say it is the ‘ground truth’.</p>
+<p>Then after testing, we have another set that is  tested by the algorithm, which is the data that the testing algorithm/model thinks positive. It also contains two parts:  1. the algorithm tests right, the data that is indeed positive. 2. the algorithm tests wrong, the data that is actually negative. These two part is just TP and FP, respectively.</p>
+<p>There remains two parts in the data that the algorithm doesn’t think positive: 1, the data is positive but is not tested positive. 2. the data is negative but is not tested positive too. They are FN and TN.</p>
+<p>A short summarization:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">TP: true positive, the data is ground-truth positive and is also tested as positive.</span><br><span class="line">TN: true negative, the data is ground-truth negative and is not tested as positive.</span><br><span class="line">FP: false positive, the data is ground-truth negative but is tested as positive.</span><br><span class="line">FN: false negative, the data is ground-truth positive but is tested as negative.</span><br></pre></td></tr></table></figure>
+
+<p>You may be reminded that the words true/false is adjective.</p>
+<h3 id="Labeling-based-on-IoU"><a href="#Labeling-based-on-IoU" class="headerlink" title="Labeling based on IoU"></a>Labeling based on IoU</h3><p>We know that the testing in detection is in the form of outputting <strong>bounding box</strong>, and it is impossible or hard to make the testing box and the ground-truth box to be exactly the same, hence we need the method of IoU to construct labeling, including the labeling of TP, FP, FN. Note that since in detection we do not care about the background, the definition of TN will not be specialized. About IoU, you may see my blog [here](<a href="http://edwardpei.com/2021/11/10/IoU/#more">IoU | 流千过客-Ed-P (edwardpei.com)</a>).  The output of the algorithm is always based on the IoU score, so we should define a threshold to control the output, i.e. IoU_threshold = 0.5. </p>
+<h4 id="Confidence"><a href="#Confidence" class="headerlink" title="Confidence"></a>Confidence</h4><p>Before I give the details, we should know the definition of ‘confidence’.  Confidence is a quality that measured whether a bounding box containing the gt object and the accuracy of the bounding box.</p>
+<p>In YOLO, confidence is defined as:</p>
+<p><img src="8904720-5bda664f53501a53.webp" alt="8904720-5bda664f53501a53"></p>
+<p>When the center of the gt is contained in the bounding box, Pr(Object) is 1, or it is 0.</p>
+<p>By using confidence, we can compare the bounding boxes for the same gt. It should be noted that in order to make the labeling result to be reasonable, we should count the TP for each gt just once. That is,  we may have the probability that there are lots of bounding box have IoU score exceed the threshold. In this case, we only take the bounding box that has the highest confidence (just highest IoU), which is just TP and then other boxes are labeled as FP. So in this way, you should understanding why we just count once for each gt, since if take all the box exceed the threshold as TP, there will have problems: 1. the precision is too cheap,  then the precision will very high, then it will lose the authority of measuring the accuracy. 2. the precision may be imbalanced, consider when one gt has many box satisfied the requirement but another gt just have few boxes satisfied the requirement, then the precision will still be high.</p>
+<p>Then we labeling the boxes that have IoU score lower than threshold with corresponding gt as FP,  which is the data that algorithm tests wrong. And FN is the number of gt box that is not be detected in testing.</p>
+<h3 id="Average-Precision-AP"><a href="#Average-Precision-AP" class="headerlink" title="Average Precision (AP)"></a>Average Precision (AP)</h3><h4 id="PR-curve"><a href="#PR-curve" class="headerlink" title="PR-curve"></a>PR-curve</h4><p>We have know the definition of precision and recall, then we can make a table as following, assuming that there are 5 objects in an image and a model generates 10 boxes and these boxes are ranked according to their confidence scores.</p>
+<p><img src="image-20211125173345116.png" alt="image-20211125173345116"></p>
+<p>Based on this table, we can draw the PR-curve, as the recall increase the precision will decrease gradually(but not absolutely):</p>
+<p><img src="image-20211125174044663.png" alt="image-20211125174044663"></p>
+<p>Average Precision is just to calculate the average for the precision scores on the PR-curve. It can be calculated by integration since the recall scores vary from 0 to 1:</p>
+<p><img src="equation(1).svg" alt="equation(1)"></p>
+<p>However,  we always first smooth the PR-curve before calculating the AP: </p>
+<p><img src="image-20211125181518876.png" alt="image-20211125181518876"></p>
+<p><img src="equation(2).svg" alt="equation(2)"></p>
+<p>There are variant methods to calculate AP in the history.</p>
+<h4 id="Interpolated-AP-Before-VOC2010"><a href="#Interpolated-AP-Before-VOC2010" class="headerlink" title="Interpolated AP (Before VOC2010 )"></a>Interpolated AP (Before VOC2010 )</h4><p>On the smooth PR-curve, taking 10 equal diversion points from 0 to 1 (totally 11 points), then calculate the average of their precision score:</p>
+<p><img src="equation(3).svg" alt="equation(3)"></p>
+<p><img src="image-20211125182736420.png" alt="image-20211125182736420"></p>
+<h4 id="Area-under-curve-After-VOC2010"><a href="#Area-under-curve-After-VOC2010" class="headerlink" title="Area under curve(After VOC2010)"></a>Area under curve(After VOC2010)</h4><p>For the previous interpolated AP, there may be some errors in the sample points. The method with more accuracy is to calculate the integration on smooth PR-curve.</p>
+<h4 id="COCO-mAP"><a href="#COCO-mAP" class="headerlink" title="COCO mAP"></a>COCO mAP</h4><p>In order to increase the accuracy, COCO taking 100 points to calculate AP. What’s more, the threshold of IoU is taking from 0.5 to 0.95 with a step size of 0.05, then the mAP for a category is the average AP for these different IoU. It is noted as AP[.5 : .95].</p>
+<p><img src="image-20211125184428026.png" alt="image-20211125184428026"></p>
+<p>(you can also calculate Average recall(AR) similarly)</p>
+<h3 id="MAP"><a href="#MAP" class="headerlink" title="MAP"></a>MAP</h3><p>MAP, mean average precision, is the mean of AP for all the categories. For example, in an image we have 10 detections with 2 categories. Calculating the AP for each category and take the mean finally.</p>
+]]></content>
+      <categories>
+        <category>Knowledge</category>
+      </categories>
+      <tags>
+        <tag>Object_Detection</tag>
       </tags>
   </entry>
   <entry>
@@ -684,18 +684,6 @@ localhost
       </tags>
   </entry>
   <entry>
-    <title>终于像样了！</title>
-    <url>/2021/10/15/%E7%BB%88%E4%BA%8E%E5%83%8F%E6%A0%B7%E4%BA%86%EF%BC%81/</url>
-    <content><![CDATA[<p>搞了好久 把评论功能和分享功能弄上去了哈哈哈哈</p>
-]]></content>
-      <categories>
-        <category>life</category>
-      </categories>
-      <tags>
-        <tag>life</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>我为什么不干正经事</title>
     <url>/2021/10/16/%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E5%B9%B2%E6%AD%A3%E7%BB%8F%E4%BA%8B/</url>
     <content><![CDATA[<p>前几天我在知乎上载了一个 <a href="https://www.zhihu.com/pin/1429619175618273280">“想法”</a>, 原因就是我废寝忘食地搞了两天代码后发现： 代码是搞定了，但它好像没多大作用。 一边被催进度说要创新，一边发现自己刚解决的这个事引出了后边的一大堆事。 这可不让人糟心吗 比剥核桃核桃壳刺指甲缝还糟心</p>
@@ -711,6 +699,18 @@ localhost
       </categories>
       <tags>
         <tag>thinking</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>终于像样了！</title>
+    <url>/2021/10/15/%E7%BB%88%E4%BA%8E%E5%83%8F%E6%A0%B7%E4%BA%86%EF%BC%81/</url>
+    <content><![CDATA[<p>搞了好久 把评论功能和分享功能弄上去了哈哈哈哈</p>
+]]></content>
+      <categories>
+        <category>life</category>
+      </categories>
+      <tags>
+        <tag>life</tag>
       </tags>
   </entry>
 </search>
