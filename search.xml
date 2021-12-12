@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>First Blog</title>
-    <url>/2021/10/15/First-Blog/</url>
-    <content><![CDATA[<p>今天突发奇想心血来潮在这香港入秋(?)的夜里弄好了一个personal blog</p>
-<p>期间怎么买域名 怎么设置github就不足为道了哈哈哈</p>
+    <title>Knowledge_Distillation</title>
+    <url>/2021/12/12/Knowledge-Distillation/</url>
+    <content><![CDATA[<p>An introduction and summary of KD(knowledge distillation) methods.</p>
 <span id="more"></span>
-
-<p>现在很多功能还没实现 点进去就是404 就等着之后更新了吧</p>
-<p>其实早就想找个地方写点自己的东西了 毕竟我感觉我平时的思考还蛮多的 又没有什么好地方写东西 就想着这样建立一个网站是最好的了 </p>
-<p>至于之后会更新什么  感觉一切都有可能吧！</p>
-<p>嘿嘿 是不是很cool？</p>
-<p>###更新日志</p>
-<p>10-15 增加评论和分享功能<br>10-16 增加看板娘，增加日夜模式交换按钮，增加留言板匿名</p>
 ]]></content>
+      <categories>
+        <category>Knowledge</category>
+      </categories>
+      <tags>
+        <tag>Efficient_Neural_Network</tag>
+      </tags>
   </entry>
   <entry>
     <title>IoU</title>
@@ -40,99 +38,19 @@
       </tags>
   </entry>
   <entry>
-    <title>Linux服务器搭建</title>
-    <url>/2021/10/16/Linux%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/</url>
-    <content><![CDATA[<p>这里上传一些当时搭服务器的技巧吧 也算是备忘录</p>
-<p>##传文件</p>
-<p>###1.传文件到服务器</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ scp /path/file（这部分为本地的路径） user（远端目标用户名）@host（远端目标IP）:/home/username（文件存储路径）</span><br></pre></td></tr></table></figure>
+    <title>First Blog</title>
+    <url>/2021/10/15/First-Blog/</url>
+    <content><![CDATA[<p>今天突发奇想心血来潮在这香港入秋(?)的夜里弄好了一个personal blog</p>
+<p>期间怎么买域名 怎么设置github就不足为道了哈哈哈</p>
 <span id="more"></span>
 
-<p>###2.从服务器下载文件</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ scp user（远端用户名）@host（远端IP）:/path/file（下载文件在远端的路径） localpathorfile（本地文件存放路径）</span><br></pre></td></tr></table></figure>
-
-<p>##安装anaconda</p>
-<p>###1.下载</p>
-<p>清华源(一般在内地因为下外网的东西比较麻烦，转到清华源下会比较好)：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/?C=M&amp;O=A</span><br></pre></td></tr></table></figure>
-<p>传到服务器上：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ scp Anaconda3-2019.10-Linux-x86_64.sh username@远程服务器IP:/home/username</span><br></pre></td></tr></table></figure>
-
-<p>###2.安装</p>
-<p>在服务器文件夹下：</p>
-<p>用bash命令：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ bash Anaconda3-2019.10-Linux-x86_64.sh</span><br></pre></td></tr></table></figure>
-<p> 连续（enter，yes，yes）</p>
-<p>##conda常用的命令</p>
-<pre><code>1）conda list 查看安装了哪些包。
-
-2）conda env list 或 conda info -e 查看当前存在哪些虚拟环境
-
-3）conda update conda 检查更新当前conda
-
-4）conda --version 查询conda版本 （在环境里打开命令行输入python --version可以检查当前python的版本）
-
-5）conda -h 查询conda的命令使用
-</code></pre>
-<p>创建python虚拟环境</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ conda create -n your_env_name python=X.X</span><br></pre></td></tr></table></figure>
-
-<p>激活(或切换不同python版本)的虚拟环境<br>Linux: </p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">source</span> activate your_env_name(虚拟环境名称)</span><br></pre></td></tr></table></figure>
-
-<p>Windows: </p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ activate your_env_name(虚拟环境名称) (conda activate)</span><br></pre></td></tr></table></figure>
-<p>(这里我一般用conda activate 就好了)</p>
-<p>关闭虚拟环境<br>Linux: </p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">source</span> deactivate</span><br></pre></td></tr></table></figure>
-
-<p>Windows: </p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ deactivate （conda deactivate）</span><br></pre></td></tr></table></figure>
-
-<p>删除虚拟环境</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ conda remove -n your_env_name(虚拟环境名称) --all</span><br></pre></td></tr></table></figure>
-<p>##用Xshell远程连接服务器上的jupyter notebook</p>
-<p>这个我觉得比较重要，至少方便做一些可视化的事情，然后传输文件也很方便</p>
-<p>###（1）生成config文件<br>    在环境里输入</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ jupyter notebook --generate-config</span><br></pre></td></tr></table></figure>
-<p>###（2）生成密码<br>    打开python：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ from notebook.auth import passwd</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ passwd()</span><br></pre></td></tr></table></figure>
-<pre><code>#输入两次密码
-#Enter password: 
-#Verify password: 
-#然后出现
-#&#39;sha1:xxxxxxxxxxxxxxxxx&#39;
-</code></pre>
-<p>###（3）修改config文件<br>    进入config文件：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ vim ~/.jupyter/jupyter_notebook_config.py</span><br></pre></td></tr></table></figure>
-<pre><code>找空位按i然后直接粘贴：
-</code></pre>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ c.NotebookApp.ip=<span class="string">&#x27;*&#x27;</span></span><br><span class="line">$ c.NotebookApp.password = u<span class="string">&#x27;sha1:xxxxxx&#x27;</span><span class="comment">#刚才复制的</span></span><br><span class="line">$ c.NotebookApp.open_browser = False</span><br><span class="line">$ c.NotebookApp.port =7548 <span class="comment">#随便指定一个目标端口</span></span><br></pre></td></tr></table></figure>
-<pre><code>退出vim：
-先按esc退出编辑状态
-然后打出：
-输入wq
-enter即可
-</code></pre>
-<p>###（4）修改x-shell的channel<br>    在服务器的属性的隧道里</p>
-<pre><code>添加
-本地（拨出）
-localhost
-1234（某侦听端口数字）
-x仅限本地连接
-localhost
-7548（某目标端口）
-</code></pre>
-<p>###（5）运行jupyter notebook<br>    linux上输入：<br>    jupyter notebook<br>    然后在本地浏览器输入127.0.0.1:1234，1234是上一步设置的侦听端口<br>    再在打开的界面输入密码就OK了</p>
-<p><img src="R.jpg" alt="R"></p>
+<p>现在很多功能还没实现 点进去就是404 就等着之后更新了吧</p>
+<p>其实早就想找个地方写点自己的东西了 毕竟我感觉我平时的思考还蛮多的 又没有什么好地方写东西 就想着这样建立一个网站是最好的了 </p>
+<p>至于之后会更新什么  感觉一切都有可能吧！</p>
+<p>嘿嘿 是不是很cool？</p>
+<p>###更新日志</p>
+<p>10-15 增加评论和分享功能<br>10-16 增加看板娘，增加日夜模式交换按钮，增加留言板匿名</p>
 ]]></content>
-      <categories>
-        <category>Code</category>
-      </categories>
-      <tags>
-        <tag>skill</tag>
-      </tags>
   </entry>
   <entry>
     <title>Mean Average Precision（MAP)</title>
@@ -184,6 +102,19 @@ localhost
       </categories>
       <tags>
         <tag>Object_Detection</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Quantization</title>
+    <url>/2021/12/12/Quantization/</url>
+    <content><![CDATA[<p>An introduction and summary of quantization methods.</p>
+<span id="more"></span>
+]]></content>
+      <categories>
+        <category>Knowledge</category>
+      </categories>
+      <tags>
+        <tag>Efficient_Neural_Network</tag>
       </tags>
   </entry>
   <entry>
@@ -684,6 +615,113 @@ localhost
       </tags>
   </entry>
   <entry>
+    <title>Linux服务器搭建</title>
+    <url>/2021/10/16/Linux%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/</url>
+    <content><![CDATA[<p>这里上传一些当时搭服务器的技巧吧 也算是备忘录</p>
+<p>##传文件</p>
+<p>###1.传文件到服务器</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ scp /path/file（这部分为本地的路径） user（远端目标用户名）@host（远端目标IP）:/home/username（文件存储路径）</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+
+<p>###2.从服务器下载文件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ scp user（远端用户名）@host（远端IP）:/path/file（下载文件在远端的路径） localpathorfile（本地文件存放路径）</span><br></pre></td></tr></table></figure>
+
+<p>##安装anaconda</p>
+<p>###1.下载</p>
+<p>清华源(一般在内地因为下外网的东西比较麻烦，转到清华源下会比较好)：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/?C=M&amp;O=A</span><br></pre></td></tr></table></figure>
+<p>传到服务器上：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ scp Anaconda3-2019.10-Linux-x86_64.sh username@远程服务器IP:/home/username</span><br></pre></td></tr></table></figure>
+
+<p>###2.安装</p>
+<p>在服务器文件夹下：</p>
+<p>用bash命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ bash Anaconda3-2019.10-Linux-x86_64.sh</span><br></pre></td></tr></table></figure>
+<p> 连续（enter，yes，yes）</p>
+<p>##conda常用的命令</p>
+<pre><code>1）conda list 查看安装了哪些包。
+
+2）conda env list 或 conda info -e 查看当前存在哪些虚拟环境
+
+3）conda update conda 检查更新当前conda
+
+4）conda --version 查询conda版本 （在环境里打开命令行输入python --version可以检查当前python的版本）
+
+5）conda -h 查询conda的命令使用
+</code></pre>
+<p>创建python虚拟环境</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ conda create -n your_env_name python=X.X</span><br></pre></td></tr></table></figure>
+
+<p>激活(或切换不同python版本)的虚拟环境<br>Linux: </p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">source</span> activate your_env_name(虚拟环境名称)</span><br></pre></td></tr></table></figure>
+
+<p>Windows: </p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ activate your_env_name(虚拟环境名称) (conda activate)</span><br></pre></td></tr></table></figure>
+<p>(这里我一般用conda activate 就好了)</p>
+<p>关闭虚拟环境<br>Linux: </p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">source</span> deactivate</span><br></pre></td></tr></table></figure>
+
+<p>Windows: </p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ deactivate （conda deactivate）</span><br></pre></td></tr></table></figure>
+
+<p>删除虚拟环境</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ conda remove -n your_env_name(虚拟环境名称) --all</span><br></pre></td></tr></table></figure>
+<p>##用Xshell远程连接服务器上的jupyter notebook</p>
+<p>这个我觉得比较重要，至少方便做一些可视化的事情，然后传输文件也很方便</p>
+<p>###（1）生成config文件<br>    在环境里输入</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ jupyter notebook --generate-config</span><br></pre></td></tr></table></figure>
+<p>###（2）生成密码<br>    打开python：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ from notebook.auth import passwd</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ passwd()</span><br></pre></td></tr></table></figure>
+<pre><code>#输入两次密码
+#Enter password: 
+#Verify password: 
+#然后出现
+#&#39;sha1:xxxxxxxxxxxxxxxxx&#39;
+</code></pre>
+<p>###（3）修改config文件<br>    进入config文件：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ vim ~/.jupyter/jupyter_notebook_config.py</span><br></pre></td></tr></table></figure>
+<pre><code>找空位按i然后直接粘贴：
+</code></pre>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ c.NotebookApp.ip=<span class="string">&#x27;*&#x27;</span></span><br><span class="line">$ c.NotebookApp.password = u<span class="string">&#x27;sha1:xxxxxx&#x27;</span><span class="comment">#刚才复制的</span></span><br><span class="line">$ c.NotebookApp.open_browser = False</span><br><span class="line">$ c.NotebookApp.port =7548 <span class="comment">#随便指定一个目标端口</span></span><br></pre></td></tr></table></figure>
+<pre><code>退出vim：
+先按esc退出编辑状态
+然后打出：
+输入wq
+enter即可
+</code></pre>
+<p>###（4）修改x-shell的channel<br>    在服务器的属性的隧道里</p>
+<pre><code>添加
+本地（拨出）
+localhost
+1234（某侦听端口数字）
+x仅限本地连接
+localhost
+7548（某目标端口）
+</code></pre>
+<p>###（5）运行jupyter notebook<br>    linux上输入：<br>    jupyter notebook<br>    然后在本地浏览器输入127.0.0.1:1234，1234是上一步设置的侦听端口<br>    再在打开的界面输入密码就OK了</p>
+<p><img src="R.jpg" alt="R"></p>
+]]></content>
+      <categories>
+        <category>Code</category>
+      </categories>
+      <tags>
+        <tag>skill</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>终于像样了！</title>
+    <url>/2021/10/15/%E7%BB%88%E4%BA%8E%E5%83%8F%E6%A0%B7%E4%BA%86%EF%BC%81/</url>
+    <content><![CDATA[<p>搞了好久 把评论功能和分享功能弄上去了哈哈哈哈</p>
+]]></content>
+      <categories>
+        <category>life</category>
+      </categories>
+      <tags>
+        <tag>life</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>我为什么不干正经事</title>
     <url>/2021/10/16/%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E5%B9%B2%E6%AD%A3%E7%BB%8F%E4%BA%8B/</url>
     <content><![CDATA[<p>前几天我在知乎上载了一个 <a href="https://www.zhihu.com/pin/1429619175618273280">“想法”</a>, 原因就是我废寝忘食地搞了两天代码后发现： 代码是搞定了，但它好像没多大作用。 一边被催进度说要创新，一边发现自己刚解决的这个事引出了后边的一大堆事。 这可不让人糟心吗 比剥核桃核桃壳刺指甲缝还糟心</p>
@@ -699,18 +737,6 @@ localhost
       </categories>
       <tags>
         <tag>thinking</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>终于像样了！</title>
-    <url>/2021/10/15/%E7%BB%88%E4%BA%8E%E5%83%8F%E6%A0%B7%E4%BA%86%EF%BC%81/</url>
-    <content><![CDATA[<p>搞了好久 把评论功能和分享功能弄上去了哈哈哈哈</p>
-]]></content>
-      <categories>
-        <category>life</category>
-      </categories>
-      <tags>
-        <tag>life</tag>
       </tags>
   </entry>
 </search>
