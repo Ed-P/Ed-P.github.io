@@ -1,19 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Knowledge_Distillation</title>
-    <url>/2021/12/12/Knowledge-Distillation/</url>
-    <content><![CDATA[<p>An introduction and summary of KD(knowledge distillation) methods.</p>
-<span id="more"></span>
-]]></content>
-      <categories>
-        <category>Knowledge</category>
-      </categories>
-      <tags>
-        <tag>Efficient_Neural_Network</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>IoU</title>
     <url>/2021/11/10/IoU/</url>
     <content><![CDATA[<h3 id="Intro"><a href="#Intro" class="headerlink" title="Intro."></a>Intro.</h3><p>IoU, Intersection over Union, can be used as a similarity measure for object detection on images. (It is also called Jaccard index since it is developed by Paul Jaccard) </p>
@@ -38,19 +25,213 @@
       </tags>
   </entry>
   <entry>
-    <title>First Blog</title>
-    <url>/2021/10/15/First-Blog/</url>
-    <content><![CDATA[<p>今天突发奇想心血来潮在这香港入秋(?)的夜里弄好了一个personal blog</p>
-<p>期间怎么买域名 怎么设置github就不足为道了哈哈哈</p>
+    <title>Knowledge_Distillation</title>
+    <url>/2021/12/12/Knowledge-Distillation/</url>
+    <content><![CDATA[<p>An introduction and summary of KD(knowledge distillation) methods.</p>
+<span id="more"></span>
+]]></content>
+      <categories>
+        <category>Knowledge</category>
+      </categories>
+      <tags>
+        <tag>Efficient_Neural_Network</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux服务器搭建</title>
+    <url>/2021/10/16/Linux%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/</url>
+    <content><![CDATA[<p>这里上传一些当时搭服务器的技巧吧 也算是备忘录</p>
+<p>##传文件</p>
+<p>###1.传文件到服务器</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ scp /path/file（这部分为本地的路径） user（远端目标用户名）@host（远端目标IP）:/home/username（文件存储路径）</span><br></pre></td></tr></table></figure>
 <span id="more"></span>
 
-<p>现在很多功能还没实现 点进去就是404 就等着之后更新了吧</p>
-<p>其实早就想找个地方写点自己的东西了 毕竟我感觉我平时的思考还蛮多的 又没有什么好地方写东西 就想着这样建立一个网站是最好的了 </p>
-<p>至于之后会更新什么  感觉一切都有可能吧！</p>
-<p>嘿嘿 是不是很cool？</p>
-<p>###更新日志</p>
-<p>10-15 增加评论和分享功能<br>10-16 增加看板娘，增加日夜模式交换按钮，增加留言板匿名</p>
+<p>###2.从服务器下载文件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ scp user（远端用户名）@host（远端IP）:/path/file（下载文件在远端的路径） localpathorfile（本地文件存放路径）</span><br></pre></td></tr></table></figure>
+
+<p>##安装anaconda</p>
+<p>###1.下载</p>
+<p>清华源(一般在内地因为下外网的东西比较麻烦，转到清华源下会比较好)：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/?C=M&amp;O=A</span><br></pre></td></tr></table></figure>
+<p>传到服务器上：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ scp Anaconda3-2019.10-Linux-x86_64.sh username@远程服务器IP:/home/username</span><br></pre></td></tr></table></figure>
+
+<p>###2.安装</p>
+<p>在服务器文件夹下：</p>
+<p>用bash命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ bash Anaconda3-2019.10-Linux-x86_64.sh</span><br></pre></td></tr></table></figure>
+<p> 连续（enter，yes，yes）</p>
+<p>##conda常用的命令</p>
+<pre><code>1）conda list 查看安装了哪些包。
+
+2）conda env list 或 conda info -e 查看当前存在哪些虚拟环境
+
+3）conda update conda 检查更新当前conda
+
+4）conda --version 查询conda版本 （在环境里打开命令行输入python --version可以检查当前python的版本）
+
+5）conda -h 查询conda的命令使用
+</code></pre>
+<p>创建python虚拟环境</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ conda create -n your_env_name python=X.X</span><br></pre></td></tr></table></figure>
+
+<p>激活(或切换不同python版本)的虚拟环境<br>Linux: </p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">source</span> activate your_env_name(虚拟环境名称)</span><br></pre></td></tr></table></figure>
+
+<p>Windows: </p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ activate your_env_name(虚拟环境名称) (conda activate)</span><br></pre></td></tr></table></figure>
+<p>(这里我一般用conda activate 就好了)</p>
+<p>关闭虚拟环境<br>Linux: </p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">source</span> deactivate</span><br></pre></td></tr></table></figure>
+
+<p>Windows: </p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ deactivate （conda deactivate）</span><br></pre></td></tr></table></figure>
+
+<p>删除虚拟环境</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ conda remove -n your_env_name(虚拟环境名称) --all</span><br></pre></td></tr></table></figure>
+<p>##用Xshell远程连接服务器上的jupyter notebook</p>
+<p>这个我觉得比较重要，至少方便做一些可视化的事情，然后传输文件也很方便</p>
+<p>###（1）生成config文件<br>    在环境里输入</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ jupyter notebook --generate-config</span><br></pre></td></tr></table></figure>
+<p>###（2）生成密码<br>    打开python：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ from notebook.auth import passwd</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ passwd()</span><br></pre></td></tr></table></figure>
+<pre><code>#输入两次密码
+#Enter password: 
+#Verify password: 
+#然后出现
+#&#39;sha1:xxxxxxxxxxxxxxxxx&#39;
+</code></pre>
+<p>###（3）修改config文件<br>    进入config文件：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ vim ~/.jupyter/jupyter_notebook_config.py</span><br></pre></td></tr></table></figure>
+<pre><code>找空位按i然后直接粘贴：
+</code></pre>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ c.NotebookApp.ip=<span class="string">&#x27;*&#x27;</span></span><br><span class="line">$ c.NotebookApp.password = u<span class="string">&#x27;sha1:xxxxxx&#x27;</span><span class="comment">#刚才复制的</span></span><br><span class="line">$ c.NotebookApp.open_browser = False</span><br><span class="line">$ c.NotebookApp.port =7548 <span class="comment">#随便指定一个目标端口</span></span><br></pre></td></tr></table></figure>
+<pre><code>退出vim：
+先按esc退出编辑状态
+然后打出：
+输入wq
+enter即可
+</code></pre>
+<p>###（4）修改x-shell的channel<br>    在服务器的属性的隧道里</p>
+<pre><code>添加
+本地（拨出）
+localhost
+1234（某侦听端口数字）
+x仅限本地连接
+localhost
+7548（某目标端口）
+</code></pre>
+<p>###（5）运行jupyter notebook<br>    linux上输入：<br>    jupyter notebook<br>    然后在本地浏览器输入127.0.0.1:1234，1234是上一步设置的侦听端口<br>    再在打开的界面输入密码就OK了</p>
+<p><img src="R.jpg" alt="R"></p>
 ]]></content>
+      <categories>
+        <category>Code</category>
+      </categories>
+      <tags>
+        <tag>skill</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Quantization</title>
+    <url>/2021/12/12/Quantization/</url>
+    <content><![CDATA[<p>An introduction and summary of quantization methods.</p>
+<span id="more"></span>
+
+<h2 id="Preliminary"><a href="#Preliminary" class="headerlink" title="Preliminary"></a>Preliminary</h2><h3 id="Intro"><a href="#Intro" class="headerlink" title="Intro."></a>Intro.</h3><p>What does quantization mean? Efficient? How can it work?</p>
+<p>In Wikipedia, they define quantization as: “Quantization, in mathematics and digital signal processing, is the process of mapping input values from a large set (often a continuous set) to output values in a (countable) smaller set, often with a finite number of elements.”  It’s trivial that we need precise numbers during computation to obtain precise results. A precise number is always the values in the real number set, which is actually a large set. </p>
+<p>However, using more precise numbers means that you needs more memory to store it (it’s the same in the real world, imaging that you are struggling to remember some specific things, such as <em>π</em> ). So, reducing the precision to remember something easily is natural. And that is what quantization does. For computer, it is not different, and it may be more clear to see why. The goal of quantization is to reduce the precision of the parameters (weights, bias) and the intermediate activations to low-precision.</p>
+<h3 id="Binary-system"><a href="#Binary-system" class="headerlink" title="Binary system"></a>Binary system</h3><p>We use decimal system in our daily life, with 10 numbers and can write any number in powers of 10:</p>
+<p><img src="nanotes2021students.pdf.png" alt="nanotes2021students.pdf"></p>
+<p>Computers work internally in the binary system with only two digits 0 and 1, the real number 9.90625 can be written as:</p>
+<p>![nanotes2021students.pdf (1)](nanotes2021students.pdf (1).png)</p>
+<h4 id="Normalized-scientific-notation-and-floating-point-representation"><a href="#Normalized-scientific-notation-and-floating-point-representation" class="headerlink" title="Normalized scientific notation and floating-point  representation"></a>Normalized scientific notation and floating-point  representation</h4><p>In decimal system, we express any real number in normalized scientific notation:</p>
+<p><img src="image-20211213104448578.png" alt="image-20211213104448578"></p>
+<p>where r is a real number in the range 0.1 &lt;= r &lt; 1 and n is an integer.</p>
+<p>The real number in the form 0.0025 is called a fixed-point number, and its floating-point representation is 0.259*10^{-2} (just the normalized scientific notation). </p>
+<p>Since computers can only operate using real numbers expressed in a <strong>fixed</strong> number of digits (depending on their word length), by using the floating-point representation we can express the numbers in a larger range. For example, with a fixed 8 digits, one can only express the real number in fixed-point form from 0.0000001 (10^-7) to 9.9999999 (≈10). However, in the floating-point representation the range is from 10^-99 to 10^99 if we use 2 of the digits to represent a power if 10. But at what cost? The accuracy of the numbers of floating-point representation will be relatively lower (it is similar to our main topic quantization).</p>
+<p>In binary system, we have similar representation:</p>
+<p><img src="image-20211213110511521.png" alt="image-20211213110511521"></p>
+<p>where 1*2^-1 &lt;= q &lt; 1( 1/2,1) and m is an integer. q is called the mantissa and m is called the exponent and they are both in the binary form. Actually, m decides the movement of the binary point in q. For example, if m equals to 4 (in binary form 100), we may shift  the binary point 4 places to the right.</p>
+<p>Since the first nonzero bit must be 1 in the mantissa, we can express q as (1.f)_2 and hence the first bit does need to store.</p>
+<p>The accuracy of a number represented by a computer depends on the word length of the computer, such as 32 bits, 64 bits. The word length is divided into three section in the floating-point representation (here use 32 bits as example): 1. one bit for the sign if q; 2. 8 bits for m (there also contains 1 bit for m’s sign); 3. 23 bits for q.</p>
+<p>(FP16: 1: sign, 5: m, 10: q.) </p>
+<p>(FP32: Single-precision floating-point format; FP16: Half-precision floating-point format)</p>
+<p>It has the following form:</p>
+<p><img src="image-20211213112908737.png" alt="image-20211213112908737"></p>
+<p>where</p>
+<p><img src="image-20211213112930698.png" alt="image-20211213112930698"></p>
+<p>and</p>
+<p><img src="image-20211213113033704.png" alt="image-20211213113033704"></p>
+<p>Noting that m has 7 digits in binary, so the largest m is 127. Hence a computer with word length 32 bits can handle numbers as small as (1.f * 2^-m) and as large as (1.f * 2^m). (Can not be used directly, the range of m has some trick, you can see in the next section)</p>
+<h4 id="Integer-in-binary"><a href="#Integer-in-binary" class="headerlink" title="Integer in binary"></a>Integer in binary</h4><p><strong>int8</strong>: using 1 byte (8 bits) to express the integer with sign.</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">The first bit is used to express the sign, 1-negative; 0-positive.</span><br><span class="line"></span><br><span class="line">The largest value in the binary form:</span><br><span class="line">0 1 1 1 1 1 1 1</span><br><span class="line"></span><br><span class="line">In decimal form:</span><br><span class="line">0       1       1       1       1       1       1       1</span><br><span class="line">0*2^7 + 1*2^6 + 1*2^5 + 1*2^4 + 1*2^3 + 1*2^2 + 1*2^1 + 1*2^0</span><br><span class="line">0     + 64    + 32    + 16    + 8     + 4     + 2     + 1</span><br><span class="line">= 127</span><br><span class="line"></span><br><span class="line">The smallest value:</span><br><span class="line">1 0 0 0 0 0 0 0</span><br><span class="line"></span><br><span class="line">In decimal form:</span><br><span class="line"> 1       0       0       0       0       0       0       0</span><br><span class="line">-1*2^7 + 0*2^6 + 0*2^5 + 0*2^4 + 0*2^3 + 0*2^2 + 0*2^1 + 0*2^0</span><br><span class="line">-128   + 0     + 0     + 0     + 0     + 0     + 0     + 0</span><br><span class="line"> = -128</span><br></pre></td></tr></table></figure>
+
+<p><strong>uint8</strong>: using 1 byte (8 bits) to express the integer without sign.</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">2^8-1 = 256-1 = 255</span><br><span class="line">since 0 occupies one position.</span><br><span class="line">0~255</span><br></pre></td></tr></table></figure>
+
+<h3 id="Why-quantization"><a href="#Why-quantization" class="headerlink" title="Why quantization?"></a>Why quantization?</h3><p>So, quantization is just to transfer the values (weights, bias, activations) stored in the floating-point form in 32FP to the data type int8/unit8. (8/4/2/1 bit quantization, 8 bit is the most common one.) </p>
+<p>When we apply quantization into a deep learning model</p>
+<ol>
+<li><p>More efficient computation. It is more efficient for many processors to handle integer calculation than corresponding floating -point calculations (Why?). On CPU, the latency of floating-point calculation command is averagely longer than the corresponding integer calculation command. </p>
+</li>
+<li><p>Reduce memory footprint and storage footprint. Reduce the time cost in memory access. For FP32, each weight/bias need 32-bit storage, and it will become 8-bit after quantization. </p>
+</li>
+<li><p>(Reduce the energy consumption)</p>
+</li>
+</ol>
+<p>Although quantization can achieve good result in reducing the network computation, we still need complex and high-accuracy model in training to capture the slight gradient change. It’s a trade-off between the precision and efficiency.</p>
+<h2 id="Basic-Definition"><a href="#Basic-Definition" class="headerlink" title="Basic Definition"></a>Basic Definition</h2><p>The process of quantization is actually a rounding or truncation problem. There is a general function that maps real values in floating point to a lower precision range:</p>
+<p><img src="image-20211213174837627.png" alt="image-20211213174837627"></p>
+<p>where x is a real value input (weight, bias, activation), q is the value after quantization, s is called scaling factor, z is called the zero point. s may be variable in different methods, which will be discussed later(calibration). z can be used to adjust the true zero in some asymmetrical quantization approaches.</p>
+<p>(activation is the output of the activation function of each layer)</p>
+<p>For the rounding function, it is always the same as the round function in python, that is four dropping and five filling in Chinese **(**not exactly, the first reason is that the rounding function varies with the version of python: py2: “Values are rounded to the closest multiple of 10 to the power minus n digits; if two multiples are equally close, rounding is done away from 0.” py3: “values are rounded to the closest multiple of 10 to the power minus n digits; if two multiples are equally close, rounding is done toward the even choice.” The second reason is that the rounding is influenced by the rounding errors of computer because of the world length limitation. Hence, you may use the functions in math or decimal modules of python. <strong>)</strong>. Sometimes researchers use the int() function in python, that is remaining the integer part regardless of the value after the decimal point. </p>
+<p>Noting that here z is set inside the rounding function, but there also are some algorithms set z outside the rounding function. They are different in the searching domain of  z, the former is in real numbers domain and the latter is in the lower precision domain. The consequence is that (you can prove it by using mathematics by yourself) the domain of real values that will be quantized into zero-point will be different (yes, it is a multiple to 1 mapping): If you set it before rounding, then you can choose a specific real number and the values around it (the range depends on s) to be quantized into 0. If you set it after rounding, the you can choose a value in the lower precision domain, for example a integer in int8, then actually we are finding values that will be rounded to z ( it’s just 0, since 0 with the values around it satisfies coincidently). I should emphasize that they are different! Since the rounding function is not linear, so you can’t do the operation like h(a+b)=h(a)+h(b). Note again that, when z is 0, these two ways are the same.</p>
+<h3 id="Asymmetric-and-symmetric-quantization"><a href="#Asymmetric-and-symmetric-quantization" class="headerlink" title="Asymmetric and symmetric quantization"></a>Asymmetric and symmetric quantization</h3><h4 id="Asymmetric-Affine-Quantization"><a href="#Asymmetric-Affine-Quantization" class="headerlink" title="Asymmetric (Affine) Quantization"></a>Asymmetric (Affine) Quantization</h4><p>For convenience, let’s first define s as:</p>
+<p><img src="image-20211214144955255.png" alt="image-20211214144955255"></p>
+<p>We can use a widely used calibration method Min/Max (discuss later), which set the clip range as [β, α] = [Min_x, Max_X] and is always used in the asymmetric or symmetric quantization. Max_x and min_x is the maximum and minimum bounds of the quantizing real values (weights, bias, activation), b is the quantization bit width. This design is to make the quantized values is within the range of the lower precision:</p>
+<p><img src="c5d18de467f385b522356fb0fc30d88f.png" alt="Image"></p>
+<p>With Min/Max, the asymmetric quantization formula is as follows:</p>
+<p><img src="bdc1f96f691ba36f76e9f9d2bf500c4b.png" alt="Image"></p>
+<p>Here, the minimum bound (is negative) is chosen to corresponding to the zero-point. We can adjust the choice to change the range of the lower precision. It is called asymmetric because the range on the both sides of 0 in the real set is different.</p>
+<h4 id="Symmetric-Scale-Quantization"><a href="#Symmetric-Scale-Quantization" class="headerlink" title="Symmetric (Scale) Quantization"></a>Symmetric (Scale) Quantization</h4><p>If we set the zero-point as 0, then 0 and its neighbors in the real number set are maps to 0 in the lower precision domain. When we set the clip range are the same on both sides, i.e. max(|x|), then the input range and integer range are symmetric around zero and hence it is called symmetric quantization (Sometimes we don’t require the input range to be symmetric):</p>
+<p><img src="028f7224f92f74c2161c21585811786b.png" alt="Image"></p>
+<p>Since we need 0 maps to 0, for 8-bit quantization the integer range should be [-127, 127], deleting -128 to satisfy symmetry. Noting that it may be insignificant for 8-bit quantization since there are 256 representable values, but for lower bit quantization it should be considered signigicantly.</p>
+<p>There is no zero-point in symmetric quantization (since it’s 0), the formula is simpler:</p>
+<p><img src="ffac2798a6530bf4599c97747b8ba29a.png" alt="Image"></p>
+<h4 id="Comparison"><a href="#Comparison" class="headerlink" title="Comparison"></a>Comparison</h4><p>Since there is no zero-point in symmetric quantization, which can lead to reduction in computational cost during inference.</p>
+<p>However,  when the input range is not symmetric , such as [-20,1000], symmetric quantization will be inefficient since lots of bits in int8 are not used.</p>
+<p>So, we may choose them according to the data distribution of the input. If it’s a approximately normal distribution around 0, using symmetric quantization is better. If it is activations after ReLU, it is obviously that using asymmetric quantization is better.</p>
+<h3 id="Calibration"><a href="#Calibration" class="headerlink" title="Calibration"></a>Calibration</h3><p>Both in <strong>dynamic quantization and static quantization</strong> (In PTQ), we need to determine the clipping range of the parameters or activations. The following is the methods to define how to determine it.</p>
+<p>For weight, this range can be computed statically or pre-calculated. Since weights are almost convergent during the training of floating-point model, so their range will not vary so much. However, since the input of the model is different every time, the activations in the network may have different range and it is very likely to have outlier. So we will focus on activations to do calibration.</p>
+<p>Dynamic quantization: the range is dynamically calculated for each activation map during runtime. We can use some real-time computation (Min/Max, percentile, etc.). It will achieve high accuracy but need more computational cost.</p>
+<p>Static quantization: clipping range is pre-calculated to run a series of calibration inputs.</p>
+<h4 id="Min-Max"><a href="#Min-Max" class="headerlink" title="Min/Max"></a>Min/Max</h4><p>Min/Max is popular as we have introduced since it is simple. However,  it is susceptible to outlier data in activations, since there will be a waste for some bits position. </p>
+<p>In static quantization(need a series of calibration inputs to do pre-calculation), the formula is as follows:</p>
+<p><img src="fba76a8a630f943cde687b2512377613.png" alt="Image"></p>
+<p>where X is one local sample, x is the global.</p>
+<p>When we use calibration methods except Min/Max, the process will always be called saturated quantization contrast with Min/Max (unsaturated methods).</p>
+<h4 id="Clipping"><a href="#Clipping" class="headerlink" title="Clipping"></a>Clipping</h4><p>We can do clipping on the input range before scaling to solve the problem of outlier:</p>
+<p><img src="image-20211214162441864.png" alt="image-20211214162441864"></p>
+<p>the formula of clip function may be:</p>
+<p><img src="image-20211214162526049.png" alt="image-20211214162526049"></p>
+<p>Some of the following methods are focus on how to find the clipping bounds.</p>
+<h4 id="Exponential-moving-average-EMA"><a href="#Exponential-moving-average-EMA" class="headerlink" title="Exponential moving average (EMA)"></a>Exponential moving average (EMA)</h4><p>When clipping activations, sometimes we will use EMA (or MovingAverageMinMax):</p>
+<p><img src="ff57f0dd7bc7e0b72311341a75276378.png" alt="Image"></p>
+<p>where c set as 0.01 by default. We can see that it tends to keep the history result and fine-turning according to local sample.</p>
+<h4 id="Kullback-Leibler-divergence-KL"><a href="#Kullback-Leibler-divergence-KL" class="headerlink" title="Kullback-Leibler divergence (KL)"></a>Kullback-Leibler divergence (KL)</h4><p>KL-divergence, or relative entropy or information divergence  is a measure to show the relative entropy (how different) of probability distributions between two sets, which are defined on the same probability space.</p>
+<p>We think that quantization will cause less information loss from the original data if the data distribution of quantized data is more similar to the original data. Such information loss can be calculated by KL-divergence (The default method used by TensorRT, a PTQ method).</p>
+<p>For discrete probability distribution, P is the original data distribution that falls in several bins and Q is the quantized data histogram, the KL-divergence is:</p>
+<p> <img src="image-20211214181305441.png" alt="image-20211214181305441"></p>
+<p>In TensorRT, KL-divergence is used to optimize threshold selection (Since there is always a trade-off between range and precision of the int8 representation(for activations outliars)), the procedure is as follows:<br><img src="image-20211214182006243.png" alt="image-20211214182006243"></p>
+<h4 id="Percentile"><a href="#Percentile" class="headerlink" title="Percentile"></a>Percentile</h4><p>Set the range to a percentile of the distribution of positive/negative values(when symmetric, absolute values) seen during calibration. For example, when 99% calibration, 1% values will be clipped.</p>
+<h3 id="Dequantization"><a href="#Dequantization" class="headerlink" title="Dequantization"></a>Dequantization</h3><h3 id="Tensor-Quantization-Granularity"><a href="#Tensor-Quantization-Granularity" class="headerlink" title="Tensor  Quantization Granularity"></a>Tensor  Quantization Granularity</h3><h2 id="Post-training-quantization-PTQ"><a href="#Post-training-quantization-PTQ" class="headerlink" title="Post-training  quantization (PTQ)"></a>Post-training  quantization (PTQ)</h2><h2 id="QAT-fine-tuning-re-training"><a href="#QAT-fine-tuning-re-training" class="headerlink" title="QAT fine-tuning (re-training)"></a>QAT fine-tuning (re-training)</h2><h2 id="gradient-quantization-full-training"><a href="#gradient-quantization-full-training" class="headerlink" title="gradient quantization (full training)"></a>gradient quantization (full training)</h2>]]></content>
+      <categories>
+        <category>Knowledge</category>
+      </categories>
+      <tags>
+        <tag>Efficient_Neural_Network</tag>
+      </tags>
   </entry>
   <entry>
     <title>Mean Average Precision（MAP)</title>
@@ -105,16 +286,21 @@
       </tags>
   </entry>
   <entry>
-    <title>Quantization</title>
-    <url>/2021/12/12/Quantization/</url>
-    <content><![CDATA[<p>An introduction and summary of quantization methods.</p>
+    <title>我为什么不干正经事</title>
+    <url>/2021/10/16/%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E5%B9%B2%E6%AD%A3%E7%BB%8F%E4%BA%8B/</url>
+    <content><![CDATA[<p>前几天我在知乎上载了一个 <a href="https://www.zhihu.com/pin/1429619175618273280">“想法”</a>, 原因就是我废寝忘食地搞了两天代码后发现： 代码是搞定了，但它好像没多大作用。 一边被催进度说要创新，一边发现自己刚解决的这个事引出了后边的一大堆事。 这可不让人糟心吗 比剥核桃核桃壳刺指甲缝还糟心</p>
 <span id="more"></span>
+
+<p>正好那天LOL手游出了，我就打蛇随棍上，报复性地刷了两天手游 我一边期待有人能和我一起玩，又不知道为什么没有去玩端游 在这上边还能和老黄一起玩玩。 好呗，没人玩我就也不玩了，没兴致了，虽然现在还在领领礼包，我也不想玩了 然后我又在steam上找 找了一个之前没通关的单机 玩了老半天通关了。 然后又去叙利亚小号那买了个超凡双生，就是做底特律变人的那个游戏商，虽然中间有点芦花（但说实话美国佬在这里边芦自己我感觉更狠哈哈哈），但故事挺不错的。 我感觉这种游戏就跟看电影一样。 之前不知道在哪看到的， 这种要做选择的，云通关就没意思了，的确是这样，我现在就很后悔高中的时候把底特律变人云了。 玩超凡双生的时候，因为不能读档，我确实感觉到了玩其他单机体会不到的东西。外加他本身就是营造这种氛围，我玩的时候都很投入。</p>
+<p>好吧，游戏玩完了，但我还不想干正经的，我就在知乎上看呀看，然后看到我最近收藏的建博客。 好啊， 郎有情女有意， 一不做而不休，我就开始肝自己搭一个博客。有一说一，域名确实不贵，我这个才六十多一年。 重要的是，我真的搭成了， 而且还搞了很多有意思的东西。 我感觉。。。这真的算实现小时候的一种梦想。 毕竟我小时候不仅想过自己做游戏，也想过自己做个网站。 哎，理工男的雏形嘛，总有点奇奇怪怪的想法。我做的这个虽然没稚晖君那么牛，但我成就感也挺高的。不管有没有人访问，我自己自由地写点东西反正没问题。十月十五号的晚上，不到一天的时间，我这个是正式搭完了。期间我还给几个学校的老师套了磁，然后距今还没人回我，然后我发现也只有一个老师下载了我的CV。</p>
+<p>卷起来了卷起来了。 我确实挺慌的。 但只是内心深处很慌。 我总是很淡定。 我记得前两年的暑假， 我开车带着两个好兄弟在山路上飙车，就是那种一边是山壁一边是悬崖的山路。 在一段下坡的时候，兄弟们跟我说让我开慢点，我也觉得要慢点，于是我就踩下去了。 哈哈，结果踩的是油门。 那一刻，我的脑子清楚地意识到我踩错了，因为视觉包括触觉都告诉了我这一点，但很神奇的是，我没有慌，手臂上的肌肉很快被控制了：我在掉下悬崖之前打了个大方向盘。这件事我至今没跟我父母讲，一是不想让他们担心，二是我真的潜意识里觉得，再来一遍我还是死不了。虽然后怕还是会后怕哈哈哈。</p>
+<p>现在我就好像也在山路上飙车，一边是深不见底的悬崖，方向盘掌控在我手上。只不过这一次车后座上没有兄弟，我也不是单靠一瞬间的反应就能保证安全度过。更像是我开着一辆安装了喷射器的独轮车，然后在九曲十八弯的独木桥上行驶着。而且因为我太过懈怠没注意过桥时间，这桥在一定时间内就要塌了。一路上经历的奇奇怪怪的东西不知道今后会给我什么帮助，但至少这次它们是真帮不上忙。祝我好运吧！</p>
 ]]></content>
       <categories>
-        <category>Knowledge</category>
+        <category>随笔</category>
       </categories>
       <tags>
-        <tag>Efficient_Neural_Network</tag>
+        <tag>thinking</tag>
       </tags>
   </entry>
   <entry>
@@ -615,99 +801,19 @@
       </tags>
   </entry>
   <entry>
-    <title>Linux服务器搭建</title>
-    <url>/2021/10/16/Linux%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/</url>
-    <content><![CDATA[<p>这里上传一些当时搭服务器的技巧吧 也算是备忘录</p>
-<p>##传文件</p>
-<p>###1.传文件到服务器</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ scp /path/file（这部分为本地的路径） user（远端目标用户名）@host（远端目标IP）:/home/username（文件存储路径）</span><br></pre></td></tr></table></figure>
+    <title>First Blog</title>
+    <url>/2021/10/15/First-Blog/</url>
+    <content><![CDATA[<p>今天突发奇想心血来潮在这香港入秋(?)的夜里弄好了一个personal blog</p>
+<p>期间怎么买域名 怎么设置github就不足为道了哈哈哈</p>
 <span id="more"></span>
 
-<p>###2.从服务器下载文件</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ scp user（远端用户名）@host（远端IP）:/path/file（下载文件在远端的路径） localpathorfile（本地文件存放路径）</span><br></pre></td></tr></table></figure>
-
-<p>##安装anaconda</p>
-<p>###1.下载</p>
-<p>清华源(一般在内地因为下外网的东西比较麻烦，转到清华源下会比较好)：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/?C=M&amp;O=A</span><br></pre></td></tr></table></figure>
-<p>传到服务器上：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ scp Anaconda3-2019.10-Linux-x86_64.sh username@远程服务器IP:/home/username</span><br></pre></td></tr></table></figure>
-
-<p>###2.安装</p>
-<p>在服务器文件夹下：</p>
-<p>用bash命令：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ bash Anaconda3-2019.10-Linux-x86_64.sh</span><br></pre></td></tr></table></figure>
-<p> 连续（enter，yes，yes）</p>
-<p>##conda常用的命令</p>
-<pre><code>1）conda list 查看安装了哪些包。
-
-2）conda env list 或 conda info -e 查看当前存在哪些虚拟环境
-
-3）conda update conda 检查更新当前conda
-
-4）conda --version 查询conda版本 （在环境里打开命令行输入python --version可以检查当前python的版本）
-
-5）conda -h 查询conda的命令使用
-</code></pre>
-<p>创建python虚拟环境</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ conda create -n your_env_name python=X.X</span><br></pre></td></tr></table></figure>
-
-<p>激活(或切换不同python版本)的虚拟环境<br>Linux: </p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">source</span> activate your_env_name(虚拟环境名称)</span><br></pre></td></tr></table></figure>
-
-<p>Windows: </p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ activate your_env_name(虚拟环境名称) (conda activate)</span><br></pre></td></tr></table></figure>
-<p>(这里我一般用conda activate 就好了)</p>
-<p>关闭虚拟环境<br>Linux: </p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">source</span> deactivate</span><br></pre></td></tr></table></figure>
-
-<p>Windows: </p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ deactivate （conda deactivate）</span><br></pre></td></tr></table></figure>
-
-<p>删除虚拟环境</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ conda remove -n your_env_name(虚拟环境名称) --all</span><br></pre></td></tr></table></figure>
-<p>##用Xshell远程连接服务器上的jupyter notebook</p>
-<p>这个我觉得比较重要，至少方便做一些可视化的事情，然后传输文件也很方便</p>
-<p>###（1）生成config文件<br>    在环境里输入</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ jupyter notebook --generate-config</span><br></pre></td></tr></table></figure>
-<p>###（2）生成密码<br>    打开python：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ from notebook.auth import passwd</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ passwd()</span><br></pre></td></tr></table></figure>
-<pre><code>#输入两次密码
-#Enter password: 
-#Verify password: 
-#然后出现
-#&#39;sha1:xxxxxxxxxxxxxxxxx&#39;
-</code></pre>
-<p>###（3）修改config文件<br>    进入config文件：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ vim ~/.jupyter/jupyter_notebook_config.py</span><br></pre></td></tr></table></figure>
-<pre><code>找空位按i然后直接粘贴：
-</code></pre>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ c.NotebookApp.ip=<span class="string">&#x27;*&#x27;</span></span><br><span class="line">$ c.NotebookApp.password = u<span class="string">&#x27;sha1:xxxxxx&#x27;</span><span class="comment">#刚才复制的</span></span><br><span class="line">$ c.NotebookApp.open_browser = False</span><br><span class="line">$ c.NotebookApp.port =7548 <span class="comment">#随便指定一个目标端口</span></span><br></pre></td></tr></table></figure>
-<pre><code>退出vim：
-先按esc退出编辑状态
-然后打出：
-输入wq
-enter即可
-</code></pre>
-<p>###（4）修改x-shell的channel<br>    在服务器的属性的隧道里</p>
-<pre><code>添加
-本地（拨出）
-localhost
-1234（某侦听端口数字）
-x仅限本地连接
-localhost
-7548（某目标端口）
-</code></pre>
-<p>###（5）运行jupyter notebook<br>    linux上输入：<br>    jupyter notebook<br>    然后在本地浏览器输入127.0.0.1:1234，1234是上一步设置的侦听端口<br>    再在打开的界面输入密码就OK了</p>
-<p><img src="R.jpg" alt="R"></p>
+<p>现在很多功能还没实现 点进去就是404 就等着之后更新了吧</p>
+<p>其实早就想找个地方写点自己的东西了 毕竟我感觉我平时的思考还蛮多的 又没有什么好地方写东西 就想着这样建立一个网站是最好的了 </p>
+<p>至于之后会更新什么  感觉一切都有可能吧！</p>
+<p>嘿嘿 是不是很cool？</p>
+<p>###更新日志</p>
+<p>10-15 增加评论和分享功能<br>10-16 增加看板娘，增加日夜模式交换按钮，增加留言板匿名</p>
 ]]></content>
-      <categories>
-        <category>Code</category>
-      </categories>
-      <tags>
-        <tag>skill</tag>
-      </tags>
   </entry>
   <entry>
     <title>终于像样了！</title>
@@ -719,24 +825,6 @@ localhost
       </categories>
       <tags>
         <tag>life</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>我为什么不干正经事</title>
-    <url>/2021/10/16/%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E5%B9%B2%E6%AD%A3%E7%BB%8F%E4%BA%8B/</url>
-    <content><![CDATA[<p>前几天我在知乎上载了一个 <a href="https://www.zhihu.com/pin/1429619175618273280">“想法”</a>, 原因就是我废寝忘食地搞了两天代码后发现： 代码是搞定了，但它好像没多大作用。 一边被催进度说要创新，一边发现自己刚解决的这个事引出了后边的一大堆事。 这可不让人糟心吗 比剥核桃核桃壳刺指甲缝还糟心</p>
-<span id="more"></span>
-
-<p>正好那天LOL手游出了，我就打蛇随棍上，报复性地刷了两天手游 我一边期待有人能和我一起玩，又不知道为什么没有去玩端游 在这上边还能和老黄一起玩玩。 好呗，没人玩我就也不玩了，没兴致了，虽然现在还在领领礼包，我也不想玩了 然后我又在steam上找 找了一个之前没通关的单机 玩了老半天通关了。 然后又去叙利亚小号那买了个超凡双生，就是做底特律变人的那个游戏商，虽然中间有点芦花（但说实话美国佬在这里边芦自己我感觉更狠哈哈哈），但故事挺不错的。 我感觉这种游戏就跟看电影一样。 之前不知道在哪看到的， 这种要做选择的，云通关就没意思了，的确是这样，我现在就很后悔高中的时候把底特律变人云了。 玩超凡双生的时候，因为不能读档，我确实感觉到了玩其他单机体会不到的东西。外加他本身就是营造这种氛围，我玩的时候都很投入。</p>
-<p>好吧，游戏玩完了，但我还不想干正经的，我就在知乎上看呀看，然后看到我最近收藏的建博客。 好啊， 郎有情女有意， 一不做而不休，我就开始肝自己搭一个博客。有一说一，域名确实不贵，我这个才六十多一年。 重要的是，我真的搭成了， 而且还搞了很多有意思的东西。 我感觉。。。这真的算实现小时候的一种梦想。 毕竟我小时候不仅想过自己做游戏，也想过自己做个网站。 哎，理工男的雏形嘛，总有点奇奇怪怪的想法。我做的这个虽然没稚晖君那么牛，但我成就感也挺高的。不管有没有人访问，我自己自由地写点东西反正没问题。十月十五号的晚上，不到一天的时间，我这个是正式搭完了。期间我还给几个学校的老师套了磁，然后距今还没人回我，然后我发现也只有一个老师下载了我的CV。</p>
-<p>卷起来了卷起来了。 我确实挺慌的。 但只是内心深处很慌。 我总是很淡定。 我记得前两年的暑假， 我开车带着两个好兄弟在山路上飙车，就是那种一边是山壁一边是悬崖的山路。 在一段下坡的时候，兄弟们跟我说让我开慢点，我也觉得要慢点，于是我就踩下去了。 哈哈，结果踩的是油门。 那一刻，我的脑子清楚地意识到我踩错了，因为视觉包括触觉都告诉了我这一点，但很神奇的是，我没有慌，手臂上的肌肉很快被控制了：我在掉下悬崖之前打了个大方向盘。这件事我至今没跟我父母讲，一是不想让他们担心，二是我真的潜意识里觉得，再来一遍我还是死不了。虽然后怕还是会后怕哈哈哈。</p>
-<p>现在我就好像也在山路上飙车，一边是深不见底的悬崖，方向盘掌控在我手上。只不过这一次车后座上没有兄弟，我也不是单靠一瞬间的反应就能保证安全度过。更像是我开着一辆安装了喷射器的独轮车，然后在九曲十八弯的独木桥上行驶着。而且因为我太过懈怠没注意过桥时间，这桥在一定时间内就要塌了。一路上经历的奇奇怪怪的东西不知道今后会给我什么帮助，但至少这次它们是真帮不上忙。祝我好运吧！</p>
-]]></content>
-      <categories>
-        <category>随笔</category>
-      </categories>
-      <tags>
-        <tag>thinking</tag>
       </tags>
   </entry>
 </search>

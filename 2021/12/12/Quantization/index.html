@@ -27,11 +27,30 @@
 <meta property="og:site_name" content="流千过客-Ed-P">
 <meta property="og:description" content="An introduction and summary of quantization methods.">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://edwardpei.com/2021/12/12/Quantization/nanotes2021students.pdf.png">
+<meta property="og:image" content="https://edwardpei.com/2021/12/12/Quantization/image-20211213104448578.png">
+<meta property="og:image" content="https://edwardpei.com/2021/12/12/Quantization/image-20211213110511521.png">
+<meta property="og:image" content="https://edwardpei.com/2021/12/12/Quantization/image-20211213112908737.png">
+<meta property="og:image" content="https://edwardpei.com/2021/12/12/Quantization/image-20211213112930698.png">
+<meta property="og:image" content="https://edwardpei.com/2021/12/12/Quantization/image-20211213113033704.png">
+<meta property="og:image" content="https://edwardpei.com/2021/12/12/Quantization/image-20211213174837627.png">
+<meta property="og:image" content="https://edwardpei.com/2021/12/12/Quantization/image-20211214144955255.png">
+<meta property="og:image" content="https://edwardpei.com/2021/12/12/Quantization/c5d18de467f385b522356fb0fc30d88f.png">
+<meta property="og:image" content="https://edwardpei.com/2021/12/12/Quantization/bdc1f96f691ba36f76e9f9d2bf500c4b.png">
+<meta property="og:image" content="https://edwardpei.com/2021/12/12/Quantization/028f7224f92f74c2161c21585811786b.png">
+<meta property="og:image" content="https://edwardpei.com/2021/12/12/Quantization/ffac2798a6530bf4599c97747b8ba29a.png">
+<meta property="og:image" content="https://edwardpei.com/2021/12/12/Quantization/fba76a8a630f943cde687b2512377613.png">
+<meta property="og:image" content="https://edwardpei.com/2021/12/12/Quantization/image-20211214162441864.png">
+<meta property="og:image" content="https://edwardpei.com/2021/12/12/Quantization/image-20211214162526049.png">
+<meta property="og:image" content="https://edwardpei.com/2021/12/12/Quantization/ff57f0dd7bc7e0b72311341a75276378.png">
+<meta property="og:image" content="https://edwardpei.com/2021/12/12/Quantization/image-20211214181305441.png">
+<meta property="og:image" content="https://edwardpei.com/2021/12/12/Quantization/image-20211214182006243.png">
 <meta property="article:published_time" content="2021-12-12T13:22:00.000Z">
-<meta property="article:modified_time" content="2021-12-12T13:28:04.000Z">
+<meta property="article:modified_time" content="2021-12-14T11:32:00.000Z">
 <meta property="article:author" content="Edward PEI">
 <meta property="article:tag" content="Efficient_Neural_Network">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://edwardpei.com/2021/12/12/Quantization/nanotes2021students.pdf.png">
 
 
 <link rel="canonical" href="https://edwardpei.com/2021/12/12/Quantization/">
@@ -148,7 +167,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -161,6 +180,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Preliminary"><span class="nav-number">1.</span> <span class="nav-text">Preliminary</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Intro"><span class="nav-number">1.1.</span> <span class="nav-text">Intro.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Binary-system"><span class="nav-number">1.2.</span> <span class="nav-text">Binary system</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Normalized-scientific-notation-and-floating-point-representation"><span class="nav-number">1.2.1.</span> <span class="nav-text">Normalized scientific notation and floating-point  representation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Integer-in-binary"><span class="nav-number">1.2.2.</span> <span class="nav-text">Integer in binary</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Why-quantization"><span class="nav-number">1.3.</span> <span class="nav-text">Why quantization?</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Basic-Definition"><span class="nav-number">2.</span> <span class="nav-text">Basic Definition</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Asymmetric-and-symmetric-quantization"><span class="nav-number">2.1.</span> <span class="nav-text">Asymmetric and symmetric quantization</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Asymmetric-Affine-Quantization"><span class="nav-number">2.1.1.</span> <span class="nav-text">Asymmetric (Affine) Quantization</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Symmetric-Scale-Quantization"><span class="nav-number">2.1.2.</span> <span class="nav-text">Symmetric (Scale) Quantization</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Comparison"><span class="nav-number">2.1.3.</span> <span class="nav-text">Comparison</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Calibration"><span class="nav-number">2.2.</span> <span class="nav-text">Calibration</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Min-Max"><span class="nav-number">2.2.1.</span> <span class="nav-text">Min&#x2F;Max</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Clipping"><span class="nav-number">2.2.2.</span> <span class="nav-text">Clipping</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Exponential-moving-average-EMA"><span class="nav-number">2.2.3.</span> <span class="nav-text">Exponential moving average (EMA)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Kullback-Leibler-divergence-KL"><span class="nav-number">2.2.4.</span> <span class="nav-text">Kullback-Leibler divergence (KL)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Percentile"><span class="nav-number">2.2.5.</span> <span class="nav-text">Percentile</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dequantization"><span class="nav-number">2.3.</span> <span class="nav-text">Dequantization</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tensor-Quantization-Granularity"><span class="nav-number">2.4.</span> <span class="nav-text">Tensor  Quantization Granularity</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Post-training-quantization-PTQ"><span class="nav-number">3.</span> <span class="nav-text">Post-training  quantization (PTQ)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#QAT-fine-tuning-re-training"><span class="nav-number">4.</span> <span class="nav-text">QAT fine-tuning (re-training)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gradient-quantization-full-training"><span class="nav-number">5.</span> <span class="nav-text">gradient quantization (full training)</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -249,10 +269,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2021-12-12 21:22:00 / 修改时间：21:28:04" itemprop="dateCreated datePublished" datetime="2021-12-12T21:22:00+08:00">2021-12-12</time>
+      <time title="创建时间：2021-12-12 21:22:00" itemprop="dateCreated datePublished" datetime="2021-12-12T21:22:00+08:00">2021-12-12</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-12-14 19:32:00" itemprop="dateModified" datetime="2021-12-14T19:32:00+08:00">2021-12-14</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -270,14 +296,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>46</span>
+      <span>11k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
+      <span>10 分钟</span>
     </span>
 </div>
 
@@ -291,6 +317,94 @@
         <p>An introduction and summary of quantization methods.</p>
 <span id="more"></span>
 
+<h2 id="Preliminary"><a href="#Preliminary" class="headerlink" title="Preliminary"></a>Preliminary</h2><h3 id="Intro"><a href="#Intro" class="headerlink" title="Intro."></a>Intro.</h3><p>What does quantization mean? Efficient? How can it work?</p>
+<p>In Wikipedia, they define quantization as: “Quantization, in mathematics and digital signal processing, is the process of mapping input values from a large set (often a continuous set) to output values in a (countable) smaller set, often with a finite number of elements.”  It’s trivial that we need precise numbers during computation to obtain precise results. A precise number is always the values in the real number set, which is actually a large set. </p>
+<p>However, using more precise numbers means that you needs more memory to store it (it’s the same in the real world, imaging that you are struggling to remember some specific things, such as <em>π</em> ). So, reducing the precision to remember something easily is natural. And that is what quantization does. For computer, it is not different, and it may be more clear to see why. The goal of quantization is to reduce the precision of the parameters (weights, bias) and the intermediate activations to low-precision.</p>
+<h3 id="Binary-system"><a href="#Binary-system" class="headerlink" title="Binary system"></a>Binary system</h3><p>We use decimal system in our daily life, with 10 numbers and can write any number in powers of 10:</p>
+<p><img src="nanotes2021students.pdf.png" alt="nanotes2021students.pdf"></p>
+<p>Computers work internally in the binary system with only two digits 0 and 1, the real number 9.90625 can be written as:</p>
+<p>![nanotes2021students.pdf (1)](nanotes2021students.pdf (1).png)</p>
+<h4 id="Normalized-scientific-notation-and-floating-point-representation"><a href="#Normalized-scientific-notation-and-floating-point-representation" class="headerlink" title="Normalized scientific notation and floating-point  representation"></a>Normalized scientific notation and floating-point  representation</h4><p>In decimal system, we express any real number in normalized scientific notation:</p>
+<p><img src="image-20211213104448578.png" alt="image-20211213104448578"></p>
+<p>where r is a real number in the range 0.1 &lt;= r &lt; 1 and n is an integer.</p>
+<p>The real number in the form 0.0025 is called a fixed-point number, and its floating-point representation is 0.259*10^{-2} (just the normalized scientific notation). </p>
+<p>Since computers can only operate using real numbers expressed in a <strong>fixed</strong> number of digits (depending on their word length), by using the floating-point representation we can express the numbers in a larger range. For example, with a fixed 8 digits, one can only express the real number in fixed-point form from 0.0000001 (10^-7) to 9.9999999 (≈10). However, in the floating-point representation the range is from 10^-99 to 10^99 if we use 2 of the digits to represent a power if 10. But at what cost? The accuracy of the numbers of floating-point representation will be relatively lower (it is similar to our main topic quantization).</p>
+<p>In binary system, we have similar representation:</p>
+<p><img src="image-20211213110511521.png" alt="image-20211213110511521"></p>
+<p>where 1*2^-1 &lt;= q &lt; 1( 1/2,1) and m is an integer. q is called the mantissa and m is called the exponent and they are both in the binary form. Actually, m decides the movement of the binary point in q. For example, if m equals to 4 (in binary form 100), we may shift  the binary point 4 places to the right.</p>
+<p>Since the first nonzero bit must be 1 in the mantissa, we can express q as (1.f)_2 and hence the first bit does need to store.</p>
+<p>The accuracy of a number represented by a computer depends on the word length of the computer, such as 32 bits, 64 bits. The word length is divided into three section in the floating-point representation (here use 32 bits as example): 1. one bit for the sign if q; 2. 8 bits for m (there also contains 1 bit for m’s sign); 3. 23 bits for q.</p>
+<p>(FP16: 1: sign, 5: m, 10: q.) </p>
+<p>(FP32: Single-precision floating-point format; FP16: Half-precision floating-point format)</p>
+<p>It has the following form:</p>
+<p><img src="image-20211213112908737.png" alt="image-20211213112908737"></p>
+<p>where</p>
+<p><img src="image-20211213112930698.png" alt="image-20211213112930698"></p>
+<p>and</p>
+<p><img src="image-20211213113033704.png" alt="image-20211213113033704"></p>
+<p>Noting that m has 7 digits in binary, so the largest m is 127. Hence a computer with word length 32 bits can handle numbers as small as (1.f * 2^-m) and as large as (1.f * 2^m). (Can not be used directly, the range of m has some trick, you can see in the next section)</p>
+<h4 id="Integer-in-binary"><a href="#Integer-in-binary" class="headerlink" title="Integer in binary"></a>Integer in binary</h4><p><strong>int8</strong>: using 1 byte (8 bits) to express the integer with sign.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">The first bit is used to express the sign, 1-negative; 0-positive.</span><br><span class="line"></span><br><span class="line">The largest value in the binary form:</span><br><span class="line">0 1 1 1 1 1 1 1</span><br><span class="line"></span><br><span class="line">In decimal form:</span><br><span class="line">0       1       1       1       1       1       1       1</span><br><span class="line">0*2^7 + 1*2^6 + 1*2^5 + 1*2^4 + 1*2^3 + 1*2^2 + 1*2^1 + 1*2^0</span><br><span class="line">0     + 64    + 32    + 16    + 8     + 4     + 2     + 1</span><br><span class="line">= 127</span><br><span class="line"></span><br><span class="line">The smallest value:</span><br><span class="line">1 0 0 0 0 0 0 0</span><br><span class="line"></span><br><span class="line">In decimal form:</span><br><span class="line"> 1       0       0       0       0       0       0       0</span><br><span class="line">-1*2^7 + 0*2^6 + 0*2^5 + 0*2^4 + 0*2^3 + 0*2^2 + 0*2^1 + 0*2^0</span><br><span class="line">-128   + 0     + 0     + 0     + 0     + 0     + 0     + 0</span><br><span class="line"> = -128</span><br></pre></td></tr></table></figure>
+
+<p><strong>uint8</strong>: using 1 byte (8 bits) to express the integer without sign.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">2^8-1 = 256-1 = 255</span><br><span class="line">since 0 occupies one position.</span><br><span class="line">0~255</span><br></pre></td></tr></table></figure>
+
+<h3 id="Why-quantization"><a href="#Why-quantization" class="headerlink" title="Why quantization?"></a>Why quantization?</h3><p>So, quantization is just to transfer the values (weights, bias, activations) stored in the floating-point form in 32FP to the data type int8/unit8. (8/4/2/1 bit quantization, 8 bit is the most common one.) </p>
+<p>When we apply quantization into a deep learning model</p>
+<ol>
+<li><p>More efficient computation. It is more efficient for many processors to handle integer calculation than corresponding floating -point calculations (Why?). On CPU, the latency of floating-point calculation command is averagely longer than the corresponding integer calculation command. </p>
+</li>
+<li><p>Reduce memory footprint and storage footprint. Reduce the time cost in memory access. For FP32, each weight/bias need 32-bit storage, and it will become 8-bit after quantization. </p>
+</li>
+<li><p>(Reduce the energy consumption)</p>
+</li>
+</ol>
+<p>Although quantization can achieve good result in reducing the network computation, we still need complex and high-accuracy model in training to capture the slight gradient change. It’s a trade-off between the precision and efficiency.</p>
+<h2 id="Basic-Definition"><a href="#Basic-Definition" class="headerlink" title="Basic Definition"></a>Basic Definition</h2><p>The process of quantization is actually a rounding or truncation problem. There is a general function that maps real values in floating point to a lower precision range:</p>
+<p><img src="image-20211213174837627.png" alt="image-20211213174837627"></p>
+<p>where x is a real value input (weight, bias, activation), q is the value after quantization, s is called scaling factor, z is called the zero point. s may be variable in different methods, which will be discussed later(calibration). z can be used to adjust the true zero in some asymmetrical quantization approaches.</p>
+<p>(activation is the output of the activation function of each layer)</p>
+<p>For the rounding function, it is always the same as the round function in python, that is four dropping and five filling in Chinese **(**not exactly, the first reason is that the rounding function varies with the version of python: py2: “Values are rounded to the closest multiple of 10 to the power minus n digits; if two multiples are equally close, rounding is done away from 0.” py3: “values are rounded to the closest multiple of 10 to the power minus n digits; if two multiples are equally close, rounding is done toward the even choice.” The second reason is that the rounding is influenced by the rounding errors of computer because of the world length limitation. Hence, you may use the functions in math or decimal modules of python. <strong>)</strong>. Sometimes researchers use the int() function in python, that is remaining the integer part regardless of the value after the decimal point. </p>
+<p>Noting that here z is set inside the rounding function, but there also are some algorithms set z outside the rounding function. They are different in the searching domain of  z, the former is in real numbers domain and the latter is in the lower precision domain. The consequence is that (you can prove it by using mathematics by yourself) the domain of real values that will be quantized into zero-point will be different (yes, it is a multiple to 1 mapping): If you set it before rounding, then you can choose a specific real number and the values around it (the range depends on s) to be quantized into 0. If you set it after rounding, the you can choose a value in the lower precision domain, for example a integer in int8, then actually we are finding values that will be rounded to z ( it’s just 0, since 0 with the values around it satisfies coincidently). I should emphasize that they are different! Since the rounding function is not linear, so you can’t do the operation like h(a+b)=h(a)+h(b). Note again that, when z is 0, these two ways are the same.</p>
+<h3 id="Asymmetric-and-symmetric-quantization"><a href="#Asymmetric-and-symmetric-quantization" class="headerlink" title="Asymmetric and symmetric quantization"></a>Asymmetric and symmetric quantization</h3><h4 id="Asymmetric-Affine-Quantization"><a href="#Asymmetric-Affine-Quantization" class="headerlink" title="Asymmetric (Affine) Quantization"></a>Asymmetric (Affine) Quantization</h4><p>For convenience, let’s first define s as:</p>
+<p><img src="image-20211214144955255.png" alt="image-20211214144955255"></p>
+<p>We can use a widely used calibration method Min/Max (discuss later), which set the clip range as [β, α] = [Min_x, Max_X] and is always used in the asymmetric or symmetric quantization. Max_x and min_x is the maximum and minimum bounds of the quantizing real values (weights, bias, activation), b is the quantization bit width. This design is to make the quantized values is within the range of the lower precision:</p>
+<p><img src="c5d18de467f385b522356fb0fc30d88f.png" alt="Image"></p>
+<p>With Min/Max, the asymmetric quantization formula is as follows:</p>
+<p><img src="bdc1f96f691ba36f76e9f9d2bf500c4b.png" alt="Image"></p>
+<p>Here, the minimum bound (is negative) is chosen to corresponding to the zero-point. We can adjust the choice to change the range of the lower precision. It is called asymmetric because the range on the both sides of 0 in the real set is different.</p>
+<h4 id="Symmetric-Scale-Quantization"><a href="#Symmetric-Scale-Quantization" class="headerlink" title="Symmetric (Scale) Quantization"></a>Symmetric (Scale) Quantization</h4><p>If we set the zero-point as 0, then 0 and its neighbors in the real number set are maps to 0 in the lower precision domain. When we set the clip range are the same on both sides, i.e. max(|x|), then the input range and integer range are symmetric around zero and hence it is called symmetric quantization (Sometimes we don’t require the input range to be symmetric):</p>
+<p><img src="028f7224f92f74c2161c21585811786b.png" alt="Image"></p>
+<p>Since we need 0 maps to 0, for 8-bit quantization the integer range should be [-127, 127], deleting -128 to satisfy symmetry. Noting that it may be insignificant for 8-bit quantization since there are 256 representable values, but for lower bit quantization it should be considered signigicantly.</p>
+<p>There is no zero-point in symmetric quantization (since it’s 0), the formula is simpler:</p>
+<p><img src="ffac2798a6530bf4599c97747b8ba29a.png" alt="Image"></p>
+<h4 id="Comparison"><a href="#Comparison" class="headerlink" title="Comparison"></a>Comparison</h4><p>Since there is no zero-point in symmetric quantization, which can lead to reduction in computational cost during inference.</p>
+<p>However,  when the input range is not symmetric , such as [-20,1000], symmetric quantization will be inefficient since lots of bits in int8 are not used.</p>
+<p>So, we may choose them according to the data distribution of the input. If it’s a approximately normal distribution around 0, using symmetric quantization is better. If it is activations after ReLU, it is obviously that using asymmetric quantization is better.</p>
+<h3 id="Calibration"><a href="#Calibration" class="headerlink" title="Calibration"></a>Calibration</h3><p>Both in <strong>dynamic quantization and static quantization</strong> (In PTQ), we need to determine the clipping range of the parameters or activations. The following is the methods to define how to determine it.</p>
+<p>For weight, this range can be computed statically or pre-calculated. Since weights are almost convergent during the training of floating-point model, so their range will not vary so much. However, since the input of the model is different every time, the activations in the network may have different range and it is very likely to have outlier. So we will focus on activations to do calibration.</p>
+<p>Dynamic quantization: the range is dynamically calculated for each activation map during runtime. We can use some real-time computation (Min/Max, percentile, etc.). It will achieve high accuracy but need more computational cost.</p>
+<p>Static quantization: clipping range is pre-calculated to run a series of calibration inputs.</p>
+<h4 id="Min-Max"><a href="#Min-Max" class="headerlink" title="Min/Max"></a>Min/Max</h4><p>Min/Max is popular as we have introduced since it is simple. However,  it is susceptible to outlier data in activations, since there will be a waste for some bits position. </p>
+<p>In static quantization(need a series of calibration inputs to do pre-calculation), the formula is as follows:</p>
+<p><img src="fba76a8a630f943cde687b2512377613.png" alt="Image"></p>
+<p>where X is one local sample, x is the global.</p>
+<p>When we use calibration methods except Min/Max, the process will always be called saturated quantization contrast with Min/Max (unsaturated methods).</p>
+<h4 id="Clipping"><a href="#Clipping" class="headerlink" title="Clipping"></a>Clipping</h4><p>We can do clipping on the input range before scaling to solve the problem of outlier:</p>
+<p><img src="image-20211214162441864.png" alt="image-20211214162441864"></p>
+<p>the formula of clip function may be:</p>
+<p><img src="image-20211214162526049.png" alt="image-20211214162526049"></p>
+<p>Some of the following methods are focus on how to find the clipping bounds.</p>
+<h4 id="Exponential-moving-average-EMA"><a href="#Exponential-moving-average-EMA" class="headerlink" title="Exponential moving average (EMA)"></a>Exponential moving average (EMA)</h4><p>When clipping activations, sometimes we will use EMA (or MovingAverageMinMax):</p>
+<p><img src="ff57f0dd7bc7e0b72311341a75276378.png" alt="Image"></p>
+<p>where c set as 0.01 by default. We can see that it tends to keep the history result and fine-turning according to local sample.</p>
+<h4 id="Kullback-Leibler-divergence-KL"><a href="#Kullback-Leibler-divergence-KL" class="headerlink" title="Kullback-Leibler divergence (KL)"></a>Kullback-Leibler divergence (KL)</h4><p>KL-divergence, or relative entropy or information divergence  is a measure to show the relative entropy (how different) of probability distributions between two sets, which are defined on the same probability space.</p>
+<p>We think that quantization will cause less information loss from the original data if the data distribution of quantized data is more similar to the original data. Such information loss can be calculated by KL-divergence (The default method used by TensorRT, a PTQ method).</p>
+<p>For discrete probability distribution, P is the original data distribution that falls in several bins and Q is the quantized data histogram, the KL-divergence is:</p>
+<p> <img src="image-20211214181305441.png" alt="image-20211214181305441"></p>
+<p>In TensorRT, KL-divergence is used to optimize threshold selection (Since there is always a trade-off between range and precision of the int8 representation(for activations outliars)), the procedure is as follows:<br><img src="image-20211214182006243.png" alt="image-20211214182006243"></p>
+<h4 id="Percentile"><a href="#Percentile" class="headerlink" title="Percentile"></a>Percentile</h4><p>Set the range to a percentile of the distribution of positive/negative values(when symmetric, absolute values) seen during calibration. For example, when 99% calibration, 1% values will be clipped.</p>
+<h3 id="Dequantization"><a href="#Dequantization" class="headerlink" title="Dequantization"></a>Dequantization</h3><h3 id="Tensor-Quantization-Granularity"><a href="#Tensor-Quantization-Granularity" class="headerlink" title="Tensor  Quantization Granularity"></a>Tensor  Quantization Granularity</h3><h2 id="Post-training-quantization-PTQ"><a href="#Post-training-quantization-PTQ" class="headerlink" title="Post-training  quantization (PTQ)"></a>Post-training  quantization (PTQ)</h2><h2 id="QAT-fine-tuning-re-training"><a href="#QAT-fine-tuning-re-training" class="headerlink" title="QAT fine-tuning (re-training)"></a>QAT fine-tuning (re-training)</h2><h2 id="gradient-quantization-full-training"><a href="#gradient-quantization-full-training" class="headerlink" title="gradient quantization (full training)"></a>gradient quantization (full training)</h2>
     </div>
 
     
@@ -372,13 +486,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">42k</span>
+    <span title="站点总字数">53k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">38 分钟</span>
+    <span title="站点阅读时长">48 分钟</span>
   </span>
 </div>
   <div class="addthis_inline_share_toolbox">
