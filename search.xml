@@ -1,6 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>First Blog</title>
+    <url>/2021/10/15/First-Blog/</url>
+    <content><![CDATA[<p>今天突发奇想心血来潮在这香港入秋(?)的夜里弄好了一个personal blog</p>
+<p>期间怎么买域名 怎么设置github就不足为道了哈哈哈</p>
+<span id="more"></span>
+
+<p>现在很多功能还没实现 点进去就是404 就等着之后更新了吧</p>
+<p>其实早就想找个地方写点自己的东西了 毕竟我感觉我平时的思考还蛮多的 又没有什么好地方写东西 就想着这样建立一个网站是最好的了 </p>
+<p>至于之后会更新什么  感觉一切都有可能吧！</p>
+<p>嘿嘿 是不是很cool？</p>
+<p>###更新日志</p>
+<p>10-15 增加评论和分享功能<br>10-16 增加看板娘，增加日夜模式交换按钮，增加留言板匿名</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>Knowledge_Distillation</title>
+    <url>/2021/12/12/Knowledge-Distillation/</url>
+    <content><![CDATA[<p>An introduction and summary of KD(knowledge distillation) methods.</p>
+<span id="more"></span>
+]]></content>
+      <categories>
+        <category>Knowledge</category>
+      </categories>
+      <tags>
+        <tag>Efficient_Neural_Network</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>IoU</title>
     <url>/2021/11/10/IoU/</url>
     <content><![CDATA[<h3 id="Intro"><a href="#Intro" class="headerlink" title="Intro."></a>Intro.</h3><p>IoU, Intersection over Union, can be used as a similarity measure for object detection on images. (It is also called Jaccard index since it is developed by Paul Jaccard) </p>
@@ -22,19 +50,6 @@
       <tags>
         <tag>python</tag>
         <tag>object_detection</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Knowledge_Distillation</title>
-    <url>/2021/12/12/Knowledge-Distillation/</url>
-    <content><![CDATA[<p>An introduction and summary of KD(knowledge distillation) methods.</p>
-<span id="more"></span>
-]]></content>
-      <categories>
-        <category>Knowledge</category>
-      </categories>
-      <tags>
-        <tag>Efficient_Neural_Network</tag>
       </tags>
   </entry>
   <entry>
@@ -133,6 +148,58 @@ localhost
       </tags>
   </entry>
   <entry>
+    <title>Mean Average Precision（MAP)</title>
+    <url>/2021/11/25/Mean-Average-Precision%EF%BC%88MAP%EF%BC%89/</url>
+    <content><![CDATA[<h3 id="Precision-amp-Recall"><a href="#Precision-amp-Recall" class="headerlink" title="Precision&amp;Recall"></a>Precision&amp;Recall</h3><p>The formula of precision and recall is:</p>
+<span id="more"></span>
+
+<p><img src="equation.svg" alt="equation"></p>
+<p><img src="equation2.svg" alt="equation2"></p>
+<p>Precision is used to evaluate the accuracy of test result, which is actually the proportion of  true tested result in the total result.</p>
+<p>Recall is used to evaluate the quality of the test result, which is actually the proportion of the true tested result in the total true result, that is , including the true tested result and the true non-tested result.</p>
+<h4 id="TP-TN-FP-FN"><a href="#TP-TN-FP-FN" class="headerlink" title="TP, TN, FP, FN"></a>TP, TN, FP, FN</h4><p>To have a better understanding of precision and recall, we should know the definition of TP, TN, FP and FN.</p>
+<p><img src="v2-761706f5b1fe36873ba1bb20c7d1d447_720w.jpg" alt="v2-761706f5b1fe36873ba1bb20c7d1d447_720w"></p>
+<p>As the graph indicated, all the data is first divided into two part: positive and negative. They  are the annotation that pre-labeled to the data, or you can say it is the ‘ground truth’.</p>
+<p>Then after testing, we have another set that is  tested by the algorithm, which is the data that the testing algorithm/model thinks positive. It also contains two parts:  1. the algorithm tests right, the data that is indeed positive. 2. the algorithm tests wrong, the data that is actually negative. These two part is just TP and FP, respectively.</p>
+<p>There remains two parts in the data that the algorithm doesn’t think positive: 1, the data is positive but is not tested positive. 2. the data is negative but is not tested positive too. They are FN and TN.</p>
+<p>A short summarization:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">TP: true positive, the data is ground-truth positive and is also tested as positive.</span><br><span class="line">TN: true negative, the data is ground-truth negative and is not tested as positive.</span><br><span class="line">FP: false positive, the data is ground-truth negative but is tested as positive.</span><br><span class="line">FN: false negative, the data is ground-truth positive but is tested as negative.</span><br></pre></td></tr></table></figure>
+
+<p>You may be reminded that the words true/false is adjective.</p>
+<h3 id="Labeling-based-on-IoU"><a href="#Labeling-based-on-IoU" class="headerlink" title="Labeling based on IoU"></a>Labeling based on IoU</h3><p>We know that the testing in detection is in the form of outputting <strong>bounding box</strong>, and it is impossible or hard to make the testing box and the ground-truth box to be exactly the same, hence we need the method of IoU to construct labeling, including the labeling of TP, FP, FN. Note that since in detection we do not care about the background, the definition of TN will not be specialized. About IoU, you may see my blog [here](<a href="http://edwardpei.com/2021/11/10/IoU/#more">IoU | 流千过客-Ed-P (edwardpei.com)</a>).  The output of the algorithm is always based on the IoU score, so we should define a threshold to control the output, i.e. IoU_threshold = 0.5. </p>
+<h4 id="Confidence"><a href="#Confidence" class="headerlink" title="Confidence"></a>Confidence</h4><p>Before I give the details, we should know the definition of ‘confidence’.  Confidence is a quality that measured whether a bounding box containing the gt object and the accuracy of the bounding box.</p>
+<p>In YOLO, confidence is defined as:</p>
+<p><img src="8904720-5bda664f53501a53.webp" alt="8904720-5bda664f53501a53"></p>
+<p>When the center of the gt is contained in the bounding box, Pr(Object) is 1, or it is 0.</p>
+<p>By using confidence, we can compare the bounding boxes for the same gt. It should be noted that in order to make the labeling result to be reasonable, we should count the TP for each gt just once. That is,  we may have the probability that there are lots of bounding box have IoU score exceed the threshold. In this case, we only take the bounding box that has the highest confidence (just highest IoU), which is just TP and then other boxes are labeled as FP. So in this way, you should understanding why we just count once for each gt, since if take all the box exceed the threshold as TP, there will have problems: 1. the precision is too cheap,  then the precision will very high, then it will lose the authority of measuring the accuracy. 2. the precision may be imbalanced, consider when one gt has many box satisfied the requirement but another gt just have few boxes satisfied the requirement, then the precision will still be high.</p>
+<p>Then we labeling the boxes that have IoU score lower than threshold with corresponding gt as FP,  which is the data that algorithm tests wrong. And FN is the number of gt box that is not be detected in testing.</p>
+<h3 id="Average-Precision-AP"><a href="#Average-Precision-AP" class="headerlink" title="Average Precision (AP)"></a>Average Precision (AP)</h3><h4 id="PR-curve"><a href="#PR-curve" class="headerlink" title="PR-curve"></a>PR-curve</h4><p>We have know the definition of precision and recall, then we can make a table as following, assuming that there are 5 objects in an image and a model generates 10 boxes and these boxes are ranked according to their confidence scores.</p>
+<p><img src="image-20211125173345116.png" alt="image-20211125173345116"></p>
+<p>Based on this table, we can draw the PR-curve, as the recall increase the precision will decrease gradually(but not absolutely):</p>
+<p><img src="image-20211125174044663.png" alt="image-20211125174044663"></p>
+<p>Average Precision is just to calculate the average for the precision scores on the PR-curve. It can be calculated by integration since the recall scores vary from 0 to 1:</p>
+<p><img src="equation(1).svg" alt="equation(1)"></p>
+<p>However,  we always first smooth the PR-curve before calculating the AP: </p>
+<p><img src="image-20211125181518876.png" alt="image-20211125181518876"></p>
+<p><img src="equation(2).svg" alt="equation(2)"></p>
+<p>There are variant methods to calculate AP in the history.</p>
+<h4 id="Interpolated-AP-Before-VOC2010"><a href="#Interpolated-AP-Before-VOC2010" class="headerlink" title="Interpolated AP (Before VOC2010 )"></a>Interpolated AP (Before VOC2010 )</h4><p>On the smooth PR-curve, taking 10 equal diversion points from 0 to 1 (totally 11 points), then calculate the average of their precision score:</p>
+<p><img src="equation(3).svg" alt="equation(3)"></p>
+<p><img src="image-20211125182736420.png" alt="image-20211125182736420"></p>
+<h4 id="Area-under-curve-After-VOC2010"><a href="#Area-under-curve-After-VOC2010" class="headerlink" title="Area under curve(After VOC2010)"></a>Area under curve(After VOC2010)</h4><p>For the previous interpolated AP, there may be some errors in the sample points. The method with more accuracy is to calculate the integration on smooth PR-curve.</p>
+<h4 id="COCO-mAP"><a href="#COCO-mAP" class="headerlink" title="COCO mAP"></a>COCO mAP</h4><p>In order to increase the accuracy, COCO taking 100 points to calculate AP. What’s more, the threshold of IoU is taking from 0.5 to 0.95 with a step size of 0.05, then the mAP for a category is the average AP for these different IoU. It is noted as AP[.5 : .95].</p>
+<p><img src="image-20211125184428026.png" alt="image-20211125184428026"></p>
+<p>(you can also calculate Average recall(AR) similarly)</p>
+<h3 id="MAP"><a href="#MAP" class="headerlink" title="MAP"></a>MAP</h3><p>MAP, mean average precision, is the mean of AP for all the categories. For example, in an image we have 10 detections with 2 categories. Calculating the AP for each category and take the mean finally.</p>
+]]></content>
+      <categories>
+        <category>Knowledge</category>
+      </categories>
+      <tags>
+        <tag>Object_Detection</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Quantization</title>
     <url>/2021/12/12/Quantization/</url>
     <content><![CDATA[<p>An introduction and summary of quantization methods.</p>
@@ -144,7 +211,7 @@ localhost
 <h3 id="Binary-system"><a href="#Binary-system" class="headerlink" title="Binary system"></a>Binary system</h3><p>We use decimal system in our daily life, with 10 numbers and can write any number in powers of 10:</p>
 <p><img src="nanotes2021students.pdf.png" alt="nanotes2021students.pdf"></p>
 <p>Computers work internally in the binary system with only two digits 0 and 1, the real number 9.90625 can be written as:</p>
-<p>![nanotes2021students.pdf (1)](nanotes2021students.pdf (1).png)</p>
+<p>![nanotes2021students1.pdf](nanotes2021students.pdf (1).png)</p>
 <h4 id="Normalized-scientific-notation-and-floating-point-representation"><a href="#Normalized-scientific-notation-and-floating-point-representation" class="headerlink" title="Normalized scientific notation and floating-point  representation"></a>Normalized scientific notation and floating-point  representation</h4><p>In decimal system, we express any real number in normalized scientific notation:</p>
 <p><img src="image-20211213104448578.png" alt="image-20211213104448578"></p>
 <p>where r is a real number in the range 0.1 &lt;= r &lt; 1 and n is an integer.</p>
@@ -231,76 +298,6 @@ localhost
       </categories>
       <tags>
         <tag>Efficient_Neural_Network</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Mean Average Precision（MAP)</title>
-    <url>/2021/11/25/Mean-Average-Precision%EF%BC%88MAP%EF%BC%89/</url>
-    <content><![CDATA[<h3 id="Precision-amp-Recall"><a href="#Precision-amp-Recall" class="headerlink" title="Precision&amp;Recall"></a>Precision&amp;Recall</h3><p>The formula of precision and recall is:</p>
-<span id="more"></span>
-
-<p><img src="equation.svg" alt="equation"></p>
-<p><img src="equation2.svg" alt="equation2"></p>
-<p>Precision is used to evaluate the accuracy of test result, which is actually the proportion of  true tested result in the total result.</p>
-<p>Recall is used to evaluate the quality of the test result, which is actually the proportion of the true tested result in the total true result, that is , including the true tested result and the true non-tested result.</p>
-<h4 id="TP-TN-FP-FN"><a href="#TP-TN-FP-FN" class="headerlink" title="TP, TN, FP, FN"></a>TP, TN, FP, FN</h4><p>To have a better understanding of precision and recall, we should know the definition of TP, TN, FP and FN.</p>
-<p><img src="v2-761706f5b1fe36873ba1bb20c7d1d447_720w.jpg" alt="v2-761706f5b1fe36873ba1bb20c7d1d447_720w"></p>
-<p>As the graph indicated, all the data is first divided into two part: positive and negative. They  are the annotation that pre-labeled to the data, or you can say it is the ‘ground truth’.</p>
-<p>Then after testing, we have another set that is  tested by the algorithm, which is the data that the testing algorithm/model thinks positive. It also contains two parts:  1. the algorithm tests right, the data that is indeed positive. 2. the algorithm tests wrong, the data that is actually negative. These two part is just TP and FP, respectively.</p>
-<p>There remains two parts in the data that the algorithm doesn’t think positive: 1, the data is positive but is not tested positive. 2. the data is negative but is not tested positive too. They are FN and TN.</p>
-<p>A short summarization:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">TP: true positive, the data is ground-truth positive and is also tested as positive.</span><br><span class="line">TN: true negative, the data is ground-truth negative and is not tested as positive.</span><br><span class="line">FP: false positive, the data is ground-truth negative but is tested as positive.</span><br><span class="line">FN: false negative, the data is ground-truth positive but is tested as negative.</span><br></pre></td></tr></table></figure>
-
-<p>You may be reminded that the words true/false is adjective.</p>
-<h3 id="Labeling-based-on-IoU"><a href="#Labeling-based-on-IoU" class="headerlink" title="Labeling based on IoU"></a>Labeling based on IoU</h3><p>We know that the testing in detection is in the form of outputting <strong>bounding box</strong>, and it is impossible or hard to make the testing box and the ground-truth box to be exactly the same, hence we need the method of IoU to construct labeling, including the labeling of TP, FP, FN. Note that since in detection we do not care about the background, the definition of TN will not be specialized. About IoU, you may see my blog [here](<a href="http://edwardpei.com/2021/11/10/IoU/#more">IoU | 流千过客-Ed-P (edwardpei.com)</a>).  The output of the algorithm is always based on the IoU score, so we should define a threshold to control the output, i.e. IoU_threshold = 0.5. </p>
-<h4 id="Confidence"><a href="#Confidence" class="headerlink" title="Confidence"></a>Confidence</h4><p>Before I give the details, we should know the definition of ‘confidence’.  Confidence is a quality that measured whether a bounding box containing the gt object and the accuracy of the bounding box.</p>
-<p>In YOLO, confidence is defined as:</p>
-<p><img src="8904720-5bda664f53501a53.webp" alt="8904720-5bda664f53501a53"></p>
-<p>When the center of the gt is contained in the bounding box, Pr(Object) is 1, or it is 0.</p>
-<p>By using confidence, we can compare the bounding boxes for the same gt. It should be noted that in order to make the labeling result to be reasonable, we should count the TP for each gt just once. That is,  we may have the probability that there are lots of bounding box have IoU score exceed the threshold. In this case, we only take the bounding box that has the highest confidence (just highest IoU), which is just TP and then other boxes are labeled as FP. So in this way, you should understanding why we just count once for each gt, since if take all the box exceed the threshold as TP, there will have problems: 1. the precision is too cheap,  then the precision will very high, then it will lose the authority of measuring the accuracy. 2. the precision may be imbalanced, consider when one gt has many box satisfied the requirement but another gt just have few boxes satisfied the requirement, then the precision will still be high.</p>
-<p>Then we labeling the boxes that have IoU score lower than threshold with corresponding gt as FP,  which is the data that algorithm tests wrong. And FN is the number of gt box that is not be detected in testing.</p>
-<h3 id="Average-Precision-AP"><a href="#Average-Precision-AP" class="headerlink" title="Average Precision (AP)"></a>Average Precision (AP)</h3><h4 id="PR-curve"><a href="#PR-curve" class="headerlink" title="PR-curve"></a>PR-curve</h4><p>We have know the definition of precision and recall, then we can make a table as following, assuming that there are 5 objects in an image and a model generates 10 boxes and these boxes are ranked according to their confidence scores.</p>
-<p><img src="image-20211125173345116.png" alt="image-20211125173345116"></p>
-<p>Based on this table, we can draw the PR-curve, as the recall increase the precision will decrease gradually(but not absolutely):</p>
-<p><img src="image-20211125174044663.png" alt="image-20211125174044663"></p>
-<p>Average Precision is just to calculate the average for the precision scores on the PR-curve. It can be calculated by integration since the recall scores vary from 0 to 1:</p>
-<p><img src="equation(1).svg" alt="equation(1)"></p>
-<p>However,  we always first smooth the PR-curve before calculating the AP: </p>
-<p><img src="image-20211125181518876.png" alt="image-20211125181518876"></p>
-<p><img src="equation(2).svg" alt="equation(2)"></p>
-<p>There are variant methods to calculate AP in the history.</p>
-<h4 id="Interpolated-AP-Before-VOC2010"><a href="#Interpolated-AP-Before-VOC2010" class="headerlink" title="Interpolated AP (Before VOC2010 )"></a>Interpolated AP (Before VOC2010 )</h4><p>On the smooth PR-curve, taking 10 equal diversion points from 0 to 1 (totally 11 points), then calculate the average of their precision score:</p>
-<p><img src="equation(3).svg" alt="equation(3)"></p>
-<p><img src="image-20211125182736420.png" alt="image-20211125182736420"></p>
-<h4 id="Area-under-curve-After-VOC2010"><a href="#Area-under-curve-After-VOC2010" class="headerlink" title="Area under curve(After VOC2010)"></a>Area under curve(After VOC2010)</h4><p>For the previous interpolated AP, there may be some errors in the sample points. The method with more accuracy is to calculate the integration on smooth PR-curve.</p>
-<h4 id="COCO-mAP"><a href="#COCO-mAP" class="headerlink" title="COCO mAP"></a>COCO mAP</h4><p>In order to increase the accuracy, COCO taking 100 points to calculate AP. What’s more, the threshold of IoU is taking from 0.5 to 0.95 with a step size of 0.05, then the mAP for a category is the average AP for these different IoU. It is noted as AP[.5 : .95].</p>
-<p><img src="image-20211125184428026.png" alt="image-20211125184428026"></p>
-<p>(you can also calculate Average recall(AR) similarly)</p>
-<h3 id="MAP"><a href="#MAP" class="headerlink" title="MAP"></a>MAP</h3><p>MAP, mean average precision, is the mean of AP for all the categories. For example, in an image we have 10 detections with 2 categories. Calculating the AP for each category and take the mean finally.</p>
-]]></content>
-      <categories>
-        <category>Knowledge</category>
-      </categories>
-      <tags>
-        <tag>Object_Detection</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>我为什么不干正经事</title>
-    <url>/2021/10/16/%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E5%B9%B2%E6%AD%A3%E7%BB%8F%E4%BA%8B/</url>
-    <content><![CDATA[<p>前几天我在知乎上载了一个 <a href="https://www.zhihu.com/pin/1429619175618273280">“想法”</a>, 原因就是我废寝忘食地搞了两天代码后发现： 代码是搞定了，但它好像没多大作用。 一边被催进度说要创新，一边发现自己刚解决的这个事引出了后边的一大堆事。 这可不让人糟心吗 比剥核桃核桃壳刺指甲缝还糟心</p>
-<span id="more"></span>
-
-<p>正好那天LOL手游出了，我就打蛇随棍上，报复性地刷了两天手游 我一边期待有人能和我一起玩，又不知道为什么没有去玩端游 在这上边还能和老黄一起玩玩。 好呗，没人玩我就也不玩了，没兴致了，虽然现在还在领领礼包，我也不想玩了 然后我又在steam上找 找了一个之前没通关的单机 玩了老半天通关了。 然后又去叙利亚小号那买了个超凡双生，就是做底特律变人的那个游戏商，虽然中间有点芦花（但说实话美国佬在这里边芦自己我感觉更狠哈哈哈），但故事挺不错的。 我感觉这种游戏就跟看电影一样。 之前不知道在哪看到的， 这种要做选择的，云通关就没意思了，的确是这样，我现在就很后悔高中的时候把底特律变人云了。 玩超凡双生的时候，因为不能读档，我确实感觉到了玩其他单机体会不到的东西。外加他本身就是营造这种氛围，我玩的时候都很投入。</p>
-<p>好吧，游戏玩完了，但我还不想干正经的，我就在知乎上看呀看，然后看到我最近收藏的建博客。 好啊， 郎有情女有意， 一不做而不休，我就开始肝自己搭一个博客。有一说一，域名确实不贵，我这个才六十多一年。 重要的是，我真的搭成了， 而且还搞了很多有意思的东西。 我感觉。。。这真的算实现小时候的一种梦想。 毕竟我小时候不仅想过自己做游戏，也想过自己做个网站。 哎，理工男的雏形嘛，总有点奇奇怪怪的想法。我做的这个虽然没稚晖君那么牛，但我成就感也挺高的。不管有没有人访问，我自己自由地写点东西反正没问题。十月十五号的晚上，不到一天的时间，我这个是正式搭完了。期间我还给几个学校的老师套了磁，然后距今还没人回我，然后我发现也只有一个老师下载了我的CV。</p>
-<p>卷起来了卷起来了。 我确实挺慌的。 但只是内心深处很慌。 我总是很淡定。 我记得前两年的暑假， 我开车带着两个好兄弟在山路上飙车，就是那种一边是山壁一边是悬崖的山路。 在一段下坡的时候，兄弟们跟我说让我开慢点，我也觉得要慢点，于是我就踩下去了。 哈哈，结果踩的是油门。 那一刻，我的脑子清楚地意识到我踩错了，因为视觉包括触觉都告诉了我这一点，但很神奇的是，我没有慌，手臂上的肌肉很快被控制了：我在掉下悬崖之前打了个大方向盘。这件事我至今没跟我父母讲，一是不想让他们担心，二是我真的潜意识里觉得，再来一遍我还是死不了。虽然后怕还是会后怕哈哈哈。</p>
-<p>现在我就好像也在山路上飙车，一边是深不见底的悬崖，方向盘掌控在我手上。只不过这一次车后座上没有兄弟，我也不是单靠一瞬间的反应就能保证安全度过。更像是我开着一辆安装了喷射器的独轮车，然后在九曲十八弯的独木桥上行驶着。而且因为我太过懈怠没注意过桥时间，这桥在一定时间内就要塌了。一路上经历的奇奇怪怪的东西不知道今后会给我什么帮助，但至少这次它们是真帮不上忙。祝我好运吧！</p>
-]]></content>
-      <categories>
-        <category>随笔</category>
-      </categories>
-      <tags>
-        <tag>thinking</tag>
       </tags>
   </entry>
   <entry>
@@ -801,19 +798,22 @@ localhost
       </tags>
   </entry>
   <entry>
-    <title>First Blog</title>
-    <url>/2021/10/15/First-Blog/</url>
-    <content><![CDATA[<p>今天突发奇想心血来潮在这香港入秋(?)的夜里弄好了一个personal blog</p>
-<p>期间怎么买域名 怎么设置github就不足为道了哈哈哈</p>
+    <title>我为什么不干正经事</title>
+    <url>/2021/10/16/%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E5%B9%B2%E6%AD%A3%E7%BB%8F%E4%BA%8B/</url>
+    <content><![CDATA[<p>前几天我在知乎上载了一个 <a href="https://www.zhihu.com/pin/1429619175618273280">“想法”</a>, 原因就是我废寝忘食地搞了两天代码后发现： 代码是搞定了，但它好像没多大作用。 一边被催进度说要创新，一边发现自己刚解决的这个事引出了后边的一大堆事。 这可不让人糟心吗 比剥核桃核桃壳刺指甲缝还糟心</p>
 <span id="more"></span>
 
-<p>现在很多功能还没实现 点进去就是404 就等着之后更新了吧</p>
-<p>其实早就想找个地方写点自己的东西了 毕竟我感觉我平时的思考还蛮多的 又没有什么好地方写东西 就想着这样建立一个网站是最好的了 </p>
-<p>至于之后会更新什么  感觉一切都有可能吧！</p>
-<p>嘿嘿 是不是很cool？</p>
-<p>###更新日志</p>
-<p>10-15 增加评论和分享功能<br>10-16 增加看板娘，增加日夜模式交换按钮，增加留言板匿名</p>
+<p>正好那天LOL手游出了，我就打蛇随棍上，报复性地刷了两天手游 我一边期待有人能和我一起玩，又不知道为什么没有去玩端游 在这上边还能和老黄一起玩玩。 好呗，没人玩我就也不玩了，没兴致了，虽然现在还在领领礼包，我也不想玩了 然后我又在steam上找 找了一个之前没通关的单机 玩了老半天通关了。 然后又去叙利亚小号那买了个超凡双生，就是做底特律变人的那个游戏商，虽然中间有点芦花（但说实话美国佬在这里边芦自己我感觉更狠哈哈哈），但故事挺不错的。 我感觉这种游戏就跟看电影一样。 之前不知道在哪看到的， 这种要做选择的，云通关就没意思了，的确是这样，我现在就很后悔高中的时候把底特律变人云了。 玩超凡双生的时候，因为不能读档，我确实感觉到了玩其他单机体会不到的东西。外加他本身就是营造这种氛围，我玩的时候都很投入。</p>
+<p>好吧，游戏玩完了，但我还不想干正经的，我就在知乎上看呀看，然后看到我最近收藏的建博客。 好啊， 郎有情女有意， 一不做而不休，我就开始肝自己搭一个博客。有一说一，域名确实不贵，我这个才六十多一年。 重要的是，我真的搭成了， 而且还搞了很多有意思的东西。 我感觉。。。这真的算实现小时候的一种梦想。 毕竟我小时候不仅想过自己做游戏，也想过自己做个网站。 哎，理工男的雏形嘛，总有点奇奇怪怪的想法。我做的这个虽然没稚晖君那么牛，但我成就感也挺高的。不管有没有人访问，我自己自由地写点东西反正没问题。十月十五号的晚上，不到一天的时间，我这个是正式搭完了。期间我还给几个学校的老师套了磁，然后距今还没人回我，然后我发现也只有一个老师下载了我的CV。</p>
+<p>卷起来了卷起来了。 我确实挺慌的。 但只是内心深处很慌。 我总是很淡定。 我记得前两年的暑假， 我开车带着两个好兄弟在山路上飙车，就是那种一边是山壁一边是悬崖的山路。 在一段下坡的时候，兄弟们跟我说让我开慢点，我也觉得要慢点，于是我就踩下去了。 哈哈，结果踩的是油门。 那一刻，我的脑子清楚地意识到我踩错了，因为视觉包括触觉都告诉了我这一点，但很神奇的是，我没有慌，手臂上的肌肉很快被控制了：我在掉下悬崖之前打了个大方向盘。这件事我至今没跟我父母讲，一是不想让他们担心，二是我真的潜意识里觉得，再来一遍我还是死不了。虽然后怕还是会后怕哈哈哈。</p>
+<p>现在我就好像也在山路上飙车，一边是深不见底的悬崖，方向盘掌控在我手上。只不过这一次车后座上没有兄弟，我也不是单靠一瞬间的反应就能保证安全度过。更像是我开着一辆安装了喷射器的独轮车，然后在九曲十八弯的独木桥上行驶着。而且因为我太过懈怠没注意过桥时间，这桥在一定时间内就要塌了。一路上经历的奇奇怪怪的东西不知道今后会给我什么帮助，但至少这次它们是真帮不上忙。祝我好运吧！</p>
 ]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>thinking</tag>
+      </tags>
   </entry>
   <entry>
     <title>终于像样了！</title>
