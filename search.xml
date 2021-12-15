@@ -40,19 +40,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Knowledge_Distillation</title>
-    <url>/2021/12/12/Knowledge-Distillation/</url>
-    <content><![CDATA[<p>An introduction and summary of KD(knowledge distillation) methods.</p>
-<span id="more"></span>
-]]></content>
-      <categories>
-        <category>Knowledge</category>
-      </categories>
-      <tags>
-        <tag>Efficient_Neural_Network</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Linux服务器搭建</title>
     <url>/2021/10/16/Linux%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/</url>
     <content><![CDATA[<p>这里上传一些当时搭服务器的技巧吧 也算是备忘录</p>
@@ -148,6 +135,19 @@ localhost
       </tags>
   </entry>
   <entry>
+    <title>Knowledge_Distillation</title>
+    <url>/2021/12/12/Knowledge-Distillation/</url>
+    <content><![CDATA[<p>An introduction and summary of KD(knowledge distillation) methods.</p>
+<span id="more"></span>
+]]></content>
+      <categories>
+        <category>Knowledge</category>
+      </categories>
+      <tags>
+        <tag>Efficient_Neural_Network</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Mean Average Precision（MAP)</title>
     <url>/2021/11/25/Mean-Average-Precision%EF%BC%88MAP%EF%BC%89/</url>
     <content><![CDATA[<h3 id="Precision-amp-Recall"><a href="#Precision-amp-Recall" class="headerlink" title="Precision&amp;Recall"></a>Precision&amp;Recall</h3><p>The formula of precision and recall is:</p>
@@ -240,14 +240,16 @@ localhost
 <h3 id="Why-quantization"><a href="#Why-quantization" class="headerlink" title="Why quantization?"></a>Why quantization?</h3><p>So, quantization is just to transfer the values (weights, bias, activations) stored in the floating-point form in 32FP to the data type int8/unit8. (8/4/2/1 bit quantization, 8 bit is the most common one.) </p>
 <p>When we apply quantization into a deep learning model</p>
 <ol>
-<li><p>More efficient computation. It is more efficient for many processors to handle integer calculation than corresponding floating -point calculations (Why?). On CPU, the latency of floating-point calculation command is averagely longer than the corresponding integer calculation command. </p>
-</li>
-<li><p>Reduce memory footprint and storage footprint. Reduce the time cost in memory access. For FP32, each weight/bias need 32-bit storage, and it will become 8-bit after quantization. </p>
-</li>
-<li><p>(Reduce the energy consumption)</p>
-</li>
+<li>More efficient computation. It is more efficient for many processors to handle integer calculation than corresponding floating -point calculations (Why?). On CPU, the latency of floating-point calculation command is averagely longer than the corresponding integer calculation command. </li>
+<li>Reduce memory footprint and storage footprint. Reduce the time cost in memory access. For FP32, each weight/bias need 32-bit storage, and it will become 8-bit after quantization. </li>
+<li>(Reduce the energy consumption)</li>
 </ol>
-<p>Although quantization can achieve good result in reducing the network computation, we still need complex and high-accuracy model in training to capture the slight gradient change. It’s a trade-off between the precision and efficiency.</p>
+<p><img src="image-20211215141117555.png" alt="image-20211215141117555"></p>
+<h3 id="Inference-and-Training"><a href="#Inference-and-Training" class="headerlink" title="Inference and Training"></a>Inference and Training</h3><p>Although quantization can achieve good result in reducing the network computation, we still need complex and high-accuracy model in training to capture the slight gradient change. It’s a trade-off between the precision and efficiency. </p>
+<p>Therefore, most of the time, we apply quantization on the trained neural network, which has become convergence. Then the precision will be maintained in best possible after quantization. This is the quantization on inference.</p>
+<p>When applying quantization in running inference, we have PTQ and QAT approaches, which will be discussed later. </p>
+<p>In fact, it’s not like we don’t use quantization in training of neural networks. QAT uses some techniques to recover the accuracy of models by re-training the networks with quantized parameters.</p>
+<p>There also are algorithms focus on training the models on quantization from the very beginning. It seems to pay attention to better gradient quantization. </p>
 <h2 id="Basic-Definition"><a href="#Basic-Definition" class="headerlink" title="Basic Definition"></a>Basic Definition</h2><p>The process of quantization is actually a rounding or truncation problem. There is a general function that maps real values in floating point to a lower precision range:</p>
 <p><img src="image-20211213174837627.png" alt="image-20211213174837627"></p>
 <p>where x is a real value input (weight, bias, activation), q is the value after quantization, s is called scaling factor, z is called the zero point. s may be variable in different methods, which will be discussed later(calibration). z can be used to adjust the true zero in some asymmetrical quantization approaches.</p>
@@ -260,7 +262,7 @@ localhost
 <p><img src="c5d18de467f385b522356fb0fc30d88f.png" alt="Image"></p>
 <p>With Min/Max, the asymmetric quantization formula is as follows:</p>
 <p><img src="bdc1f96f691ba36f76e9f9d2bf500c4b.png" alt="Image"></p>
-<p>Here, the minimum bound (is negative) is chosen to corresponding to the zero-point. We can adjust the choice to change the range of the lower precision. It is called asymmetric because the range on the both sides of 0 in the real set is different.</p>
+<p>Here, the minimum bound (is negative) is chosen to corresponding to the zero-point (-zpx actually). We can adjust the choice to change the range of the lower precision. It is called asymmetric because the range on the both sides of 0 in the real set is different.</p>
 <h4 id="Symmetric-Scale-Quantization"><a href="#Symmetric-Scale-Quantization" class="headerlink" title="Symmetric (Scale) Quantization"></a>Symmetric (Scale) Quantization</h4><p>If we set the zero-point as 0, then 0 and its neighbors in the real number set are maps to 0 in the lower precision domain. When we set the clip range are the same on both sides, i.e. max(|x|), then the input range and integer range are symmetric around zero and hence it is called symmetric quantization (Sometimes we don’t require the input range to be symmetric):</p>
 <p><img src="028f7224f92f74c2161c21585811786b.png" alt="Image"></p>
 <p>Since we need 0 maps to 0, for 8-bit quantization the integer range should be [-127, 127], deleting -128 to satisfy symmetry. Noting that it may be insignificant for 8-bit quantization since there are 256 representable values, but for lower bit quantization it should be considered signigicantly.</p>
@@ -272,9 +274,9 @@ localhost
 <h3 id="Calibration"><a href="#Calibration" class="headerlink" title="Calibration"></a>Calibration</h3><p>Both in <strong>dynamic quantization and static quantization</strong> (In PTQ), we need to determine the clipping range of the parameters or activations. The following is the methods to define how to determine it.</p>
 <p>For weight, this range can be computed statically or pre-calculated. Since weights are almost convergent during the training of floating-point model, so their range will not vary so much. However, since the input of the model is different every time, the activations in the network may have different range and it is very likely to have outlier. So we will focus on activations to do calibration.</p>
 <p>Dynamic quantization: the range is dynamically calculated for each activation map during runtime. We can use some real-time computation (Min/Max, percentile, etc.). It will achieve high accuracy but need more computational cost.</p>
-<p>Static quantization: clipping range is pre-calculated to run a series of calibration inputs.</p>
+<p>Static quantization: clipping range is pre-calculated by running a series of calibration inputs.</p>
 <h4 id="Min-Max"><a href="#Min-Max" class="headerlink" title="Min/Max"></a>Min/Max</h4><p>Min/Max is popular as we have introduced since it is simple. However,  it is susceptible to outlier data in activations, since there will be a waste for some bits position. </p>
-<p>In static quantization(need a series of calibration inputs to do pre-calculation), the formula is as follows:</p>
+<p>In static quantization (need a series of calibration inputs to do pre-calculation), the formula is as follows:</p>
 <p><img src="fba76a8a630f943cde687b2512377613.png" alt="Image"></p>
 <p>where X is one local sample, x is the global.</p>
 <p>When we use calibration methods except Min/Max, the process will always be called saturated quantization contrast with Min/Max (unsaturated methods).</p>
@@ -285,19 +287,58 @@ localhost
 <p>Some of the following methods are focus on how to find the clipping bounds.</p>
 <h4 id="Exponential-moving-average-EMA"><a href="#Exponential-moving-average-EMA" class="headerlink" title="Exponential moving average (EMA)"></a>Exponential moving average (EMA)</h4><p>When clipping activations, sometimes we will use EMA (or MovingAverageMinMax):</p>
 <p><img src="ff57f0dd7bc7e0b72311341a75276378.png" alt="Image"></p>
-<p>where c set as 0.01 by default. We can see that it tends to keep the history result and fine-turning according to local sample.</p>
+<p>where c is set as 0.01 by default. We can see that it tends to keep the history result and fine-turning according to local sample.</p>
 <h4 id="Kullback-Leibler-divergence-KL"><a href="#Kullback-Leibler-divergence-KL" class="headerlink" title="Kullback-Leibler divergence (KL)"></a>Kullback-Leibler divergence (KL)</h4><p>KL-divergence, or relative entropy or information divergence  is a measure to show the relative entropy (how different) of probability distributions between two sets, which are defined on the same probability space.</p>
 <p>We think that quantization will cause less information loss from the original data if the data distribution of quantized data is more similar to the original data. Such information loss can be calculated by KL-divergence (The default method used by TensorRT, a PTQ method).</p>
 <p>For discrete probability distribution, P is the original data distribution that falls in several bins and Q is the quantized data histogram, the KL-divergence is:</p>
 <p> <img src="image-20211214181305441.png" alt="image-20211214181305441"></p>
 <p>In TensorRT, KL-divergence is used to optimize threshold selection (Since there is always a trade-off between range and precision of the int8 representation(for activations outliars)), the procedure is as follows:<br><img src="image-20211214182006243.png" alt="image-20211214182006243"></p>
 <h4 id="Percentile"><a href="#Percentile" class="headerlink" title="Percentile"></a>Percentile</h4><p>Set the range to a percentile of the distribution of positive/negative values(when symmetric, absolute values) seen during calibration. For example, when 99% calibration, 1% values will be clipped.</p>
-<h3 id="Dequantization"><a href="#Dequantization" class="headerlink" title="Dequantization"></a>Dequantization</h3><h3 id="Tensor-Quantization-Granularity"><a href="#Tensor-Quantization-Granularity" class="headerlink" title="Tensor  Quantization Granularity"></a>Tensor  Quantization Granularity</h3><h2 id="Post-training-quantization-PTQ"><a href="#Post-training-quantization-PTQ" class="headerlink" title="Post-training  quantization (PTQ)"></a>Post-training  quantization (PTQ)</h2><h2 id="QAT-fine-tuning-re-training"><a href="#QAT-fine-tuning-re-training" class="headerlink" title="QAT fine-tuning (re-training)"></a>QAT fine-tuning (re-training)</h2><h2 id="gradient-quantization-full-training"><a href="#gradient-quantization-full-training" class="headerlink" title="gradient quantization (full training)"></a>gradient quantization (full training)</h2>]]></content>
+<h3 id="Dequantization"><a href="#Dequantization" class="headerlink" title="Dequantization"></a>Dequantization</h3><p>When applying QAT, the fake quantization (or simulated quantization) operations are always used, where the dequantization operation will be used.</p>
+<p>In asymmetric quantization, the corresponding dequantize function is:</p>
+<p><img src="image-20211215152038288.png" alt="image-20211215152038288"></p>
+<p>In symmetric quantization:</p>
+<p><img src="image-20211215152121988.png" alt="image-20211215152121988"></p>
+<h3 id="Quantization-Granularity"><a href="#Quantization-Granularity" class="headerlink" title="Quantization Granularity"></a>Quantization Granularity</h3><p>We know that the clipping range is determined based on the input range (real numbers). The input range is determined by the input data. It is important to set where to collect the input data, or the choice for sharing the quantization parameters.</p>
+<p>Tensor-wise, or layer-wise. The clipping range is determined by considering all the weights or activations in the convolutional filters of a layer.</p>
+<p>Channel-wise, considering values in each channel, independent of other channels. For weights, it is kernel-wise or filter-wise.</p>
+<p>We know that different channel of the features may contain different information, so the range of each convolutional filter can vary a lot. Hence, channel-wise quantization is suitable and is currently the standard method.</p>
+<h2 id="Post-training-quantization-PTQ"><a href="#Post-training-quantization-PTQ" class="headerlink" title="Post-training  quantization (PTQ)"></a>Post-training  quantization (PTQ)</h2><h2 id="QAT-fine-tuning-re-training"><a href="#QAT-fine-tuning-re-training" class="headerlink" title="QAT fine-tuning (re-training)"></a>QAT fine-tuning (re-training)</h2><h2 id="Gradient-quantization-full-training"><a href="#Gradient-quantization-full-training" class="headerlink" title="Gradient quantization (full training)"></a>Gradient quantization (full training)</h2>]]></content>
       <categories>
         <category>Knowledge</category>
       </categories>
       <tags>
         <tag>Efficient_Neural_Network</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>终于像样了！</title>
+    <url>/2021/10/15/%E7%BB%88%E4%BA%8E%E5%83%8F%E6%A0%B7%E4%BA%86%EF%BC%81/</url>
+    <content><![CDATA[<p>搞了好久 把评论功能和分享功能弄上去了哈哈哈哈</p>
+]]></content>
+      <categories>
+        <category>life</category>
+      </categories>
+      <tags>
+        <tag>life</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>我为什么不干正经事</title>
+    <url>/2021/10/16/%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E5%B9%B2%E6%AD%A3%E7%BB%8F%E4%BA%8B/</url>
+    <content><![CDATA[<p>前几天我在知乎上载了一个 <a href="https://www.zhihu.com/pin/1429619175618273280">“想法”</a>, 原因就是我废寝忘食地搞了两天代码后发现： 代码是搞定了，但它好像没多大作用。 一边被催进度说要创新，一边发现自己刚解决的这个事引出了后边的一大堆事。 这可不让人糟心吗 比剥核桃核桃壳刺指甲缝还糟心</p>
+<span id="more"></span>
+
+<p>正好那天LOL手游出了，我就打蛇随棍上，报复性地刷了两天手游 我一边期待有人能和我一起玩，又不知道为什么没有去玩端游 在这上边还能和老黄一起玩玩。 好呗，没人玩我就也不玩了，没兴致了，虽然现在还在领领礼包，我也不想玩了 然后我又在steam上找 找了一个之前没通关的单机 玩了老半天通关了。 然后又去叙利亚小号那买了个超凡双生，就是做底特律变人的那个游戏商，虽然中间有点芦花（但说实话美国佬在这里边芦自己我感觉更狠哈哈哈），但故事挺不错的。 我感觉这种游戏就跟看电影一样。 之前不知道在哪看到的， 这种要做选择的，云通关就没意思了，的确是这样，我现在就很后悔高中的时候把底特律变人云了。 玩超凡双生的时候，因为不能读档，我确实感觉到了玩其他单机体会不到的东西。外加他本身就是营造这种氛围，我玩的时候都很投入。</p>
+<p>好吧，游戏玩完了，但我还不想干正经的，我就在知乎上看呀看，然后看到我最近收藏的建博客。 好啊， 郎有情女有意， 一不做而不休，我就开始肝自己搭一个博客。有一说一，域名确实不贵，我这个才六十多一年。 重要的是，我真的搭成了， 而且还搞了很多有意思的东西。 我感觉。。。这真的算实现小时候的一种梦想。 毕竟我小时候不仅想过自己做游戏，也想过自己做个网站。 哎，理工男的雏形嘛，总有点奇奇怪怪的想法。我做的这个虽然没稚晖君那么牛，但我成就感也挺高的。不管有没有人访问，我自己自由地写点东西反正没问题。十月十五号的晚上，不到一天的时间，我这个是正式搭完了。期间我还给几个学校的老师套了磁，然后距今还没人回我，然后我发现也只有一个老师下载了我的CV。</p>
+<p>卷起来了卷起来了。 我确实挺慌的。 但只是内心深处很慌。 我总是很淡定。 我记得前两年的暑假， 我开车带着两个好兄弟在山路上飙车，就是那种一边是山壁一边是悬崖的山路。 在一段下坡的时候，兄弟们跟我说让我开慢点，我也觉得要慢点，于是我就踩下去了。 哈哈，结果踩的是油门。 那一刻，我的脑子清楚地意识到我踩错了，因为视觉包括触觉都告诉了我这一点，但很神奇的是，我没有慌，手臂上的肌肉很快被控制了：我在掉下悬崖之前打了个大方向盘。这件事我至今没跟我父母讲，一是不想让他们担心，二是我真的潜意识里觉得，再来一遍我还是死不了。虽然后怕还是会后怕哈哈哈。</p>
+<p>现在我就好像也在山路上飙车，一边是深不见底的悬崖，方向盘掌控在我手上。只不过这一次车后座上没有兄弟，我也不是单靠一瞬间的反应就能保证安全度过。更像是我开着一辆安装了喷射器的独轮车，然后在九曲十八弯的独木桥上行驶着。而且因为我太过懈怠没注意过桥时间，这桥在一定时间内就要塌了。一路上经历的奇奇怪怪的东西不知道今后会给我什么帮助，但至少这次它们是真帮不上忙。祝我好运吧！</p>
+]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>thinking</tag>
       </tags>
   </entry>
   <entry>
@@ -795,36 +836,6 @@ localhost
       <tags>
         <tag>python</tag>
         <tag>python内置函数</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>我为什么不干正经事</title>
-    <url>/2021/10/16/%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E5%B9%B2%E6%AD%A3%E7%BB%8F%E4%BA%8B/</url>
-    <content><![CDATA[<p>前几天我在知乎上载了一个 <a href="https://www.zhihu.com/pin/1429619175618273280">“想法”</a>, 原因就是我废寝忘食地搞了两天代码后发现： 代码是搞定了，但它好像没多大作用。 一边被催进度说要创新，一边发现自己刚解决的这个事引出了后边的一大堆事。 这可不让人糟心吗 比剥核桃核桃壳刺指甲缝还糟心</p>
-<span id="more"></span>
-
-<p>正好那天LOL手游出了，我就打蛇随棍上，报复性地刷了两天手游 我一边期待有人能和我一起玩，又不知道为什么没有去玩端游 在这上边还能和老黄一起玩玩。 好呗，没人玩我就也不玩了，没兴致了，虽然现在还在领领礼包，我也不想玩了 然后我又在steam上找 找了一个之前没通关的单机 玩了老半天通关了。 然后又去叙利亚小号那买了个超凡双生，就是做底特律变人的那个游戏商，虽然中间有点芦花（但说实话美国佬在这里边芦自己我感觉更狠哈哈哈），但故事挺不错的。 我感觉这种游戏就跟看电影一样。 之前不知道在哪看到的， 这种要做选择的，云通关就没意思了，的确是这样，我现在就很后悔高中的时候把底特律变人云了。 玩超凡双生的时候，因为不能读档，我确实感觉到了玩其他单机体会不到的东西。外加他本身就是营造这种氛围，我玩的时候都很投入。</p>
-<p>好吧，游戏玩完了，但我还不想干正经的，我就在知乎上看呀看，然后看到我最近收藏的建博客。 好啊， 郎有情女有意， 一不做而不休，我就开始肝自己搭一个博客。有一说一，域名确实不贵，我这个才六十多一年。 重要的是，我真的搭成了， 而且还搞了很多有意思的东西。 我感觉。。。这真的算实现小时候的一种梦想。 毕竟我小时候不仅想过自己做游戏，也想过自己做个网站。 哎，理工男的雏形嘛，总有点奇奇怪怪的想法。我做的这个虽然没稚晖君那么牛，但我成就感也挺高的。不管有没有人访问，我自己自由地写点东西反正没问题。十月十五号的晚上，不到一天的时间，我这个是正式搭完了。期间我还给几个学校的老师套了磁，然后距今还没人回我，然后我发现也只有一个老师下载了我的CV。</p>
-<p>卷起来了卷起来了。 我确实挺慌的。 但只是内心深处很慌。 我总是很淡定。 我记得前两年的暑假， 我开车带着两个好兄弟在山路上飙车，就是那种一边是山壁一边是悬崖的山路。 在一段下坡的时候，兄弟们跟我说让我开慢点，我也觉得要慢点，于是我就踩下去了。 哈哈，结果踩的是油门。 那一刻，我的脑子清楚地意识到我踩错了，因为视觉包括触觉都告诉了我这一点，但很神奇的是，我没有慌，手臂上的肌肉很快被控制了：我在掉下悬崖之前打了个大方向盘。这件事我至今没跟我父母讲，一是不想让他们担心，二是我真的潜意识里觉得，再来一遍我还是死不了。虽然后怕还是会后怕哈哈哈。</p>
-<p>现在我就好像也在山路上飙车，一边是深不见底的悬崖，方向盘掌控在我手上。只不过这一次车后座上没有兄弟，我也不是单靠一瞬间的反应就能保证安全度过。更像是我开着一辆安装了喷射器的独轮车，然后在九曲十八弯的独木桥上行驶着。而且因为我太过懈怠没注意过桥时间，这桥在一定时间内就要塌了。一路上经历的奇奇怪怪的东西不知道今后会给我什么帮助，但至少这次它们是真帮不上忙。祝我好运吧！</p>
-]]></content>
-      <categories>
-        <category>随笔</category>
-      </categories>
-      <tags>
-        <tag>thinking</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>终于像样了！</title>
-    <url>/2021/10/15/%E7%BB%88%E4%BA%8E%E5%83%8F%E6%A0%B7%E4%BA%86%EF%BC%81/</url>
-    <content><![CDATA[<p>搞了好久 把评论功能和分享功能弄上去了哈哈哈哈</p>
-]]></content>
-      <categories>
-        <category>life</category>
-      </categories>
-      <tags>
-        <tag>life</tag>
       </tags>
   </entry>
 </search>

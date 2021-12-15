@@ -34,6 +34,7 @@
 <meta property="og:image" content="https://edwardpei.com/2021/12/12/Quantization/image-20211213112908737.png">
 <meta property="og:image" content="https://edwardpei.com/2021/12/12/Quantization/image-20211213112930698.png">
 <meta property="og:image" content="https://edwardpei.com/2021/12/12/Quantization/image-20211213113033704.png">
+<meta property="og:image" content="https://edwardpei.com/2021/12/12/Quantization/image-20211215141117555.png">
 <meta property="og:image" content="https://edwardpei.com/2021/12/12/Quantization/image-20211213174837627.png">
 <meta property="og:image" content="https://edwardpei.com/2021/12/12/Quantization/image-20211214144955255.png">
 <meta property="og:image" content="https://edwardpei.com/2021/12/12/Quantization/c5d18de467f385b522356fb0fc30d88f.png">
@@ -46,8 +47,10 @@
 <meta property="og:image" content="https://edwardpei.com/2021/12/12/Quantization/ff57f0dd7bc7e0b72311341a75276378.png">
 <meta property="og:image" content="https://edwardpei.com/2021/12/12/Quantization/image-20211214181305441.png">
 <meta property="og:image" content="https://edwardpei.com/2021/12/12/Quantization/image-20211214182006243.png">
+<meta property="og:image" content="https://edwardpei.com/2021/12/12/Quantization/image-20211215152038288.png">
+<meta property="og:image" content="https://edwardpei.com/2021/12/12/Quantization/image-20211215152121988.png">
 <meta property="article:published_time" content="2021-12-12T13:22:00.000Z">
-<meta property="article:modified_time" content="2021-12-14T11:44:48.000Z">
+<meta property="article:modified_time" content="2021-12-15T10:31:46.000Z">
 <meta property="article:author" content="Edward PEI">
 <meta property="article:tag" content="Efficient_Neural_Network">
 <meta name="twitter:card" content="summary">
@@ -181,7 +184,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Preliminary"><span class="nav-number">1.</span> <span class="nav-text">Preliminary</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Intro"><span class="nav-number">1.1.</span> <span class="nav-text">Intro.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Binary-system"><span class="nav-number">1.2.</span> <span class="nav-text">Binary system</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Normalized-scientific-notation-and-floating-point-representation"><span class="nav-number">1.2.1.</span> <span class="nav-text">Normalized scientific notation and floating-point  representation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Integer-in-binary"><span class="nav-number">1.2.2.</span> <span class="nav-text">Integer in binary</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Why-quantization"><span class="nav-number">1.3.</span> <span class="nav-text">Why quantization?</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Basic-Definition"><span class="nav-number">2.</span> <span class="nav-text">Basic Definition</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Asymmetric-and-symmetric-quantization"><span class="nav-number">2.1.</span> <span class="nav-text">Asymmetric and symmetric quantization</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Asymmetric-Affine-Quantization"><span class="nav-number">2.1.1.</span> <span class="nav-text">Asymmetric (Affine) Quantization</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Symmetric-Scale-Quantization"><span class="nav-number">2.1.2.</span> <span class="nav-text">Symmetric (Scale) Quantization</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Comparison"><span class="nav-number">2.1.3.</span> <span class="nav-text">Comparison</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Calibration"><span class="nav-number">2.2.</span> <span class="nav-text">Calibration</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Min-Max"><span class="nav-number">2.2.1.</span> <span class="nav-text">Min&#x2F;Max</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Clipping"><span class="nav-number">2.2.2.</span> <span class="nav-text">Clipping</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Exponential-moving-average-EMA"><span class="nav-number">2.2.3.</span> <span class="nav-text">Exponential moving average (EMA)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Kullback-Leibler-divergence-KL"><span class="nav-number">2.2.4.</span> <span class="nav-text">Kullback-Leibler divergence (KL)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Percentile"><span class="nav-number">2.2.5.</span> <span class="nav-text">Percentile</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dequantization"><span class="nav-number">2.3.</span> <span class="nav-text">Dequantization</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tensor-Quantization-Granularity"><span class="nav-number">2.4.</span> <span class="nav-text">Tensor  Quantization Granularity</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Post-training-quantization-PTQ"><span class="nav-number">3.</span> <span class="nav-text">Post-training  quantization (PTQ)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#QAT-fine-tuning-re-training"><span class="nav-number">4.</span> <span class="nav-text">QAT fine-tuning (re-training)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gradient-quantization-full-training"><span class="nav-number">5.</span> <span class="nav-text">gradient quantization (full training)</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Preliminary"><span class="nav-number">1.</span> <span class="nav-text">Preliminary</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Intro"><span class="nav-number">1.1.</span> <span class="nav-text">Intro.</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Binary-system"><span class="nav-number">1.2.</span> <span class="nav-text">Binary system</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Normalized-scientific-notation-and-floating-point-representation"><span class="nav-number">1.2.1.</span> <span class="nav-text">Normalized scientific notation and floating-point  representation</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Integer-in-binary"><span class="nav-number">1.2.2.</span> <span class="nav-text">Integer in binary</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Why-quantization"><span class="nav-number">1.3.</span> <span class="nav-text">Why quantization?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Inference-and-Training"><span class="nav-number">1.4.</span> <span class="nav-text">Inference and Training</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Basic-Definition"><span class="nav-number">2.</span> <span class="nav-text">Basic Definition</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Asymmetric-and-symmetric-quantization"><span class="nav-number">2.1.</span> <span class="nav-text">Asymmetric and symmetric quantization</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Asymmetric-Affine-Quantization"><span class="nav-number">2.1.1.</span> <span class="nav-text">Asymmetric (Affine) Quantization</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Symmetric-Scale-Quantization"><span class="nav-number">2.1.2.</span> <span class="nav-text">Symmetric (Scale) Quantization</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Comparison"><span class="nav-number">2.1.3.</span> <span class="nav-text">Comparison</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Calibration"><span class="nav-number">2.2.</span> <span class="nav-text">Calibration</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Min-Max"><span class="nav-number">2.2.1.</span> <span class="nav-text">Min&#x2F;Max</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Clipping"><span class="nav-number">2.2.2.</span> <span class="nav-text">Clipping</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Exponential-moving-average-EMA"><span class="nav-number">2.2.3.</span> <span class="nav-text">Exponential moving average (EMA)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Kullback-Leibler-divergence-KL"><span class="nav-number">2.2.4.</span> <span class="nav-text">Kullback-Leibler divergence (KL)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Percentile"><span class="nav-number">2.2.5.</span> <span class="nav-text">Percentile</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dequantization"><span class="nav-number">2.3.</span> <span class="nav-text">Dequantization</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Quantization-Granularity"><span class="nav-number">2.4.</span> <span class="nav-text">Quantization Granularity</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Post-training-quantization-PTQ"><span class="nav-number">3.</span> <span class="nav-text">Post-training  quantization (PTQ)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#QAT-fine-tuning-re-training"><span class="nav-number">4.</span> <span class="nav-text">QAT fine-tuning (re-training)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gradient-quantization-full-training"><span class="nav-number">5.</span> <span class="nav-text">Gradient quantization (full training)</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -278,7 +281,7 @@
           <i class="far fa-calendar-check"></i>
         </span>
         <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-12-14 19:44:48" itemprop="dateModified" datetime="2021-12-14T19:44:48+08:00">2021-12-14</time>
+        <time title="修改时间：2021-12-15 18:31:46" itemprop="dateModified" datetime="2021-12-15T18:31:46+08:00">2021-12-15</time>
       </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -297,14 +300,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>11k</span>
+      <span>12k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>10 分钟</span>
+      <span>11 分钟</span>
     </span>
 </div>
 
@@ -353,14 +356,16 @@
 <h3 id="Why-quantization"><a href="#Why-quantization" class="headerlink" title="Why quantization?"></a>Why quantization?</h3><p>So, quantization is just to transfer the values (weights, bias, activations) stored in the floating-point form in 32FP to the data type int8/unit8. (8/4/2/1 bit quantization, 8 bit is the most common one.) </p>
 <p>When we apply quantization into a deep learning model</p>
 <ol>
-<li><p>More efficient computation. It is more efficient for many processors to handle integer calculation than corresponding floating -point calculations (Why?). On CPU, the latency of floating-point calculation command is averagely longer than the corresponding integer calculation command. </p>
-</li>
-<li><p>Reduce memory footprint and storage footprint. Reduce the time cost in memory access. For FP32, each weight/bias need 32-bit storage, and it will become 8-bit after quantization. </p>
-</li>
-<li><p>(Reduce the energy consumption)</p>
-</li>
+<li>More efficient computation. It is more efficient for many processors to handle integer calculation than corresponding floating -point calculations (Why?). On CPU, the latency of floating-point calculation command is averagely longer than the corresponding integer calculation command. </li>
+<li>Reduce memory footprint and storage footprint. Reduce the time cost in memory access. For FP32, each weight/bias need 32-bit storage, and it will become 8-bit after quantization. </li>
+<li>(Reduce the energy consumption)</li>
 </ol>
-<p>Although quantization can achieve good result in reducing the network computation, we still need complex and high-accuracy model in training to capture the slight gradient change. It’s a trade-off between the precision and efficiency.</p>
+<p><img src="image-20211215141117555.png" alt="image-20211215141117555"></p>
+<h3 id="Inference-and-Training"><a href="#Inference-and-Training" class="headerlink" title="Inference and Training"></a>Inference and Training</h3><p>Although quantization can achieve good result in reducing the network computation, we still need complex and high-accuracy model in training to capture the slight gradient change. It’s a trade-off between the precision and efficiency. </p>
+<p>Therefore, most of the time, we apply quantization on the trained neural network, which has become convergence. Then the precision will be maintained in best possible after quantization. This is the quantization on inference.</p>
+<p>When applying quantization in running inference, we have PTQ and QAT approaches, which will be discussed later. </p>
+<p>In fact, it’s not like we don’t use quantization in training of neural networks. QAT uses some techniques to recover the accuracy of models by re-training the networks with quantized parameters.</p>
+<p>There also are algorithms focus on training the models on quantization from the very beginning. It seems to pay attention to better gradient quantization. </p>
 <h2 id="Basic-Definition"><a href="#Basic-Definition" class="headerlink" title="Basic Definition"></a>Basic Definition</h2><p>The process of quantization is actually a rounding or truncation problem. There is a general function that maps real values in floating point to a lower precision range:</p>
 <p><img src="image-20211213174837627.png" alt="image-20211213174837627"></p>
 <p>where x is a real value input (weight, bias, activation), q is the value after quantization, s is called scaling factor, z is called the zero point. s may be variable in different methods, which will be discussed later(calibration). z can be used to adjust the true zero in some asymmetrical quantization approaches.</p>
@@ -373,7 +378,7 @@
 <p><img src="c5d18de467f385b522356fb0fc30d88f.png" alt="Image"></p>
 <p>With Min/Max, the asymmetric quantization formula is as follows:</p>
 <p><img src="bdc1f96f691ba36f76e9f9d2bf500c4b.png" alt="Image"></p>
-<p>Here, the minimum bound (is negative) is chosen to corresponding to the zero-point. We can adjust the choice to change the range of the lower precision. It is called asymmetric because the range on the both sides of 0 in the real set is different.</p>
+<p>Here, the minimum bound (is negative) is chosen to corresponding to the zero-point (-zpx actually). We can adjust the choice to change the range of the lower precision. It is called asymmetric because the range on the both sides of 0 in the real set is different.</p>
 <h4 id="Symmetric-Scale-Quantization"><a href="#Symmetric-Scale-Quantization" class="headerlink" title="Symmetric (Scale) Quantization"></a>Symmetric (Scale) Quantization</h4><p>If we set the zero-point as 0, then 0 and its neighbors in the real number set are maps to 0 in the lower precision domain. When we set the clip range are the same on both sides, i.e. max(|x|), then the input range and integer range are symmetric around zero and hence it is called symmetric quantization (Sometimes we don’t require the input range to be symmetric):</p>
 <p><img src="028f7224f92f74c2161c21585811786b.png" alt="Image"></p>
 <p>Since we need 0 maps to 0, for 8-bit quantization the integer range should be [-127, 127], deleting -128 to satisfy symmetry. Noting that it may be insignificant for 8-bit quantization since there are 256 representable values, but for lower bit quantization it should be considered signigicantly.</p>
@@ -385,9 +390,9 @@
 <h3 id="Calibration"><a href="#Calibration" class="headerlink" title="Calibration"></a>Calibration</h3><p>Both in <strong>dynamic quantization and static quantization</strong> (In PTQ), we need to determine the clipping range of the parameters or activations. The following is the methods to define how to determine it.</p>
 <p>For weight, this range can be computed statically or pre-calculated. Since weights are almost convergent during the training of floating-point model, so their range will not vary so much. However, since the input of the model is different every time, the activations in the network may have different range and it is very likely to have outlier. So we will focus on activations to do calibration.</p>
 <p>Dynamic quantization: the range is dynamically calculated for each activation map during runtime. We can use some real-time computation (Min/Max, percentile, etc.). It will achieve high accuracy but need more computational cost.</p>
-<p>Static quantization: clipping range is pre-calculated to run a series of calibration inputs.</p>
+<p>Static quantization: clipping range is pre-calculated by running a series of calibration inputs.</p>
 <h4 id="Min-Max"><a href="#Min-Max" class="headerlink" title="Min/Max"></a>Min/Max</h4><p>Min/Max is popular as we have introduced since it is simple. However,  it is susceptible to outlier data in activations, since there will be a waste for some bits position. </p>
-<p>In static quantization(need a series of calibration inputs to do pre-calculation), the formula is as follows:</p>
+<p>In static quantization (need a series of calibration inputs to do pre-calculation), the formula is as follows:</p>
 <p><img src="fba76a8a630f943cde687b2512377613.png" alt="Image"></p>
 <p>where X is one local sample, x is the global.</p>
 <p>When we use calibration methods except Min/Max, the process will always be called saturated quantization contrast with Min/Max (unsaturated methods).</p>
@@ -398,14 +403,23 @@
 <p>Some of the following methods are focus on how to find the clipping bounds.</p>
 <h4 id="Exponential-moving-average-EMA"><a href="#Exponential-moving-average-EMA" class="headerlink" title="Exponential moving average (EMA)"></a>Exponential moving average (EMA)</h4><p>When clipping activations, sometimes we will use EMA (or MovingAverageMinMax):</p>
 <p><img src="ff57f0dd7bc7e0b72311341a75276378.png" alt="Image"></p>
-<p>where c set as 0.01 by default. We can see that it tends to keep the history result and fine-turning according to local sample.</p>
+<p>where c is set as 0.01 by default. We can see that it tends to keep the history result and fine-turning according to local sample.</p>
 <h4 id="Kullback-Leibler-divergence-KL"><a href="#Kullback-Leibler-divergence-KL" class="headerlink" title="Kullback-Leibler divergence (KL)"></a>Kullback-Leibler divergence (KL)</h4><p>KL-divergence, or relative entropy or information divergence  is a measure to show the relative entropy (how different) of probability distributions between two sets, which are defined on the same probability space.</p>
 <p>We think that quantization will cause less information loss from the original data if the data distribution of quantized data is more similar to the original data. Such information loss can be calculated by KL-divergence (The default method used by TensorRT, a PTQ method).</p>
 <p>For discrete probability distribution, P is the original data distribution that falls in several bins and Q is the quantized data histogram, the KL-divergence is:</p>
 <p> <img src="image-20211214181305441.png" alt="image-20211214181305441"></p>
 <p>In TensorRT, KL-divergence is used to optimize threshold selection (Since there is always a trade-off between range and precision of the int8 representation(for activations outliars)), the procedure is as follows:<br><img src="image-20211214182006243.png" alt="image-20211214182006243"></p>
 <h4 id="Percentile"><a href="#Percentile" class="headerlink" title="Percentile"></a>Percentile</h4><p>Set the range to a percentile of the distribution of positive/negative values(when symmetric, absolute values) seen during calibration. For example, when 99% calibration, 1% values will be clipped.</p>
-<h3 id="Dequantization"><a href="#Dequantization" class="headerlink" title="Dequantization"></a>Dequantization</h3><h3 id="Tensor-Quantization-Granularity"><a href="#Tensor-Quantization-Granularity" class="headerlink" title="Tensor  Quantization Granularity"></a>Tensor  Quantization Granularity</h3><h2 id="Post-training-quantization-PTQ"><a href="#Post-training-quantization-PTQ" class="headerlink" title="Post-training  quantization (PTQ)"></a>Post-training  quantization (PTQ)</h2><h2 id="QAT-fine-tuning-re-training"><a href="#QAT-fine-tuning-re-training" class="headerlink" title="QAT fine-tuning (re-training)"></a>QAT fine-tuning (re-training)</h2><h2 id="gradient-quantization-full-training"><a href="#gradient-quantization-full-training" class="headerlink" title="gradient quantization (full training)"></a>gradient quantization (full training)</h2>
+<h3 id="Dequantization"><a href="#Dequantization" class="headerlink" title="Dequantization"></a>Dequantization</h3><p>When applying QAT, the fake quantization (or simulated quantization) operations are always used, where the dequantization operation will be used.</p>
+<p>In asymmetric quantization, the corresponding dequantize function is:</p>
+<p><img src="image-20211215152038288.png" alt="image-20211215152038288"></p>
+<p>In symmetric quantization:</p>
+<p><img src="image-20211215152121988.png" alt="image-20211215152121988"></p>
+<h3 id="Quantization-Granularity"><a href="#Quantization-Granularity" class="headerlink" title="Quantization Granularity"></a>Quantization Granularity</h3><p>We know that the clipping range is determined based on the input range (real numbers). The input range is determined by the input data. It is important to set where to collect the input data, or the choice for sharing the quantization parameters.</p>
+<p>Tensor-wise, or layer-wise. The clipping range is determined by considering all the weights or activations in the convolutional filters of a layer.</p>
+<p>Channel-wise, considering values in each channel, independent of other channels. For weights, it is kernel-wise or filter-wise.</p>
+<p>We know that different channel of the features may contain different information, so the range of each convolutional filter can vary a lot. Hence, channel-wise quantization is suitable and is currently the standard method.</p>
+<h2 id="Post-training-quantization-PTQ"><a href="#Post-training-quantization-PTQ" class="headerlink" title="Post-training  quantization (PTQ)"></a>Post-training  quantization (PTQ)</h2><h2 id="QAT-fine-tuning-re-training"><a href="#QAT-fine-tuning-re-training" class="headerlink" title="QAT fine-tuning (re-training)"></a>QAT fine-tuning (re-training)</h2><h2 id="Gradient-quantization-full-training"><a href="#Gradient-quantization-full-training" class="headerlink" title="Gradient quantization (full training)"></a>Gradient quantization (full training)</h2>
     </div>
 
     
@@ -487,13 +501,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">53k</span>
+    <span title="站点总字数">54k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">48 分钟</span>
+    <span title="站点阅读时长">49 分钟</span>
   </span>
 </div>
   <div class="addthis_inline_share_toolbox">
@@ -522,16 +536,7 @@
 
 
 
-
-  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.js"></script>
-  <script>
-      pbOptions = {};
-        pbOptions.iconStyle = "box";
-        pbOptions.boxForm = "horizontal";
-        pbOptions.position = "bottomCenter";
-        pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
-      new needShareButton('#needsharebutton-postbottom', pbOptions);
-  </script><script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
 
 <script>
 var options = {
@@ -552,5 +557,14 @@ window.darkmode = darkmode;
 darkmode.showWidget();
 </script>
 
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.js"></script>
+  <script>
+      pbOptions = {};
+        pbOptions.iconStyle = "box";
+        pbOptions.boxForm = "horizontal";
+        pbOptions.position = "bottomCenter";
+        pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+  </script>
 <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"superSample":2,"width":200,"height":400,"position":"right","hOffset":-30,"vOffset":-20},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false});</script></body>
 </html>
