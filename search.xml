@@ -1,19 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>First Blog</title>
-    <url>/2021/10/15/First-Blog/</url>
-    <content><![CDATA[<p>今天突发奇想心血来潮在这香港入秋(?)的夜里弄好了一个personal blog</p>
-<p>期间怎么买域名 怎么设置github就不足为道了哈哈哈</p>
+    <title>IoU</title>
+    <url>/2021/11/10/IoU/</url>
+    <content><![CDATA[<h3 id="Intro"><a href="#Intro" class="headerlink" title="Intro."></a>Intro.</h3><p>IoU, Intersection over Union, can be used as a similarity measure for object detection on images. (It is also called Jaccard index since it is developed by Paul Jaccard) </p>
 <span id="more"></span>
 
-<p>现在很多功能还没实现 点进去就是404 就等着之后更新了吧</p>
-<p>其实早就想找个地方写点自己的东西了 毕竟我感觉我平时的思考还蛮多的 又没有什么好地方写东西 就想着这样建立一个网站是最好的了 </p>
-<p>至于之后会更新什么  感觉一切都有可能吧！</p>
-<p>嘿嘿 是不是很cool？</p>
-<p>###更新日志</p>
-<p>10-15 增加评论和分享功能<br>10-16 增加看板娘，增加日夜模式交换按钮，增加留言板匿名</p>
+<p>It’s formula is:<br>$$<br>IoU(A,B)= \frac{|A\cap B|}{|A\cup B|}<br>$$<br>In object detection, the two inputs of IoU should be the testing box and the ground truth box. IoU is scale invariant, which means it does not care about the size of the box.</p>
+<h3 id="Code-Python"><a href="#Code-Python" class="headerlink" title="Code (Python)"></a>Code (Python)</h3><p>First we consider a 1-D case, where we have two line segments in the real number set (R). One is from x1 to x2, another is from y1 to y2. For the Union set, you can use what you have learned in your probability course, union(A,B) = A + B - inter(A,B). So our core problem is to compute the intersection set. </p>
+<p>If these tow line segments are intersected, we must have y1&gt;x2 and x1&gt;y2, or they do not have intersection and |A∩B|=0. And what we need is to find the upper and lower bound of A∩B, we can also use the ub and lb to find if they are intersected:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">iou</span>(<span class="params">A,B</span>):</span></span><br><span class="line">    </span><br><span class="line">    x1,x2 = A</span><br><span class="line">    y1,y2 = B</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># find the upper and lower bound</span></span><br><span class="line">    hb = <span class="built_in">min</span>(x2,y2)</span><br><span class="line">    lb = <span class="built_in">max</span>(x1,y1)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># compute intersection</span></span><br><span class="line">    <span class="keyword">if</span> hb&lt;lb:</span><br><span class="line">        inter = <span class="number">0</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        inter = hb - lb</span><br><span class="line">        </span><br><span class="line">    <span class="comment"># union</span></span><br><span class="line">    </span><br><span class="line">    union = (x2 - x1) + (y2 - y1) - inter</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> inter / union</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>For 2-D case, there are two boxes and we want to find their intersection as well, which is also a box. However, there is no need to find all the vertex of the intersection box, since we only want the area size. Hence we choose to compute the width and height of the box:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">iou</span>(<span class="params">A,B</span>):</span></span><br><span class="line">    <span class="comment"># here we defaultly define A and B as lists: A=[x-coordinate1, x-coordinate2, y-coordinate1, y-coordinate2]</span></span><br><span class="line">    <span class="comment"># define the left top as original point, i.e. (0,0)</span></span><br><span class="line">    </span><br><span class="line">    in_w = <span class="built_in">min</span>(A[<span class="number">1</span>],B[<span class="number">1</span>])-<span class="built_in">max</span>(A[<span class="number">0</span>],B[<span class="number">0</span>])</span><br><span class="line">    in_h = <span class="built_in">min</span>(A[<span class="number">3</span>],B[<span class="number">3</span>])-<span class="built_in">max</span>(A[<span class="number">2</span>],B[<span class="number">2</span>])</span><br><span class="line">    </span><br><span class="line">    <span class="comment">#compute intersection</span></span><br><span class="line">    inter = <span class="number">0</span> <span class="keyword">if</span> in_w&lt;<span class="number">0</span> <span class="keyword">or</span> in_h&lt;<span class="number">0</span> <span class="keyword">else</span> in_w*in_h</span><br><span class="line"></span><br><span class="line">    <span class="comment">#compute union</span></span><br><span class="line">    union = (A[<span class="number">1</span>]-A[<span class="number">0</span>])*(A[<span class="number">3</span>]-A[<span class="number">2</span>]) + (B[<span class="number">1</span>]-B[<span class="number">0</span>])*(B[<span class="number">3</span>]-B[<span class="number">2</span>]) - inter</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> inter / union</span><br></pre></td></tr></table></figure>
+
+<hr>
 ]]></content>
+      <categories>
+        <category>Knowledge</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>object_detection</tag>
+      </tags>
   </entry>
   <entry>
     <title>Knowledge_Distillation</title>
@@ -124,30 +133,6 @@ localhost
       </tags>
   </entry>
   <entry>
-    <title>IoU</title>
-    <url>/2021/11/10/IoU/</url>
-    <content><![CDATA[<h3 id="Intro"><a href="#Intro" class="headerlink" title="Intro."></a>Intro.</h3><p>IoU, Intersection over Union, can be used as a similarity measure for object detection on images. (It is also called Jaccard index since it is developed by Paul Jaccard) </p>
-<span id="more"></span>
-
-<p>It’s formula is:<br>$$<br>IoU(A,B)= \frac{|A\cap B|}{|A\cup B|}<br>$$<br>In object detection, the two inputs of IoU should be the testing box and the ground truth box. IoU is scale invariant, which means it does not care about the size of the box.</p>
-<h3 id="Code-Python"><a href="#Code-Python" class="headerlink" title="Code (Python)"></a>Code (Python)</h3><p>First we consider a 1-D case, where we have two line segments in the real number set (R). One is from x1 to x2, another is from y1 to y2. For the Union set, you can use what you have learned in your probability course, union(A,B) = A + B - inter(A,B). So our core problem is to compute the intersection set. </p>
-<p>If these tow line segments are intersected, we must have y1&gt;x2 and x1&gt;y2, or they do not have intersection and |A∩B|=0. And what we need is to find the upper and lower bound of A∩B, we can also use the ub and lb to find if they are intersected:</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">iou</span>(<span class="params">A,B</span>):</span></span><br><span class="line">    </span><br><span class="line">    x1,x2 = A</span><br><span class="line">    y1,y2 = B</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># find the upper and lower bound</span></span><br><span class="line">    hb = <span class="built_in">min</span>(x2,y2)</span><br><span class="line">    lb = <span class="built_in">max</span>(x1,y1)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># compute intersection</span></span><br><span class="line">    <span class="keyword">if</span> hb&lt;lb:</span><br><span class="line">        inter = <span class="number">0</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        inter = hb - lb</span><br><span class="line">        </span><br><span class="line">    <span class="comment"># union</span></span><br><span class="line">    </span><br><span class="line">    union = (x2 - x1) + (y2 - y1) - inter</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> inter / union</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>For 2-D case, there are two boxes and we want to find their intersection as well, which is also a box. However, there is no need to find all the vertex of the intersection box, since we only want the area size. Hence we choose to compute the width and height of the box:</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">iou</span>(<span class="params">A,B</span>):</span></span><br><span class="line">    <span class="comment"># here we defaultly define A and B as lists: A=[x-coordinate1, x-coordinate2, y-coordinate1, y-coordinate2]</span></span><br><span class="line">    <span class="comment"># define the left top as original point, i.e. (0,0)</span></span><br><span class="line">    </span><br><span class="line">    in_w = <span class="built_in">min</span>(A[<span class="number">1</span>],B[<span class="number">1</span>])-<span class="built_in">max</span>(A[<span class="number">0</span>],B[<span class="number">0</span>])</span><br><span class="line">    in_h = <span class="built_in">min</span>(A[<span class="number">3</span>],B[<span class="number">3</span>])-<span class="built_in">max</span>(A[<span class="number">2</span>],B[<span class="number">2</span>])</span><br><span class="line">    </span><br><span class="line">    <span class="comment">#compute intersection</span></span><br><span class="line">    inter = <span class="number">0</span> <span class="keyword">if</span> in_w&lt;<span class="number">0</span> <span class="keyword">or</span> in_h&lt;<span class="number">0</span> <span class="keyword">else</span> in_w*in_h</span><br><span class="line"></span><br><span class="line">    <span class="comment">#compute union</span></span><br><span class="line">    union = (A[<span class="number">1</span>]-A[<span class="number">0</span>])*(A[<span class="number">3</span>]-A[<span class="number">2</span>]) + (B[<span class="number">1</span>]-B[<span class="number">0</span>])*(B[<span class="number">3</span>]-B[<span class="number">2</span>]) - inter</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> inter / union</span><br></pre></td></tr></table></figure>
-
-<hr>
-]]></content>
-      <categories>
-        <category>Knowledge</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-        <tag>object_detection</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Mean Average Precision（MAP)</title>
     <url>/2021/11/25/Mean-Average-Precision%EF%BC%88MAP%EF%BC%89/</url>
     <content><![CDATA[<h3 id="Precision-amp-Recall"><a href="#Precision-amp-Recall" class="headerlink" title="Precision&amp;Recall"></a>Precision&amp;Recall</h3><p>The formula of precision and recall is:</p>
@@ -202,9 +187,10 @@ localhost
   <entry>
     <title>Quantization</title>
     <url>/2021/12/12/Quantization/</url>
-    <content><![CDATA[<p>An introduction and summary of quantization methods.</p>
+    <content><![CDATA[<p>An introduction and summary of quantization methods. </p>
 <span id="more"></span>
 
+<p>I will rewrite it by LaTeX if necessary for better reading.</p>
 <h2 id="Preliminary"><a href="#Preliminary" class="headerlink" title="Preliminary"></a>Preliminary</h2><h3 id="Intro"><a href="#Intro" class="headerlink" title="Intro."></a>Intro.</h3><p>What does quantization mean? Efficient? How can it work?</p>
 <p>In Wikipedia, they define quantization as: “Quantization, in mathematics and digital signal processing, is the process of mapping input values from a large set (often a continuous set) to output values in a (countable) smaller set, often with a finite number of elements.”  It’s trivial that we need precise numbers during computation to obtain precise results. A precise number is always the values in the real number set, which is actually a large set. </p>
 <p>However, using more precise numbers means that you needs more memory to store it (it’s the same in the real world, imaging that you are struggling to remember some specific things, such as <em>π</em> ). So, reducing the precision to remember something easily is natural. And that is what quantization does. For computer, it is not different, and it may be more clear to see why. The goal of quantization is to reduce the precision of the parameters (weights, bias) and the intermediate activations to low-precision.</p>
@@ -272,9 +258,6 @@ localhost
 <p>However,  when the input range is not symmetric , such as [-20,1000], symmetric quantization will be inefficient since lots of bits in int8 are not used.</p>
 <p>So, we may choose them according to the data distribution of the input. If it’s a approximately normal distribution around 0, using symmetric quantization is better. If it is activations after ReLU, it is obviously that using asymmetric quantization is better.</p>
 <h3 id="Calibration"><a href="#Calibration" class="headerlink" title="Calibration"></a>Calibration</h3><p>Both in <strong>dynamic quantization and static quantization</strong> (In PTQ), we need to determine the clipping range of the parameters or activations. The following is the methods to define how to determine it.</p>
-<p>For weight, this range can be computed statically or pre-calculated. Since weights are almost convergent during the training of floating-point model, so their range will not vary so much. However, since the input of the model is different every time, the activations in the network may have different range and it is very likely to have outlier. So we will focus on activations to do calibration.</p>
-<p>Dynamic quantization: the range is dynamically calculated for each activation map during runtime. We can use some real-time computation (Min/Max, percentile, etc.). It will achieve high accuracy but need more computational cost.</p>
-<p>Static quantization: clipping range is pre-calculated by running a series of calibration inputs.</p>
 <h4 id="Min-Max"><a href="#Min-Max" class="headerlink" title="Min/Max"></a>Min/Max</h4><p>Min/Max is popular as we have introduced since it is simple. However,  it is susceptible to outlier data in activations, since there will be a waste for some bits position. </p>
 <p>In static quantization (need a series of calibration inputs to do pre-calculation), the formula is as follows:</p>
 <p><img src="fba76a8a630f943cde687b2512377613.png" alt="Image"></p>
@@ -303,7 +286,25 @@ localhost
 <p>Tensor-wise, or layer-wise. The clipping range is determined by considering all the weights or activations in the convolutional filters of a layer.</p>
 <p>Channel-wise, considering values in each channel, independent of other channels. For weights, it is kernel-wise or filter-wise.</p>
 <p>We know that different channel of the features may contain different information, so the range of each convolutional filter can vary a lot. Hence, channel-wise quantization is suitable and is currently the standard method.</p>
-<h2 id="Post-training-quantization-PTQ"><a href="#Post-training-quantization-PTQ" class="headerlink" title="Post-training  quantization (PTQ)"></a>Post-training  quantization (PTQ)</h2><h2 id="QAT-fine-tuning-re-training"><a href="#QAT-fine-tuning-re-training" class="headerlink" title="QAT fine-tuning (re-training)"></a>QAT fine-tuning (re-training)</h2><h2 id="Gradient-quantization-full-training"><a href="#Gradient-quantization-full-training" class="headerlink" title="Gradient quantization (full training)"></a>Gradient quantization (full training)</h2>]]></content>
+<h2 id="Post-training-Quantization-PTQ"><a href="#Post-training-Quantization-PTQ" class="headerlink" title="Post-training-Quantization (PTQ)"></a>Post-training-Quantization (PTQ)</h2><p>With a pre-trained FP32 neural network, Post-training quantization (PTQ) algorithms convert it into a fixed-point network. This process doesn’t need training (hence no need to care about backpropagation) and can be data-free or require a series of calibration inputs.</p>
+<p>How to quantize parameters depends on the types of parameters. For weight, this range can be computed statically or pre-calculated. Since weights are almost convergent during the training of floating-point model, so their range will not vary so much. However, since the input of the model is different every time, the activations in the network may have different range and it is very likely to have outlier. So we will focus on activations to do calibration (in Pytorch).</p>
+<p>Dynamic quantization: the range is dynamically calculated for each activation map during runtime. We can use some real-time computation (Min/Max, percentile, etc.). It will achieve high accuracy but need more computational cost.</p>
+<p>Static quantization: clipping range is pre-calculated by running a series of calibration inputs.</p>
+<p>Note that there are some slight differences in the quantization on Pytorch and TensorFlow. In Dynamic quantization, the quantization of activations on Pytorch is dynamic and should be done, while on TensorFlow activations could not be quantized. When you choose to quantize activations, the computation between weights and activations will be done on Int8. When you choose not, the weights will be converted back to floating-point in computation. The static quantization in TensorFlow is called integer quantization.</p>
+<h2 id="Quantization-Aware-Training-QAT"><a href="#Quantization-Aware-Training-QAT" class="headerlink" title="Quantization-Aware-Training (QAT)"></a>Quantization-Aware-Training (QAT)</h2><p>When we use PTQ, we always have accuracy loss, especially in low-precision quantization. Therefore we need some techniques to help recover the accuracy, and quantization-aware-training (QAT) is one of them. </p>
+<p>QAT refers to inserting some quantization operations into the neural network and then retraining or fine-turning the network. This models the quantization noise in training to allow the network to adapt to the quantized weights and activations (but I think this may not have solid theoretical basis).</p>
+<h3 id="Fake-Quantization-simulated-quantization"><a href="#Fake-Quantization-simulated-quantization" class="headerlink" title="Fake Quantization (simulated quantization)"></a>Fake Quantization (simulated quantization)</h3><p>The most common approach of QAT is fake quantization, or simulated quantization, which is a combination of quantize and dequantize operation that produces an approximation of the parameters:</p>
+<p><img src="image-20211228113252203.png" alt="image-20211228113252203"></p>
+<p>where x and x_hat are both floating-point values. The reason to apply fake quantization is to simulate the effects of quantization.</p>
+<h3 id="Straight-Through-Estimator-STE"><a href="#Straight-Through-Estimator-STE" class="headerlink" title="Straight-Through Estimator (STE)"></a>Straight-Through Estimator (STE)</h3><p>In order to achieve such purpose, we need to retraining the simulated network. However, the gradient of the rounding operation is either 0 or undefined everywhere (step function) and then can’t be used as back-propagation. Hence, we need to design some techniques to solve such issue. Straight-through estimator is one of the solutions by approximating the gradient of the rounding operator as 1:</p>
+<p><img src="image-20211228141327650.png" alt="image-20211228141327650"></p>
+<p>By using this, we we can calculate the gradient of the quantize and dequantize operation w.r.t the input:</p>
+<p><img src="image-20211228142202635.png" alt="image-20211228142202635"></p>
+<p>where [q_min,q_max] is the clipping range (the s in this picture equals to the 1/s of previous).</p>
+<p>Note that we actually skip the quantize and dequantize operation in backward pass since STE approximates the gradient as 1 when the input is in the clipping range.</p>
+<h3 id="Learning-Quantization-Parameters"><a href="#Learning-Quantization-Parameters" class="headerlink" title="Learning Quantization Parameters"></a>Learning Quantization Parameters</h3><p>As we have indicated, the quantization parameters (clipping range) depend on the inference by using a set of calibration. But we also can learn the quantization parameters along with the model weights. PACT……</p>
+<p><strong>!!!!!</strong> <strong>After training, the network is transformed by quantization again (i.e. using static quantization) to the low-precision network.</strong></p>
+<h2 id="Gradient-quantization-full-training"><a href="#Gradient-quantization-full-training" class="headerlink" title="Gradient quantization (full training)"></a>Gradient quantization (full training)</h2>]]></content>
       <categories>
         <category>Knowledge</category>
       </categories>
@@ -807,6 +808,21 @@ localhost
         <tag>python</tag>
         <tag>python内置函数</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>First Blog</title>
+    <url>/2021/10/15/First-Blog/</url>
+    <content><![CDATA[<p>今天突发奇想心血来潮在这香港入秋(?)的夜里弄好了一个personal blog</p>
+<p>期间怎么买域名 怎么设置github就不足为道了哈哈哈</p>
+<span id="more"></span>
+
+<p>现在很多功能还没实现 点进去就是404 就等着之后更新了吧</p>
+<p>其实早就想找个地方写点自己的东西了 毕竟我感觉我平时的思考还蛮多的 又没有什么好地方写东西 就想着这样建立一个网站是最好的了 </p>
+<p>至于之后会更新什么  感觉一切都有可能吧！</p>
+<p>嘿嘿 是不是很cool？</p>
+<p>###更新日志</p>
+<p>10-15 增加评论和分享功能<br>10-16 增加看板娘，增加日夜模式交换按钮，增加留言板匿名</p>
+]]></content>
   </entry>
   <entry>
     <title>我为什么不干正经事</title>
