@@ -25,6 +25,21 @@
       </tags>
   </entry>
   <entry>
+    <title>First Blog</title>
+    <url>/2021/10/15/First-Blog/</url>
+    <content><![CDATA[<p>今天突发奇想心血来潮在这香港入秋(?)的夜里弄好了一个personal blog</p>
+<p>期间怎么买域名 怎么设置github就不足为道了哈哈哈</p>
+<span id="more"></span>
+
+<p>现在很多功能还没实现 点进去就是404 就等着之后更新了吧</p>
+<p>其实早就想找个地方写点自己的东西了 毕竟我感觉我平时的思考还蛮多的 又没有什么好地方写东西 就想着这样建立一个网站是最好的了 </p>
+<p>至于之后会更新什么  感觉一切都有可能吧！</p>
+<p>嘿嘿 是不是很cool？</p>
+<p>###更新日志</p>
+<p>10-15 增加评论和分享功能<br>10-16 增加看板娘，增加日夜模式交换按钮，增加留言板匿名</p>
+]]></content>
+  </entry>
+  <entry>
     <title>Knowledge_Distillation</title>
     <url>/2021/12/12/Knowledge-Distillation/</url>
     <content><![CDATA[<p>An introduction and summary of KD(knowledge distillation) methods.</p>
@@ -182,6 +197,88 @@ localhost
       </categories>
       <tags>
         <tag>Object_Detection</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Quantization useful links</title>
+    <url>/2022/04/14/Quantization-useful-links/</url>
+    <content><![CDATA[<p>Some useful links about quantization related.</p>
+<span id="more"></span>
+
+<h3 id="Surveys-and-Blogs"><a href="#Surveys-and-Blogs" class="headerlink" title="Surveys and Blogs"></a>Surveys and Blogs</h3><p>INTEGER QUANTIZATION FOR DEEP LEARNING INFERENCE: PRINCIPLES AND EMPIRICAL EVALUATION</p>
+<p><a href="https://arxiv.org/pdf/2004.09602.pdf">2004.09602.pdf (arxiv.org)</a></p>
+<p>A Survey of Quantization Methods for Efficient Neural Network Inference</p>
+<p><a href="https://arxiv.org/pdf/2103.13630.pdf">2103.13630.pdf (arxiv.org)</a></p>
+<p>A White Paper on Neural Network Quantization</p>
+<p><a href="https://arxiv.org/pdf/2106.08295.pdf">2106.08295.pdf (arxiv.org)</a></p>
+<p>Pruning and Quantization for Deep Neural Network Acceleration: A Survey</p>
+<p><a href="https://arxiv.org/pdf/2101.09671.pdf">Pruning and Quantization for Deep Neural Network Acceleration: A Survey (arxiv.org)</a></p>
+<p>TensorRT</p>
+<p><a href="https://on-demand.gputechconf.com/gtc/2017/presentation/s7310-8-bit-inference-with-tensorrt.pdf">s7310-8-bit-inference-with-tensorrt.pdf (gputechconf.com)</a></p>
+<p>闲话模型压缩之量化</p>
+<p><a href="https://jinzhuojun.blog.csdn.net/article/details/106955059">闲话模型压缩之量化（Quantization）篇_ariesjzj的博客-CSDN博客_quantization 模型</a></p>
+<p>神经网络量化原理</p>
+<p><a href="https://blog.csdn.net/qq_35054151/article/details/116452569">神经网络量化原理_爱CV的博客-CSDN博客_ptq量化</a></p>
+<p>神经网络量化简介</p>
+<p><a href="https://jackwish.net/blog/2019/neural-network-quantization-introduction-chn.html">神经网络量化简介 | 黎明灰烬 博客 (jackwish.net)</a></p>
+<p><a href="https://blog.csdn.net/u011208984/article/details/106258949?ops_request_misc=&request_id=&biz_id=102&utm_term=quantization&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-2-106258949.nonecase">Tensorflow模型量化(Quantization)原理及其实现方法_爱问西瓜爱大树的博客-CSDN博客_tensorflow量化</a></p>
+<p><a href="https://blog.csdn.net/jacke121/article/details/116936859">pytorch量化_AI视觉网奇的博客-CSDN博客_pytorch 量化</a></p>
+<h3 id="Papers-and-codes"><a href="#Papers-and-codes" class="headerlink" title="Papers and codes"></a>Papers and codes</h3><p><strong>DoReFa-Net</strong></p>
+<p><a href="https://arxiv.org/pdf/1606.06160.pdf">1606.06160.pdf (arxiv.org)</a></p>
+<p>Tensorpack (official) <a href="https://github.com/tensorpack/tensorpack/tree/master/examples/DoReFa-Net">tensorpack/examples/DoReFa-Net at master · tensorpack/tensorpack · GitHub</a></p>
+<p>Pytorch (Unofficial) <a href="https://github.com/zzzxxxttt/pytorch_DoReFaNet">GitHub - zzzxxxttt/pytorch_DoReFaNet: A pytorch implementation of DoReFa-Net</a></p>
+<p><strong>APoT</strong></p>
+<p><a href="https://arxiv.org/pdf/1909.13144.pdf">1909.13144.pdf (arxiv.org)</a></p>
+<p><strong>QIL</strong></p>
+<p><a href="https://arxiv.org/pdf/1808.05779.pdf">1808.05779.pdf (arxiv.org)</a></p>
+<p><strong>LSQ</strong></p>
+<p><a href="https://arxiv.org/pdf/1902.08153.pdf">1902.08153.pdf (arxiv.org)</a></p>
+<p><strong>DSQ</strong></p>
+<p><a href="https://arxiv.org/pdf/1908.05033.pdf">1908.05033.pdf (arxiv.org)</a></p>
+<p><strong>PACT</strong></p>
+<p><a href="https://arxiv.org/pdf/1805.06085.pdf">1805.06085.pdf (arxiv.org)</a></p>
+<p><a href="https://github.com/KwangHoonAn/PACT">GitHub - KwangHoonAn/PACT: Reproducing Quantization paper PACT</a></p>
+<p><strong>LQ-Nets</strong></p>
+<p><a href="https://openaccess.thecvf.com/content_ECCV_2018/papers/Dongqing_Zhang_Optimized_Quantization_for_ECCV_2018_paper.pdf">Optimized Quantization for Highly Accurate and Compact DNNs (thecvf.com)</a></p>
+<p><strong>KD-based</strong></p>
+<p>AP (Intel): <a href="https://arxiv.org/pdf/1711.05852.pdf?ref=https://githubhelp.com">1711.05852.pdf (arxiv.org)</a></p>
+<p>ETH: <a href="https://arxiv.org/pdf/1802.05668.pdf">1802.05668.pdf (arxiv.org)</a></p>
+<h3 id="Deployment"><a href="#Deployment" class="headerlink" title="Deployment"></a>Deployment</h3><p><strong>MQbench</strong></p>
+<p><a href="http://mqbench.tech/">MQBench</a></p>
+<p><a href="http://mqbench.tech/assets/docs/html/index.html">Welcome to MQBench’s documentation! — MQBench documentation</a></p>
+<p><a href="https://github.com/ModelTC/MQBench">GitHub - ModelTC/MQBench: Model Quantization Benchmark</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/400077454">分享一些值的深入学习的关于AI部署的NVIDIA新技术 - 知乎 (zhihu.com)</a></p>
+<p><strong>torch.fx</strong></p>
+<p><a href="https://pytorch.org/tutorials/prototype/fx_graph_mode_quant_guide.html">(prototype) FX Graph Mode Quantization User Guide — PyTorch Tutorials 1.11.0+cu102 documentation</a></p>
+<p><a href="https://api.bbs.cvmart.net/articles/6230/created_at">实践 torch.fx 第一篇——基于 Pytorch 的模型优化量化神器 | 极市高质量视觉算法开发者社区 (cvmart.net)</a></p>
+<p><a href="https://www.cvmart.net/community/detail/5609">实践教程 | 模型量化与落地部署总结-极市开发者社区 (cvmart.net)</a></p>
+<h3 id="Knowledge-distillation"><a href="#Knowledge-distillation" class="headerlink" title="Knowledge distillation"></a>Knowledge distillation</h3><p>Survey: <a href="https://arxiv.org/pdf/2006.05525.pdf">2006.05525.pdf (arxiv.org)</a></p>
+<p><a href="https://openaccess.thecvf.com/content_ICCV_2019/papers/Heo_A_Comprehensive_Overhaul_of_Feature_Distillation_ICCV_2019_paper.pdf">A Comprehensive Overhaul of Feature Distillation (thecvf.com)</a></p>
+<p><a href="https://blog.csdn.net/u014135845/article/details/102836172">知识蒸馏paper分类整理(2014-2020)_frankliu624的博客-CSDN博客</a></p>
+<p><a href="https://arxiv.org/pdf/1910.10699.pdf">1910.10699.pdf (arxiv.org)</a></p>
+<h3 id="Contrastive-learning"><a href="#Contrastive-learning" class="headerlink" title="Contrastive learning"></a>Contrastive learning</h3><p>Survey: <a href="https://arxiv.org/pdf/2011.00362.pdf">2011.00362.pdf (arxiv.org)</a></p>
+<p>SImsiam: <a href="https://openaccess.thecvf.com/content/CVPR2021/papers/Chen_Exploring_Simple_Siamese_Representation_Learning_CVPR_2021_paper.pdf">Exploring Simple Siamese Representation Learning (thecvf.com)</a></p>
+<p>BYOL：<a href="https://arxiv.org/pdf/2006.07733.pdf">2006.07733.pdf (arxiv.org)</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/141172794">对比学习（Contrastive Learning） - 知乎 (zhihu.com)</a></p>
+<p>[<a href="https://zhuanlan.zhihu.com/p/352364087">论文笔记]——BYOL：无需负样本就可以做对比自监督学习(DeepMind) - 知乎 (zhihu.com)</a></p>
+<h3 id="Some-techniques"><a href="#Some-techniques" class="headerlink" title="Some techniques"></a>Some techniques</h3><p>pytorch保存和加载模型权重的方式: </p>
+<p><a href="https://blog.csdn.net/lu_linux/article/details/113586554">pytorch保存和加载模型权重的方式_我是谁？？的博客-CSDN博客_pytorch模型权重</a></p>
+<p>GitHub网页版删除分支:</p>
+<p><a href="https://blog.csdn.net/yanhanhui1/article/details/82819665">GitHub网页版删除分支_「已注销」的博客-CSDN博客_github删除分支</a></p>
+<p>在 Overleaf 中使用历史记录功能:</p>
+<p>[<a href="https://blog.csdn.net/xovee/article/details/106267542">翻译] 在 Overleaf 中使用历史记录功能_Xovee的博客-CSDN博客_overleaf 恢复</a></p>
+<p>Openreview:</p>
+<p><a href="https://openreview.net/">Venues | OpenReview</a></p>
+<p>同义词：</p>
+<p><a href="https://www.collinsdictionary.com/zh/dictionary/english-thesaurus">柯林斯词库 | 同义词、反义词及定义 (collinsdictionary.com)</a></p>
+<p>Pytorch models:</p>
+<p><a href="https://pytorch.org/vision/stable/models.html">Models and pre-trained weights — Torchvision 0.12 documentation (pytorch.org)</a></p>
+]]></content>
+      <categories>
+        <category>Shortcut</category>
+      </categories>
+      <tags>
+        <tag>Links</tag>
       </tags>
   </entry>
   <entry>
@@ -808,21 +905,6 @@ localhost
         <tag>python</tag>
         <tag>python内置函数</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>First Blog</title>
-    <url>/2021/10/15/First-Blog/</url>
-    <content><![CDATA[<p>今天突发奇想心血来潮在这香港入秋(?)的夜里弄好了一个personal blog</p>
-<p>期间怎么买域名 怎么设置github就不足为道了哈哈哈</p>
-<span id="more"></span>
-
-<p>现在很多功能还没实现 点进去就是404 就等着之后更新了吧</p>
-<p>其实早就想找个地方写点自己的东西了 毕竟我感觉我平时的思考还蛮多的 又没有什么好地方写东西 就想着这样建立一个网站是最好的了 </p>
-<p>至于之后会更新什么  感觉一切都有可能吧！</p>
-<p>嘿嘿 是不是很cool？</p>
-<p>###更新日志</p>
-<p>10-15 增加评论和分享功能<br>10-16 增加看板娘，增加日夜模式交换按钮，增加留言板匿名</p>
-]]></content>
   </entry>
   <entry>
     <title>我为什么不干正经事</title>
